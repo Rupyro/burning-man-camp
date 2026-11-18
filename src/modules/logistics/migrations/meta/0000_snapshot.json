@@ -1,0 +1,1022 @@
+{
+  "id": "a38602de-6b9c-4026-9bc5-9a72a12ca649",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.logistics_load_items": {
+      "name": "logistics_load_items",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "load_id": {
+          "name": "load_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "source_ref_type": {
+          "name": "source_ref_type",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "source_ref_id": {
+          "name": "source_ref_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "source_event_id": {
+          "name": "source_event_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "unit": {
+          "name": "unit",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pcs'"
+        },
+        "is_critical": {
+          "name": "is_critical",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "needed_by": {
+          "name": "needed_by",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "packed_at": {
+          "name": "packed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "packed_by_person_id": {
+          "name": "packed_by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "logistics_load_items_load_ix": {
+          "name": "logistics_load_items_load_ix",
+          "columns": [
+            {
+              "expression": "load_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "logistics_load_items_critical_ix": {
+          "name": "logistics_load_items_critical_ix",
+          "columns": [
+            {
+              "expression": "edition_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "where": "\"logistics_load_items\".\"is_critical\"",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "logistics_load_items_event_uq": {
+          "name": "logistics_load_items_event_uq",
+          "columns": [
+            {
+              "expression": "source_event_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "logistics_load_items_edition_id_editions_id_fk": {
+          "name": "logistics_load_items_edition_id_editions_id_fk",
+          "tableFrom": "logistics_load_items",
+          "tableTo": "editions",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "logistics_load_items_load_id_logistics_loads_id_fk": {
+          "name": "logistics_load_items_load_id_logistics_loads_id_fk",
+          "tableFrom": "logistics_load_items",
+          "tableTo": "logistics_loads",
+          "columnsFrom": [
+            "load_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "logistics_load_items_packed_by_person_id_people_id_fk": {
+          "name": "logistics_load_items_packed_by_person_id_people_id_fk",
+          "tableFrom": "logistics_load_items",
+          "tableTo": "people",
+          "columnsFrom": [
+            "packed_by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "logistics_load_items_qty_ck": {
+          "name": "logistics_load_items_qty_ck",
+          "value": "\"logistics_load_items\".\"quantity\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.logistics_loads": {
+      "name": "logistics_loads",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "direction": {
+          "name": "direction",
+          "type": "logistics_load_direction",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'outbound'"
+        },
+        "vehicle_id": {
+          "name": "vehicle_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "origin_place_id": {
+          "name": "origin_place_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "destination_place_id": {
+          "name": "destination_place_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "departs_at": {
+          "name": "departs_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "logistics_load_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'planned'"
+        },
+        "delivered_confirmed_at": {
+          "name": "delivered_confirmed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "delivered_confirmed_by_person_id": {
+          "name": "delivered_confirmed_by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "logistics_loads_edition_ix": {
+          "name": "logistics_loads_edition_ix",
+          "columns": [
+            {
+              "expression": "edition_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "logistics_loads_edition_id_editions_id_fk": {
+          "name": "logistics_loads_edition_id_editions_id_fk",
+          "tableFrom": "logistics_loads",
+          "tableTo": "editions",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "logistics_loads_vehicle_id_logistics_vehicles_id_fk": {
+          "name": "logistics_loads_vehicle_id_logistics_vehicles_id_fk",
+          "tableFrom": "logistics_loads",
+          "tableTo": "logistics_vehicles",
+          "columnsFrom": [
+            "vehicle_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "logistics_loads_origin_place_id_logistics_places_id_fk": {
+          "name": "logistics_loads_origin_place_id_logistics_places_id_fk",
+          "tableFrom": "logistics_loads",
+          "tableTo": "logistics_places",
+          "columnsFrom": [
+            "origin_place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "logistics_loads_destination_place_id_logistics_places_id_fk": {
+          "name": "logistics_loads_destination_place_id_logistics_places_id_fk",
+          "tableFrom": "logistics_loads",
+          "tableTo": "logistics_places",
+          "columnsFrom": [
+            "destination_place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "logistics_loads_delivered_confirmed_by_person_id_people_id_fk": {
+          "name": "logistics_loads_delivered_confirmed_by_person_id_people_id_fk",
+          "tableFrom": "logistics_loads",
+          "tableTo": "people",
+          "columnsFrom": [
+            "delivered_confirmed_by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.logistics_places": {
+      "name": "logistics_places",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "logistics_place_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pickup'"
+        },
+        "address_text": {
+          "name": "address_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "logistics_places_name_uq": {
+          "name": "logistics_places_name_uq",
+          "columns": [
+            {
+              "expression": "lower(\"name\")",
+              "asc": true,
+              "isExpression": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.logistics_ride_matches": {
+      "name": "logistics_ride_matches",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "driver_plan_id": {
+          "name": "driver_plan_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "passenger_plan_id": {
+          "name": "passenger_plan_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "seats": {
+          "name": "seats",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "status": {
+          "name": "status",
+          "type": "logistics_match_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'proposed'"
+        },
+        "asked_at": {
+          "name": "asked_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "decided_at": {
+          "name": "decided_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "logistics_ride_matches_uq": {
+          "name": "logistics_ride_matches_uq",
+          "columns": [
+            {
+              "expression": "driver_plan_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "passenger_plan_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "logistics_ride_matches_driver_plan_id_logistics_travel_plans_id_fk": {
+          "name": "logistics_ride_matches_driver_plan_id_logistics_travel_plans_id_fk",
+          "tableFrom": "logistics_ride_matches",
+          "tableTo": "logistics_travel_plans",
+          "columnsFrom": [
+            "driver_plan_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "logistics_ride_matches_passenger_plan_id_logistics_travel_plans_id_fk": {
+          "name": "logistics_ride_matches_passenger_plan_id_logistics_travel_plans_id_fk",
+          "tableFrom": "logistics_ride_matches",
+          "tableTo": "logistics_travel_plans",
+          "columnsFrom": [
+            "passenger_plan_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "logistics_ride_seats_ck": {
+          "name": "logistics_ride_seats_ck",
+          "value": "\"logistics_ride_matches\".\"seats\" between 1 and 10"
+        },
+        "logistics_ride_not_self_ck": {
+          "name": "logistics_ride_not_self_ck",
+          "value": "\"logistics_ride_matches\".\"driver_plan_id\" <> \"logistics_ride_matches\".\"passenger_plan_id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.logistics_travel_plans": {
+      "name": "logistics_travel_plans",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "person_id": {
+          "name": "person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "direction": {
+          "name": "direction",
+          "type": "logistics_travel_direction",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mode": {
+          "name": "mode",
+          "type": "logistics_travel_mode",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "area_place_id": {
+          "name": "area_place_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "area_detail": {
+          "name": "area_detail",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "travel_date": {
+          "name": "travel_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "time_of_day": {
+          "name": "time_of_day",
+          "type": "logistics_time_of_day",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'flexible'"
+        },
+        "seats_offered": {
+          "name": "seats_offered",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "seats_needed": {
+          "name": "seats_needed",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "carries_cargo": {
+          "name": "carries_cargo",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "logistics_travel_plans_uq": {
+          "name": "logistics_travel_plans_uq",
+          "columns": [
+            {
+              "expression": "edition_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "person_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "direction",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "logistics_travel_plans_edition_id_editions_id_fk": {
+          "name": "logistics_travel_plans_edition_id_editions_id_fk",
+          "tableFrom": "logistics_travel_plans",
+          "tableTo": "editions",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "logistics_travel_plans_person_id_people_id_fk": {
+          "name": "logistics_travel_plans_person_id_people_id_fk",
+          "tableFrom": "logistics_travel_plans",
+          "tableTo": "people",
+          "columnsFrom": [
+            "person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "logistics_travel_plans_area_place_id_logistics_places_id_fk": {
+          "name": "logistics_travel_plans_area_place_id_logistics_places_id_fk",
+          "tableFrom": "logistics_travel_plans",
+          "tableTo": "logistics_places",
+          "columnsFrom": [
+            "area_place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "logistics_travel_seats_ck": {
+          "name": "logistics_travel_seats_ck",
+          "value": "(\"logistics_travel_plans\".\"seats_offered\" is null or \"logistics_travel_plans\".\"seats_offered\" between 1 and 20) and (\"logistics_travel_plans\".\"seats_needed\" is null or \"logistics_travel_plans\".\"seats_needed\" between 1 and 10)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.logistics_vehicles": {
+      "name": "logistics_vehicles",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "logistics_vehicle_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'bakkie'"
+        },
+        "driver_person_id": {
+          "name": "driver_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "seats": {
+          "name": "seats",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cargo_notes": {
+          "name": "cargo_notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "logistics_vehicles_edition_id_editions_id_fk": {
+          "name": "logistics_vehicles_edition_id_editions_id_fk",
+          "tableFrom": "logistics_vehicles",
+          "tableTo": "editions",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "logistics_vehicles_driver_person_id_people_id_fk": {
+          "name": "logistics_vehicles_driver_person_id_people_id_fk",
+          "tableFrom": "logistics_vehicles",
+          "tableTo": "people",
+          "columnsFrom": [
+            "driver_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.logistics_load_direction": {
+      "name": "logistics_load_direction",
+      "schema": "public",
+      "values": [
+        "outbound",
+        "return",
+        "internal"
+      ]
+    },
+    "public.logistics_load_status": {
+      "name": "logistics_load_status",
+      "schema": "public",
+      "values": [
+        "planned",
+        "packing",
+        "in_transit",
+        "delivered",
+        "cancelled"
+      ]
+    },
+    "public.logistics_match_status": {
+      "name": "logistics_match_status",
+      "schema": "public",
+      "values": [
+        "proposed",
+        "accepted",
+        "declined",
+        "cancelled"
+      ]
+    },
+    "public.logistics_place_kind": {
+      "name": "logistics_place_kind",
+      "schema": "public",
+      "values": [
+        "storage",
+        "container_yard",
+        "site",
+        "pickup",
+        "airport",
+        "city_area",
+        "supplier"
+      ]
+    },
+    "public.logistics_time_of_day": {
+      "name": "logistics_time_of_day",
+      "schema": "public",
+      "values": [
+        "morning",
+        "afternoon",
+        "evening",
+        "flexible"
+      ]
+    },
+    "public.logistics_travel_direction": {
+      "name": "logistics_travel_direction",
+      "schema": "public",
+      "values": [
+        "to_burn",
+        "from_burn"
+      ]
+    },
+    "public.logistics_travel_mode": {
+      "name": "logistics_travel_mode",
+      "schema": "public",
+      "values": [
+        "offering_ride",
+        "need_ride",
+        "own_arrangement"
+      ]
+    },
+    "public.logistics_vehicle_kind": {
+      "name": "logistics_vehicle_kind",
+      "schema": "public",
+      "values": [
+        "car",
+        "bakkie",
+        "truck",
+        "trailer",
+        "container_truck",
+        "mutant_vehicle"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

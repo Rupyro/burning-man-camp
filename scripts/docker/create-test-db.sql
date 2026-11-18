@@ -1,0 +1,1 @@
+CREATE DATABASE camp_test;

@@ -1,0 +1,31 @@
+# Weekly, grouped update PRs. They run through the same gates as any other PR (including the
+# new-dependency and protected-path checks), so nothing merges on its own.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Africa/Johannesburg
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 3
+    groups:
+      npm-dev:
+        dependency-type: development
+        update-types: [minor, patch]
+      npm-prod:
+        dependency-type: production
+        update-types: [minor, patch]
+    labels: [dependencies]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Africa/Johannesburg
+    groups:
+      actions:
+        patterns: ["*"]
+    labels: [dependencies]

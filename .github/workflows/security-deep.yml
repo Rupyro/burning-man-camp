@@ -1,0 +1,66 @@
+name: security-deep
+# Semgrep CE (SAST) + OSV-Scanner. Manual only (Nov 4, 2026). Run: gh workflow run security-deep
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  semgrep:
+    name: sast (semgrep)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install Semgrep CE (pinned)
+        run: |
+          v="$RUNNER_TOOL_CACHE/semgrep-1.180.0"
+          [ -x "$v/bin/semgrep" ] || { python3 -m venv "$v" && "$v/bin/pip" install -q semgrep==1.180.0; }
+          echo "$v/bin" >> "$GITHUB_PATH"
+      - name: Semgrep CE (blocking on ERROR and WARNING)
+        run: >-
+          semgrep scan --metrics=off --error
+          --severity ERROR --severity WARNING
+          --config p/owasp-top-ten --config p/nextjs --config p/react --config p/typescript
+          --config .semgrep/camp-rules.yml
+
+  dependencies:
+    name: dependency audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      OSV_SCANNER_VERSION: 2.6.0
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - name: pnpm audit, production deps (fails on high/critical)
+        run: pnpm audit --prod --audit-level high
+      - name: pnpm audit, all deps incl. dev (report only, non-blocking)
+        continue-on-error: true
+        run: pnpm audit --audit-level high
+      - name: OSV-Scanner (lockfile, fails on high/critical)
+        run: |
+          set -euo pipefail
+          base="https://github.com/google/osv-scanner/releases/download/v${OSV_SCANNER_VERSION}"
+          curl -fsSLo osv-scanner "${base}/osv-scanner_linux_amd64"
+          curl -fsSL "${base}/osv-scanner_SHA256SUMS" | grep " osv-scanner_linux_amd64$" | sed 's/osv-scanner_linux_amd64/osv-scanner/' | sha256sum -c -
+          chmod +x osv-scanner
+          rc=0
+          ./osv-scanner scan source --lockfile pnpm-lock.yaml --config osv-scanner.toml || rc=$?
+          [ "$rc" -le 1 ] || exit "$rc" # 1 = findings (filtered below); >1 = scanner error
+          ./osv-scanner scan source --lockfile pnpm-lock.yaml --config osv-scanner.toml \
+            --format json --output osv.json || true
+          high=$(jq -r '[.results[]?.packages[]? | . as $p | .groups[]?
+            | select((.max_severity // "0" | tonumber) >= 7)
+            | "\($p.package.name)@\($p.package.version) \(.ids | join(",")) CVSS \(.max_severity)"] | .[]' osv.json)
+          if [ -n "$high" ]; then
+            echo "::error::High/critical vulnerabilities (CVSS >= 7):"; echo "$high"; exit 1
+          fi
+          echo "No high/critical vulnerabilities (lower severities are listed above for info)."

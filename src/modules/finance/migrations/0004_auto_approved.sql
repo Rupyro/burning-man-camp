@@ -1,0 +1,1 @@
+ALTER TABLE "finance_spend_requests" ADD COLUMN "auto_approved" boolean DEFAULT false NOT NULL;

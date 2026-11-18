@@ -1,0 +1,6 @@
+# Accepted findings, each with a reason and an expiry so they get looked at again.
+# Mirrors auditConfig.ignoreGhsas in pnpm-workspace.yaml.
+[[IgnoredVulns]]
+id = "GHSA-vfj7-8cjw-p6xm"
+ignoreUntil = 2027-01-10T00:00:00Z
+reason = "braces <=3.0.3, no patched release. Dev-only via eslint-plugin-boundaries > micromatch; never handles user input."

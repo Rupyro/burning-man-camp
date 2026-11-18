@@ -1,0 +1,4 @@
+# Base and contracts need a second admin's review once there is one (REPO_SETUP.md).
+# Add the second owner's handle next to @Rupyro when agreed.
+/src/base/      @Rupyro
+/src/contracts/ @Rupyro

@@ -1,0 +1,2 @@
+ALTER TABLE "procurement_items" ADD COLUMN "responsible_person_id" uuid;--> statement-breakpoint
+ALTER TABLE "procurement_items" ADD CONSTRAINT "procurement_items_responsible_person_id_people_id_fk" FOREIGN KEY ("responsible_person_id") REFERENCES "public"."people"("id") ON DELETE set null ON UPDATE no action;

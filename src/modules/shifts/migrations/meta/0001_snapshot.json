@@ -1,0 +1,1668 @@
+{
+  "id": "2e263f32-a7f6-4c4f-a5ed-e953870b812d",
+  "prevId": "1a1c82fb-541b-4faa-b002-acf94e4c0b47",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.shifts_checklist_items": {
+      "name": "shifts_checklist_items",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "duty_type_id": {
+          "name": "duty_type_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "section": {
+          "name": "section",
+          "type": "shifts_checklist_section",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "position": {
+          "name": "position",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "text": {
+          "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "shifts_checklist_items_pos_uq": {
+          "name": "shifts_checklist_items_pos_uq",
+          "columns": [
+            {
+              "expression": "duty_type_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "section",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "position",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "shifts_checklist_items_duty_type_id_shifts_duty_types_id_fk": {
+          "name": "shifts_checklist_items_duty_type_id_shifts_duty_types_id_fk",
+          "tableFrom": "shifts_checklist_items",
+          "tableTo": "shifts_duty_types",
+          "columnsFrom": [
+            "duty_type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.shifts_checklist_ticks": {
+      "name": "shifts_checklist_ticks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slot_id": {
+          "name": "slot_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "checklist_item_id": {
+          "name": "checklist_item_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ticked_by_person_id": {
+          "name": "ticked_by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ticked_at": {
+          "name": "ticked_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "shifts_checklist_ticks_uq": {
+          "name": "shifts_checklist_ticks_uq",
+          "columns": [
+            {
+              "expression": "slot_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "checklist_item_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "shifts_checklist_ticks_slot_id_shifts_slots_id_fk": {
+          "name": "shifts_checklist_ticks_slot_id_shifts_slots_id_fk",
+          "tableFrom": "shifts_checklist_ticks",
+          "tableTo": "shifts_slots",
+          "columnsFrom": [
+            "slot_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_checklist_ticks_checklist_item_id_shifts_checklist_items_id_fk": {
+          "name": "shifts_checklist_ticks_checklist_item_id_shifts_checklist_items_id_fk",
+          "tableFrom": "shifts_checklist_ticks",
+          "tableTo": "shifts_checklist_items",
+          "columnsFrom": [
+            "checklist_item_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_checklist_ticks_ticked_by_person_id_people_id_fk": {
+          "name": "shifts_checklist_ticks_ticked_by_person_id_people_id_fk",
+          "tableFrom": "shifts_checklist_ticks",
+          "tableTo": "people",
+          "columnsFrom": [
+            "ticked_by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.shifts_cover_requests": {
+      "name": "shifts_cover_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "from_signup_id": {
+          "name": "from_signup_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "to_person_id": {
+          "name": "to_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "shifts_cover_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "shifts_cover_reason",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "shifts_cover_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'requested'"
+        },
+        "accepted_by_person_id": {
+          "name": "accepted_by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lead_decided_by_person_id": {
+          "name": "lead_decided_by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "decided_at": {
+          "name": "decided_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "shifts_cover_requests_open_uq": {
+          "name": "shifts_cover_requests_open_uq",
+          "columns": [
+            {
+              "expression": "from_signup_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"shifts_cover_requests\".\"status\" in ('requested', 'accepted', 'lead_pending')",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "shifts_cover_requests_from_signup_id_shifts_signups_id_fk": {
+          "name": "shifts_cover_requests_from_signup_id_shifts_signups_id_fk",
+          "tableFrom": "shifts_cover_requests",
+          "tableTo": "shifts_signups",
+          "columnsFrom": [
+            "from_signup_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_cover_requests_to_person_id_people_id_fk": {
+          "name": "shifts_cover_requests_to_person_id_people_id_fk",
+          "tableFrom": "shifts_cover_requests",
+          "tableTo": "people",
+          "columnsFrom": [
+            "to_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_cover_requests_accepted_by_person_id_people_id_fk": {
+          "name": "shifts_cover_requests_accepted_by_person_id_people_id_fk",
+          "tableFrom": "shifts_cover_requests",
+          "tableTo": "people",
+          "columnsFrom": [
+            "accepted_by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_cover_requests_lead_decided_by_person_id_people_id_fk": {
+          "name": "shifts_cover_requests_lead_decided_by_person_id_people_id_fk",
+          "tableFrom": "shifts_cover_requests",
+          "tableTo": "people",
+          "columnsFrom": [
+            "lead_decided_by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "shifts_cover_requests_swap_named_ck": {
+          "name": "shifts_cover_requests_swap_named_ck",
+          "value": "\"shifts_cover_requests\".\"kind\" <> 'swap' or (\"shifts_cover_requests\".\"to_person_id\" is not null and (\"shifts_cover_requests\".\"accepted_by_person_id\" is null or \"shifts_cover_requests\".\"accepted_by_person_id\" = \"shifts_cover_requests\".\"to_person_id\"))"
+        },
+        "shifts_cover_requests_accepted_ck": {
+          "name": "shifts_cover_requests_accepted_ck",
+          "value": "\"shifts_cover_requests\".\"status\" not in ('accepted', 'lead_pending', 'confirmed') or \"shifts_cover_requests\".\"kind\" = 'ask_cover' or \"shifts_cover_requests\".\"accepted_by_person_id\" is not null"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.shifts_duty_types": {
+      "name": "shifts_duty_types",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "key": {
+          "name": "key",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "shifts_category",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phase": {
+          "name": "phase",
+          "type": "shifts_phase",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'burn'"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_specialist": {
+          "name": "is_specialist",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "required_skill_id": {
+          "name": "required_skill_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lead_person_id": {
+          "name": "lead_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "backup_person_id": {
+          "name": "backup_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "needs_handover": {
+          "name": "needs_handover",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "min_staff": {
+          "name": "min_staff",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "max_staff": {
+          "name": "max_staff",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "shifts_duty_types_key_uq": {
+          "name": "shifts_duty_types_key_uq",
+          "columns": [
+            {
+              "expression": "edition_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "key",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "shifts_duty_types_edition_id_editions_id_fk": {
+          "name": "shifts_duty_types_edition_id_editions_id_fk",
+          "tableFrom": "shifts_duty_types",
+          "tableTo": "editions",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_duty_types_required_skill_id_skills_id_fk": {
+          "name": "shifts_duty_types_required_skill_id_skills_id_fk",
+          "tableFrom": "shifts_duty_types",
+          "tableTo": "skills",
+          "columnsFrom": [
+            "required_skill_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_duty_types_lead_person_id_people_id_fk": {
+          "name": "shifts_duty_types_lead_person_id_people_id_fk",
+          "tableFrom": "shifts_duty_types",
+          "tableTo": "people",
+          "columnsFrom": [
+            "lead_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_duty_types_backup_person_id_people_id_fk": {
+          "name": "shifts_duty_types_backup_person_id_people_id_fk",
+          "tableFrom": "shifts_duty_types",
+          "tableTo": "people",
+          "columnsFrom": [
+            "backup_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "shifts_duty_types_staff_ck": {
+          "name": "shifts_duty_types_staff_ck",
+          "value": "\"shifts_duty_types\".\"min_staff\" >= 1 and \"shifts_duty_types\".\"max_staff\" >= \"shifts_duty_types\".\"min_staff\" and \"shifts_duty_types\".\"max_staff\" <= 50"
+        },
+        "shifts_duty_types_backup_ck": {
+          "name": "shifts_duty_types_backup_ck",
+          "value": "\"shifts_duty_types\".\"backup_person_id\" is null or \"shifts_duty_types\".\"backup_person_id\" is distinct from \"shifts_duty_types\".\"lead_person_id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.shifts_handover_items": {
+      "name": "shifts_handover_items",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "handover_id": {
+          "name": "handover_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "checklist_item_id": {
+          "name": "checklist_item_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "shifts_handover_item_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "note": {
+          "name": "note",
+          "type": "varchar(280)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "shifts_handover_items_handover_id_shifts_handovers_id_fk": {
+          "name": "shifts_handover_items_handover_id_shifts_handovers_id_fk",
+          "tableFrom": "shifts_handover_items",
+          "tableTo": "shifts_handovers",
+          "columnsFrom": [
+            "handover_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "shifts_handover_items_checklist_item_id_shifts_checklist_items_id_fk": {
+          "name": "shifts_handover_items_checklist_item_id_shifts_checklist_items_id_fk",
+          "tableFrom": "shifts_handover_items",
+          "tableTo": "shifts_checklist_items",
+          "columnsFrom": [
+            "checklist_item_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "shifts_handover_items_what_ck": {
+          "name": "shifts_handover_items_what_ck",
+          "value": "\"shifts_handover_items\".\"checklist_item_id\" is not null or \"shifts_handover_items\".\"note\" is not null"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.shifts_handovers": {
+      "name": "shifts_handovers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slot_id": {
+          "name": "slot_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "by_person_id": {
+          "name": "by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "outcome": {
+          "name": "outcome",
+          "type": "shifts_handover_outcome",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "shifts_handovers_slot_id_shifts_slots_id_fk": {
+          "name": "shifts_handovers_slot_id_shifts_slots_id_fk",
+          "tableFrom": "shifts_handovers",
+          "tableTo": "shifts_slots",
+          "columnsFrom": [
+            "slot_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_handovers_by_person_id_people_id_fk": {
+          "name": "shifts_handovers_by_person_id_people_id_fk",
+          "tableFrom": "shifts_handovers",
+          "tableTo": "people",
+          "columnsFrom": [
+            "by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "shifts_handovers_slot_id_unique": {
+          "name": "shifts_handovers_slot_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slot_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.shifts_precredits": {
+      "name": "shifts_precredits",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "person_id": {
+          "name": "person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "shifts_precredit_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hours": {
+          "name": "hours",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "granted_by_person_id": {
+          "name": "granted_by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "shifts_precredits_uq": {
+          "name": "shifts_precredits_uq",
+          "columns": [
+            {
+              "expression": "edition_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "person_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "kind",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "shifts_precredits_edition_id_editions_id_fk": {
+          "name": "shifts_precredits_edition_id_editions_id_fk",
+          "tableFrom": "shifts_precredits",
+          "tableTo": "editions",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_precredits_person_id_people_id_fk": {
+          "name": "shifts_precredits_person_id_people_id_fk",
+          "tableFrom": "shifts_precredits",
+          "tableTo": "people",
+          "columnsFrom": [
+            "person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_precredits_granted_by_person_id_people_id_fk": {
+          "name": "shifts_precredits_granted_by_person_id_people_id_fk",
+          "tableFrom": "shifts_precredits",
+          "tableTo": "people",
+          "columnsFrom": [
+            "granted_by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "shifts_precredits_hours_ck": {
+          "name": "shifts_precredits_hours_ck",
+          "value": "\"shifts_precredits\".\"hours\" between 1 and 200"
+        },
+        "shifts_precredits_not_self_ck": {
+          "name": "shifts_precredits_not_self_ck",
+          "value": "\"shifts_precredits\".\"granted_by_person_id\" <> \"shifts_precredits\".\"person_id\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.shifts_settings": {
+      "name": "shifts_settings",
+      "schema": "",
+      "columns": {
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "freeze_at": {
+          "name": "freeze_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "min_duty_hours": {
+          "name": "min_duty_hours",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 8
+        },
+        "min_build_strike_days": {
+          "name": "min_build_strike_days",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 4
+        },
+        "max_precredit_percent": {
+          "name": "max_precredit_percent",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 50
+        },
+        "silent_no_show_flag_at": {
+          "name": "silent_no_show_flag_at",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2
+        },
+        "updated_by_person_id": {
+          "name": "updated_by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "shifts_settings_edition_id_editions_id_fk": {
+          "name": "shifts_settings_edition_id_editions_id_fk",
+          "tableFrom": "shifts_settings",
+          "tableTo": "editions",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_settings_updated_by_person_id_people_id_fk": {
+          "name": "shifts_settings_updated_by_person_id_people_id_fk",
+          "tableFrom": "shifts_settings",
+          "tableTo": "people",
+          "columnsFrom": [
+            "updated_by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "shifts_settings_ranges_ck": {
+          "name": "shifts_settings_ranges_ck",
+          "value": "\"shifts_settings\".\"min_duty_hours\" between 0 and 200 and \"shifts_settings\".\"min_build_strike_days\" between 0 and 60 and \"shifts_settings\".\"max_precredit_percent\" between 0 and 100 and \"shifts_settings\".\"silent_no_show_flag_at\" between 1 and 20"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.shifts_signups": {
+      "name": "shifts_signups",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slot_id": {
+          "name": "slot_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "person_id": {
+          "name": "person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source": {
+          "name": "source",
+          "type": "shifts_signup_source",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'claimed'"
+        },
+        "status": {
+          "name": "status",
+          "type": "shifts_signup_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'claimed'"
+        },
+        "marked_by_person_id": {
+          "name": "marked_by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "marked_at": {
+          "name": "marked_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "shifts_signups_live_uq": {
+          "name": "shifts_signups_live_uq",
+          "columns": [
+            {
+              "expression": "slot_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "person_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"shifts_signups\".\"status\" not in ('released', 'swapped_out')",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "shifts_signups_person_idx": {
+          "name": "shifts_signups_person_idx",
+          "columns": [
+            {
+              "expression": "person_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "shifts_signups_slot_id_shifts_slots_id_fk": {
+          "name": "shifts_signups_slot_id_shifts_slots_id_fk",
+          "tableFrom": "shifts_signups",
+          "tableTo": "shifts_slots",
+          "columnsFrom": [
+            "slot_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_signups_person_id_people_id_fk": {
+          "name": "shifts_signups_person_id_people_id_fk",
+          "tableFrom": "shifts_signups",
+          "tableTo": "people",
+          "columnsFrom": [
+            "person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_signups_marked_by_person_id_people_id_fk": {
+          "name": "shifts_signups_marked_by_person_id_people_id_fk",
+          "tableFrom": "shifts_signups",
+          "tableTo": "people",
+          "columnsFrom": [
+            "marked_by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "shifts_signups_marked_ck": {
+          "name": "shifts_signups_marked_ck",
+          "value": "(\"shifts_signups\".\"status\" in ('completed', 'no_show')) = (\"shifts_signups\".\"marked_by_person_id\" is not null and \"shifts_signups\".\"marked_at\" is not null)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.shifts_slots": {
+      "name": "shifts_slots",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "duty_type_id": {
+          "name": "duty_type_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "starts_at": {
+          "name": "starts_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ends_at": {
+          "name": "ends_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "min_staff": {
+          "name": "min_staff",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "max_staff": {
+          "name": "max_staff",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "shifts_slot_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'open'"
+        },
+        "unfilled_at_close_out": {
+          "name": "unfilled_at_close_out",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "closed_out_by_person_id": {
+          "name": "closed_out_by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "closed_out_at": {
+          "name": "closed_out_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "shifts_slots_uq": {
+          "name": "shifts_slots_uq",
+          "columns": [
+            {
+              "expression": "duty_type_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "starts_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "shifts_slots_edition_start_idx": {
+          "name": "shifts_slots_edition_start_idx",
+          "columns": [
+            {
+              "expression": "edition_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "starts_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "shifts_slots_edition_id_editions_id_fk": {
+          "name": "shifts_slots_edition_id_editions_id_fk",
+          "tableFrom": "shifts_slots",
+          "tableTo": "editions",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_slots_duty_type_id_shifts_duty_types_id_fk": {
+          "name": "shifts_slots_duty_type_id_shifts_duty_types_id_fk",
+          "tableFrom": "shifts_slots",
+          "tableTo": "shifts_duty_types",
+          "columnsFrom": [
+            "duty_type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_slots_closed_out_by_person_id_people_id_fk": {
+          "name": "shifts_slots_closed_out_by_person_id_people_id_fk",
+          "tableFrom": "shifts_slots",
+          "tableTo": "people",
+          "columnsFrom": [
+            "closed_out_by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "shifts_slots_time_ck": {
+          "name": "shifts_slots_time_ck",
+          "value": "\"shifts_slots\".\"ends_at\" > \"shifts_slots\".\"starts_at\""
+        },
+        "shifts_slots_staff_ck": {
+          "name": "shifts_slots_staff_ck",
+          "value": "coalesce(\"shifts_slots\".\"min_staff\", 1) >= 1 and coalesce(\"shifts_slots\".\"max_staff\", 50) >= coalesce(\"shifts_slots\".\"min_staff\", 1) and coalesce(\"shifts_slots\".\"max_staff\", 1) <= 50"
+        },
+        "shifts_slots_closed_ck": {
+          "name": "shifts_slots_closed_ck",
+          "value": "(\"shifts_slots\".\"status\" = 'closed_out') = (\"shifts_slots\".\"closed_out_at\" is not null and \"shifts_slots\".\"closed_out_by_person_id\" is not null and \"shifts_slots\".\"unfilled_at_close_out\" is not null)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.shifts_standby": {
+      "name": "shifts_standby",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slot_id": {
+          "name": "slot_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "person_id": {
+          "name": "person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "shifts_standby_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'waiting'"
+        },
+        "dropped_by_person_id": {
+          "name": "dropped_by_person_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "offered_at": {
+          "name": "offered_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "decided_at": {
+          "name": "decided_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "shifts_standby_live_uq": {
+          "name": "shifts_standby_live_uq",
+          "columns": [
+            {
+              "expression": "slot_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "person_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"shifts_standby\".\"status\" in ('waiting', 'offered')",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "shifts_standby_slot_idx": {
+          "name": "shifts_standby_slot_idx",
+          "columns": [
+            {
+              "expression": "slot_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "shifts_standby_slot_id_shifts_slots_id_fk": {
+          "name": "shifts_standby_slot_id_shifts_slots_id_fk",
+          "tableFrom": "shifts_standby",
+          "tableTo": "shifts_slots",
+          "columnsFrom": [
+            "slot_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_standby_person_id_people_id_fk": {
+          "name": "shifts_standby_person_id_people_id_fk",
+          "tableFrom": "shifts_standby",
+          "tableTo": "people",
+          "columnsFrom": [
+            "person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "shifts_standby_dropped_by_person_id_people_id_fk": {
+          "name": "shifts_standby_dropped_by_person_id_people_id_fk",
+          "tableFrom": "shifts_standby",
+          "tableTo": "people",
+          "columnsFrom": [
+            "dropped_by_person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.shifts_category": {
+      "name": "shifts_category",
+      "schema": "public",
+      "values": [
+        "kitchen",
+        "moop",
+        "mutant_vehicle",
+        "infrastructure",
+        "hosting",
+        "build",
+        "strike",
+        "other"
+      ]
+    },
+    "public.shifts_checklist_section": {
+      "name": "shifts_checklist_section",
+      "schema": "public",
+      "values": [
+        "before",
+        "setup",
+        "during",
+        "cleanup",
+        "resources",
+        "final"
+      ]
+    },
+    "public.shifts_cover_kind": {
+      "name": "shifts_cover_kind",
+      "schema": "public",
+      "values": [
+        "swap",
+        "give_away",
+        "ask_cover"
+      ]
+    },
+    "public.shifts_cover_reason": {
+      "name": "shifts_cover_reason",
+      "schema": "public",
+      "values": [
+        "clash",
+        "unwell",
+        "overwhelmed"
+      ]
+    },
+    "public.shifts_cover_status": {
+      "name": "shifts_cover_status",
+      "schema": "public",
+      "values": [
+        "requested",
+        "accepted",
+        "lead_pending",
+        "confirmed",
+        "declined",
+        "cancelled",
+        "expired"
+      ]
+    },
+    "public.shifts_handover_item_kind": {
+      "name": "shifts_handover_item_kind",
+      "schema": "public",
+      "values": [
+        "needs_attention",
+        "missing"
+      ]
+    },
+    "public.shifts_handover_outcome": {
+      "name": "shifts_handover_outcome",
+      "schema": "public",
+      "values": [
+        "all_good",
+        "needs_attention",
+        "missing"
+      ]
+    },
+    "public.shifts_phase": {
+      "name": "shifts_phase",
+      "schema": "public",
+      "values": [
+        "build",
+        "burn",
+        "strike"
+      ]
+    },
+    "public.shifts_precredit_kind": {
+      "name": "shifts_precredit_kind",
+      "schema": "public",
+      "values": [
+        "design",
+        "sourcing",
+        "logistics",
+        "building",
+        "organising"
+      ]
+    },
+    "public.shifts_signup_source": {
+      "name": "shifts_signup_source",
+      "schema": "public",
+      "values": [
+        "claimed",
+        "lead_added_with_consent",
+        "swap",
+        "help_sheet"
+      ]
+    },
+    "public.shifts_signup_status": {
+      "name": "shifts_signup_status",
+      "schema": "public",
+      "values": [
+        "claimed",
+        "confirmed",
+        "completed",
+        "no_show",
+        "released",
+        "swapped_out"
+      ]
+    },
+    "public.shifts_slot_status": {
+      "name": "shifts_slot_status",
+      "schema": "public",
+      "values": [
+        "open",
+        "filled",
+        "cancelled",
+        "closed_out"
+      ]
+    },
+    "public.shifts_standby_status": {
+      "name": "shifts_standby_status",
+      "schema": "public",
+      "values": [
+        "waiting",
+        "offered",
+        "took",
+        "passed",
+        "left"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

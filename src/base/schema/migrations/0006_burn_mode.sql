@@ -1,0 +1,2 @@
+ALTER TABLE "edition_members" ADD COLUMN "burn_mode_on_at" timestamp with time zone;--> statement-breakpoint
+ALTER TABLE "edition_members" ADD COLUMN "burn_prompt_dismissed_at" timestamp with time zone;

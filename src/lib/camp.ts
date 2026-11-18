@@ -1,0 +1,25 @@
+// The app's way in to camp.config.ts: import camp settings from here, not from the root file.
+import config from "../../camp.config";
+import { campConfigProblems, type OwnerKey } from "./camp-config";
+
+export type { OwnerKey };
+
+export const campConfig = config;
+/** The camp's display name, e.g. "Oe-aa-sies". */
+export const CAMP_NAME = config.camp.name;
+/** Money symbol before amounts, e.g. "R". */
+export const MONEY_SYMBOL = config.money.symbol;
+
+/** Whether a camp tradition is switched on (camp.config.ts extras.traditions). */
+export function hasTradition(key: string): boolean {
+  return (config.extras.traditions as readonly string[]).includes(key);
+}
+
+// A broken camp.config.ts should stop the build with plain words, not half-work at runtime.
+const problems = campConfigProblems(config);
+if (problems.length) throw new Error(`camp.config.ts needs fixing:\n- ${problems.join("\n- ")}`);
+
+/** Display name for a stored gear-owner key, e.g. "Ours" for oeaasies. */
+export function ownerLabel(key: string): string {
+  return campConfig.owners.labels[key as OwnerKey] ?? key;
+}

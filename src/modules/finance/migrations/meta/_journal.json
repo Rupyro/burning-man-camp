@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792152521209,
+      "tag": "0000_finance_init",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792348145740,
+      "tag": "0001_camp_fees",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792498272773,
+      "tag": "0002_approval_steps",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792538973198,
+      "tag": "0003_decision_reasons",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793197767619,
+      "tag": "0004_auto_approved",
+      "breakpoints": true
+    }
+  ]
+}

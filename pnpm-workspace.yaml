@@ -1,0 +1,27 @@
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - unrs-resolver
+
+# Supply chain: never resolve a version published less than 3 days ago (most malicious releases
+# are caught and pulled within that window), and refuse versions with weaker provenance than
+# earlier releases of the same package.
+minimumReleaseAge: 4320
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  # semver@6.3.1 (via shadcn > @babel/core) predates npm provenance; pnpm flags it as a downgrade.
+  # Already in the lockfile before this change. Approved by Ruchir, Oct 24 2026.
+  - semver@6.3.1
+
+overrides:
+  # GHSA-8r5x-fm3f-whwj / GHSA-p8wg-vrv2-v86f (critical), via eslint-plugin-boundaries (dev only).
+  handlebars: ^4.7.10
+  # GHSA-27r3-jxmh-p828 (high), via shadcn > @modelcontextprotocol/sdk > express (dev only).
+  # Forced to the patched minor; approved by Ruchir as a fallback, Oct 25 2026.
+  body-parser: ^2.4.0
+
+auditConfig:
+  ignoreGhsas:
+    # braces <=3.0.3 ReDoS-style DoS, no patched release exists yet. Dev-only (eslint-plugin-boundaries
+    # > micromatch), never runs on user input. Mirrored in osv-scanner.toml with an expiry date.
+    - GHSA-vfj7-8cjw-p6xm

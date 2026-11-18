@@ -1,0 +1,82 @@
+# Repo-specific Semgrep rules (MODULE_RULEBOOK.md §1 rules 3 and 6). Run by .github/workflows/security.yml.
+rules:
+  - id: camp-server-action-unguarded
+    message: >-
+      Every export of a "use server" file must be `export const x = moduleAction(...)`
+      (or the base sessionAction/publicAction), so the server checks session, flag and capability.
+    severity: ERROR
+    languages: [typescript]
+    paths:
+      include: ["src/**/*.ts", "src/**/*.tsx"]
+    patterns:
+      - pattern-inside: |
+          "use server";
+          ...
+      - pattern-either:
+          - pattern: export async function $F(...) { ... }
+          - pattern: export function $F(...) { ... }
+          - pattern: export default $X;
+          - patterns:
+              - pattern: export const $X = $V;
+              - pattern-not: export const $X = moduleAction(...);
+              - pattern-not: export const $X = sessionAction(...);
+              - pattern-not: export const $X = publicAction(...);
+
+  - id: camp-route-handler-unguarded
+    message: >-
+      Route handlers must resolve the caller on the server (getRequestContext / a base guard) before
+      doing anything. Hidden UI is not security.
+    severity: ERROR
+    languages: [typescript]
+    paths:
+      include: ["src/app/**/route.ts"]
+      # Better Auth's own endpoints are public by design (login link request/verify).
+      exclude: ["src/app/api/auth/**"]
+    patterns:
+      - pattern-either:
+          - pattern: export async function $M(...) { ... }
+          - pattern: export function $M(...) { ... }
+      - metavariable-regex:
+          metavariable: $M
+          regex: ^(GET|POST|PUT|PATCH|DELETE)$
+      - pattern-not: |
+          export async function $M(...) { ... getRequestContext(...); ... }
+      - pattern-not: |
+          export async function $M(...) { ... requireJobsSecret(...); ... }
+
+  - id: camp-module-layout-unguarded
+    message: Module route layouts must be exactly `export default guardModuleLayout("<id>")`.
+    severity: ERROR
+    languages: [typescript]
+    paths:
+      include: ["src/app/(app)/*/layout.tsx"]
+    patterns:
+      - pattern-either:
+          - pattern: export default $X;
+          - pattern: export default function $F(...) { ... }
+          - pattern: export default async function $F(...) { ... }
+      - pattern-not: export default guardModuleLayout($ID);
+
+  - id: camp-sql-raw
+    message: >-
+      sql.raw() bypasses parameter binding (SQL injection risk). Use the sql`` template or the query
+      builder. Test helpers are exempt.
+    severity: ERROR
+    languages: [typescript]
+    paths:
+      include: ["src/**", "scripts/**", "seed/**"]
+      exclude: ["**/*.test.ts", "**/tests/**", "src/base/api/testing-db.ts"]
+    pattern: sql.raw(...)
+
+  - id: camp-sensitive-data-logged
+    message: Never log medical or dietary data (AGENTS.md hard rule 7).
+    severity: ERROR
+    languages: [typescript]
+    paths:
+      include: ["src/**"]
+    patterns:
+      - pattern-either:
+          - pattern: console.$LOG(..., $X, ...)
+      - metavariable-regex:
+          metavariable: $X
+          regex: (?i).*(medical|dietary|allerg|diet).*

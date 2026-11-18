@@ -1,0 +1,911 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "../../camp-art/theme.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-heading: var(--font-alegreya-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-source-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: var(--font-alegreya-sans), ui-sans-serif, system-ui, sans-serif;
+  --color-late: var(--late);
+  --color-late-foreground: var(--late-foreground);
+  --color-soon: var(--soon);
+  --color-soon-foreground: var(--soon-foreground);
+  --color-normal: var(--normal);
+  --color-normal-foreground: var(--normal-foreground);
+  --color-blocked: var(--blocked);
+  --color-blocked-foreground: var(--blocked-foreground);
+  --color-waiting: var(--waiting);
+  --color-bar-from: var(--bar-from);
+  --color-bar-to: var(--bar-to);
+  --color-tabbar: var(--tabbar);
+  --color-tabbar-foreground: var(--tabbar-foreground);
+  --color-banner: var(--banner);
+  --color-banner-foreground: var(--banner-foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Frosted brand bar (headers, hero strips): deep earth glass over the photo. */
+@utility bg-sunset {
+  background-image: linear-gradient(var(--sunset), var(--sunset));
+  color: var(--sunset-foreground);
+  backdrop-filter: blur(14px) saturate(1.2);
+}
+
+/* Big numbers. The logo itself is the Wordmark component (brand-book artwork). */
+@utility font-wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+}
+
+/* Headings: brand display face, sentence case. */
+@utility heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground leading-relaxed;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+/* Backdrop: fixed brand-book photo (daily rotation via html[data-photo], set pre-paint),
+   readability veil, and the faint logo drifting at ~0.3x scroll (--drift, set by Backdrop). */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--background) var(--photo) center / cover no-repeat;
+}
+.backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--veil);
+}
+.backdrop > span {
+  position: absolute;
+  left: 8%;
+  top: 18%;
+  width: 22vmin;
+  height: 29vmin;
+  background: var(--watermark);
+  opacity: var(--watermark-opacity);
+  mask: url(/backdrop/logomark.png) center / contain no-repeat;
+  transform: translate3d(0, var(--drift, 0px), 0);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .backdrop > span {
+    transform: none;
+  }
+}
+.backdrop,
+[data-photo="rock"] .backdrop {
+  --photo: image-set(url(/backdrop/rock-day-1200.avif) type("image/avif"), url(/backdrop/rock-day-1200.webp) type("image/webp"));
+}
+[data-photo="road"] .backdrop {
+  --photo: image-set(url(/backdrop/road-day-1200.avif) type("image/avif"), url(/backdrop/road-day-1200.webp) type("image/webp"));
+}
+.theme-night .backdrop,
+.theme-night[data-photo="rock"] .backdrop {
+  --photo: image-set(url(/backdrop/rock-night-1200.avif) type("image/avif"), url(/backdrop/rock-night-1200.webp) type("image/webp"));
+}
+.theme-night[data-photo="road"] .backdrop {
+  --photo: image-set(url(/backdrop/road-night-1200.avif) type("image/avif"), url(/backdrop/road-night-1200.webp) type("image/webp"));
+}
+@media (min-width: 64rem) {
+.backdrop,
+[data-photo="rock"] .backdrop {
+  --photo: image-set(url(/backdrop/rock-day-2400.avif) type("image/avif"), url(/backdrop/rock-day-2400.webp) type("image/webp"));
+}
+[data-photo="road"] .backdrop {
+  --photo: image-set(url(/backdrop/road-day-2400.avif) type("image/avif"), url(/backdrop/road-day-2400.webp) type("image/webp"));
+}
+.theme-night .backdrop,
+.theme-night[data-photo="rock"] .backdrop {
+  --photo: image-set(url(/backdrop/rock-night-2400.avif) type("image/avif"), url(/backdrop/rock-night-2400.webp) type("image/webp"));
+}
+.theme-night[data-photo="road"] .backdrop {
+  --photo: image-set(url(/backdrop/road-night-2400.avif) type("image/avif"), url(/backdrop/road-night-2400.webp) type("image/webp"));
+}
+}
+[data-photo="rock"] .backdrop {
+  background-position: center 60%;
+}
+/* Dust gust: a faint warm streak field crossing left to right in ~1.6s every ~5 minutes.
+   transform/opacity only (GPU-cheap); hidden entirely under reduced motion. */
+.dust-gust {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+  pointer-events: none;
+}
+.dust-gust > span {
+  position: absolute;
+  left: 0;
+  width: 45vw;
+  height: 26px;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, #d9a96a59, transparent),
+    radial-gradient(2px 2px at 20% 40%, #b8783a80, transparent),
+    radial-gradient(1.5px 1.5px at 55% 65%, #b8783a80, transparent),
+    radial-gradient(2px 2px at 80% 30%, #b8783a66, transparent);
+  opacity: 0;
+  transform: translateX(-50vw) skewX(-20deg);
+  animation: dust-gust 1.6s ease-in-out forwards;
+}
+.dust-gust > span:nth-child(even) {
+  height: 14px;
+}
+.theme-night .dust-gust > span {
+  background:
+    radial-gradient(closest-side, #e8b87840, transparent),
+    radial-gradient(2px 2px at 20% 40%, #f2c78a66, transparent),
+    radial-gradient(1.5px 1.5px at 60% 60%, #f2c78a66, transparent);
+}
+@keyframes dust-gust {
+  15% {
+    opacity: 0.55;
+  }
+  80% {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(140vw) skewX(-20deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dust-gust {
+    display: none;
+  }
+}
+
+/* Cards are see-through glass over the photo (option C, Oct 22 2026): frost keeps text readable. */
+.bg-card {
+  -webkit-backdrop-filter: blur(20px) saturate(1.15);
+  backdrop-filter: blur(20px) saturate(1.15);
+}
+
+/* Burn Mode (Oct 28 2026): firmer cards for reading in bright sun or at night (45% / 40%). */
+[data-burn="on"] {
+  --card: rgb(255 250 243 / 0.45);
+}
+.dark [data-burn="on"],
+.theme-night [data-burn="on"] {
+  --card: rgb(35 24 18 / 0.4);
+}
+
+/* Burn Mode tag (option B, Oct 28 2026): small, but a darker, firmer card than the glass so it
+   stands out in day and night; light text keeps it easy to read. */
+.burn-tag {
+  background: rgb(67 39 16 / 0.88);
+  color: #fff4e6;
+  border: 1px solid rgb(226 168 84 / 0.7);
+}
+.dark .burn-tag,
+.theme-night .burn-tag {
+  background: rgb(28 16 8 / 0.92);
+  color: #ffe9c7;
+  border-color: rgb(226 168 84 / 0.85);
+}
+
+/* Team notice banner (option C, Oct 28 2026): a solid strip so it reads over the photo in day and
+   night; it stays until the end time the lead picked or until the person taps "Got it". */
+.team-notice {
+  background: rgb(120 53 15 / 0.95);
+  color: #fff7ed;
+  border-bottom: 2px solid rgb(226 168 84 / 0.9);
+}
+.team-notice-btn {
+  background: #fff7ed;
+  color: #431407;
+}
+.dark .team-notice,
+.theme-night .team-notice {
+  background: rgb(28 16 8 / 0.95);
+  color: #ffe9c7;
+}
+.dark .team-notice-btn,
+.theme-night .team-notice-btn {
+  background: rgb(226 168 84);
+  color: #1c1008;
+}
+
+/* Keep the team notice readable under the fixed badge tab. */
+body:has(.fun-badges) .team-notice,
+body:has(.fun-badges):not(:has(.team-notice)) .app-top {
+  padding-top: 30px;
+}
+
+/* Fun extras: calm, decorative, never in the way (pointer-events none except the badge row). */
+.fun-badges {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 80;
+  display: flex;
+  gap: 4px;
+  padding: 3px 8px;
+  transform: translateX(-50%);
+  border-radius: 0 0 12px 12px;
+  background: #432710e6;
+}
+.fun-badge {
+  width: 22px;
+  height: 22px;
+  padding: 3px;
+  border: 1px solid #d9b9a2;
+  border-radius: 9999px;
+  background: #fffaf3;
+  color: #9e5b25;
+}
+.fun-badge-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 9px;
+  font-weight: 800;
+}
+.fun-badge.is-locked {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+.fun-badge.is-empty {
+  border-style: dashed;
+  background: transparent;
+  color: transparent;
+}
+.fun-badge.is-fresh {
+  animation: fun-glow 2.4s ease-out 2;
+}
+@keyframes fun-glow {
+  40% {
+    box-shadow: 0 0 8px 3px #e2a854;
+  }
+}
+.fun-late {
+  margin: 2px 16px 0;
+  text-align: right;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--muted-foreground);
+}
+.fun-fire {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  animation: fun-fade 3s ease-in-out forwards;
+}
+.fun-fire-text {
+  position: absolute;
+  top: 28%;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  color: #9e5b25;
+  text-shadow: 0 0 10px #fff8ee;
+}
+.fun-fire-text span {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+}
+.theme-night .fun-fire-text {
+  color: #ffd27a;
+  text-shadow: 0 0 10px #000;
+}
+.fun-fire-ring {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(#ffd27ae6, #e2a85459 40%, transparent 70%);
+}
+.fun-fire-ring b {
+  position: absolute;
+  inset: 136px;
+  border-radius: 50%;
+  background: radial-gradient(#ffe08a, #f0782a);
+}
+.fun-fire-ring i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px;
+  border-radius: 50%;
+  background: #432710;
+  transform: rotate(var(--a)) translateX(var(--r));
+  animation: fun-run linear infinite;
+}
+.fun-fire-ring i:nth-child(3n) {
+  background: #9e5b25;
+}
+@keyframes fun-run {
+  to {
+    transform: rotate(calc(var(--a) + 360deg)) translateX(var(--r));
+  }
+}
+@keyframes fun-fade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  12%,
+  85% {
+    opacity: 0.8;
+  }
+}
+.fun-sparkle {
+  position: absolute;
+  top: 36%;
+  color: #e2a854;
+  letter-spacing: 4px;
+}
+.fun-drop {
+  position: fixed;
+  inset: 0;
+  z-index: 85; /* above the badge row, so the badge is seen landing in its slot */
+  pointer-events: none;
+}
+.fun-drop-badge {
+  position: absolute;
+  top: calc(var(--fun-top, 0px) + 3px);
+  left: calc(50% + var(--fun-x, 0px));
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+  border: 1px solid #9e5b25;
+  border-radius: 9999px;
+  background: #fffaf3;
+  color: #9e5b25;
+  animation: fun-fall 1.1s cubic-bezier(0.5, 0, 0.9, 0.6) forwards;
+}
+@keyframes fun-fall {
+  from {
+    transform: translateY(40vh) scale(30);
+  }
+  88% {
+    transform: translateY(0) scale(1);
+  }
+  94% {
+    transform: translateY(2px) scale(1.08, 0.9);
+  }
+  to {
+    transform: none;
+  }
+}
+.fun-drop-dust {
+  position: absolute;
+  top: calc(var(--fun-top, 0px) + 6px);
+  left: calc(50% + var(--fun-x, 0px));
+  width: 140px;
+  height: 50px;
+  margin-left: -70px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #b8875a, #c9a27a99 55%, transparent);
+  opacity: 0;
+  animation: fun-puff 0.7s ease-out 1s forwards;
+}
+.theme-night .fun-drop-dust {
+  background: radial-gradient(closest-side, #ffd27a, #ffd27a99 55%, transparent);
+}
+@keyframes fun-puff {
+  from {
+    transform: scale(0.6);
+  }
+  20% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(1.9, 1.5);
+  }
+}
+.fun-sheet {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 90;
+  padding: 12px 18px 28px;
+  border-top: 1px solid #d9b9a2;
+  border-radius: 18px 18px 0 0;
+  background: #fffaf3;
+  color: #2e1c0e;
+  box-shadow: 0 -4px 16px #0000001f;
+}
+.theme-night .fun-sheet,
+.dark .fun-sheet {
+  border-color: #5a4030;
+  background: #2e2016;
+  color: #f1ded0;
+}
+.fun-sheet-grip {
+  display: block;
+  width: 60px;
+  height: 18px;
+  margin: 0 auto 6px;
+  background: linear-gradient(#d9b9a2, #d9b9a2) center / 40px 4px no-repeat;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fun-fire,
+  .fun-drop {
+    display: none;
+  }
+}
+.fun-reveal {
+  animation: fun-reveal 2.4s ease-out both;
+}
+@keyframes fun-reveal {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    text-shadow: 0 0 18px #d8b98f;
+  }
+}
+
+/* Oe-aa-sies Family journey (Nov 1 2026): a sandy path home with campfires and lanterns. */
+.journey {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: -16px -16px 0;
+  padding: 0 14px 16px;
+  min-height: 100%;
+  background: radial-gradient(120% 60% at 50% 0%, #fbe3bf 0%, #f3d3a8 40%, #e9c08f 100%);
+  color: #2e1c0e;
+}
+.dark .journey,
+.theme-night .journey {
+  color: #f4e3cf;
+  background:
+    radial-gradient(1px 1px at 20px 30px, #fff8, transparent),
+    radial-gradient(1px 1px at 120px 80px, #fffa, transparent),
+    radial-gradient(1.5px 1.5px at 260px 40px, #fff9, transparent),
+    radial-gradient(1px 1px at 340px 120px, #fff7, transparent),
+    radial-gradient(120% 70% at 50% 100%, #4a2a14 0%, #24160f 45%, #110c12 100%);
+}
+.journey-path {
+  width: 100%;
+  height: auto;
+  margin-top: 4px;
+}
+.jp-sand {
+  fill: none;
+  stroke: #e3c49b;
+  stroke-width: 14;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+.jp-steps {
+  fill: none;
+  stroke: #b8692b;
+  stroke-width: 3;
+  stroke-dasharray: 2 9;
+  stroke-linecap: round;
+}
+.jp-halo {
+  fill: #f6b04f;
+  opacity: 0.35;
+}
+.jp-lit {
+  fill: url(#jp-fire);
+}
+.jp-cold {
+  fill: #f3dcc0;
+  stroke: #c9a27a;
+  stroke-width: 2;
+}
+.jp-label {
+  font-size: 11px;
+  font-weight: 700;
+  fill: #a0805e;
+}
+.jp-label.is-lit {
+  fill: #5a3010;
+}
+.dark .jp-sand,
+.theme-night .jp-sand {
+  stroke: #5a4030;
+}
+.dark .jp-steps,
+.theme-night .jp-steps {
+  stroke: #f0b45a;
+}
+.dark .jp-cold,
+.theme-night .jp-cold {
+  fill: #3a2818;
+  stroke: #6a4a32;
+}
+.dark .jp-label,
+.theme-night .jp-label {
+  fill: #a88c72;
+}
+.dark .jp-label.is-lit,
+.theme-night .jp-label.is-lit {
+  fill: #ffe9c7;
+}
+.journey-hero {
+  padding: 4px 6px;
+}
+.journey-kick {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a4f1f;
+}
+.journey-h1 {
+  margin: 4px 0 2px;
+  font-size: 27px;
+  line-height: 1.1;
+  font-weight: 700;
+}
+.journey-sub,
+.journey-small {
+  font-size: 13px;
+  color: #6a4a32;
+}
+.journey-sub {
+  font-size: 15px;
+}
+.journey-h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.dark .journey-kick,
+.theme-night .journey-kick {
+  color: #f0b46a;
+}
+.dark .journey-sub,
+.dark .journey-small,
+.theme-night .journey-sub,
+.theme-night .journey-small {
+  color: #d4b89c;
+}
+.journey-card {
+  display: block;
+  border: 1px solid #e2c39f;
+  border-radius: 20px;
+  padding: 14px 16px;
+  background: linear-gradient(180deg, #fffaf2ee, #fbefdfee);
+  box-shadow: 0 6px 18px #7a46161f;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.dark .journey-card,
+.theme-night .journey-card {
+  border-color: #5a4030;
+  background: linear-gradient(180deg, #2e2016ee, #251910ee);
+  box-shadow: 0 6px 22px #0006;
+}
+.journey-stone {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.journey-fire {
+  display: flex;
+  flex: 0 0 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 60%, #ffcf6b, #e08a2c 55%, #9e5b25);
+  box-shadow: 0 0 14px 3px #f0a64588;
+  font-size: 17px;
+}
+.journey-fire.is-cold {
+  background: #d8bfa3;
+  box-shadow: none;
+}
+.journey-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  border: 0;
+}
+.journey-chip {
+  min-height: 44px;
+  padding: 10px 15px;
+  border: 1px solid #d9b48d;
+  border-radius: 9999px;
+  background: #fffdf8;
+  color: #4a2c14;
+  font-size: 15px;
+}
+.journey-chip.is-on {
+  border-color: #9e5b25;
+  background: linear-gradient(180deg, #c8752f, #9e5b25);
+  color: #fff8ee;
+  box-shadow: 0 0 12px #f0a64566;
+}
+.dark .journey-chip,
+.theme-night .journey-chip {
+  border-color: #5a4030;
+  background: #2a1c12;
+  color: #f4e3cf;
+}
+.dark .journey-chip.is-on,
+.theme-night .journey-chip.is-on {
+  border-color: #f0b45a;
+  background: linear-gradient(180deg, #f0b45a, #e2a854);
+  color: #1c1008;
+}
+.journey-big {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.journey-big .journey-chip {
+  flex: 1;
+  border-radius: 16px;
+  font-weight: 700;
+}
+.journey-lanterns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0 2px;
+}
+.journey-lantern {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 40px;
+  padding: 6px 12px;
+  border: 1px solid #d9b9a2;
+  border-radius: 9999px;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  color: #8a6a55;
+}
+.journey-lantern i {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  border: 1px dashed #c9a27a;
+  border-radius: 50%;
+  font-style: normal;
+}
+.journey-lantern.is-on {
+  border-color: #d97a86;
+  background: #fbe3e3;
+  color: #9c3e4c;
+}
+.journey-lantern.is-on i {
+  border: 0;
+}
+.dark .journey-lantern,
+.theme-night .journey-lantern {
+  border-color: #5a4030;
+  background: #2e2016;
+  color: #c9ad95;
+}
+.dark .journey-lantern.is-on,
+.theme-night .journey-lantern.is-on {
+  border-color: #e8707e;
+  background: #4a2530;
+  color: #ffd3d8;
+}
+.journey-btn {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 14px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #c8752f, #9e5b25);
+  color: #fff8ee;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 6px 16px #9e5b2555;
+}
+.journey-btn:disabled {
+  opacity: 0.55;
+}
+.journey-btn.is-soft {
+  border: 1px solid #d9b48d;
+  background: #fffaf2;
+  color: #9e5b25;
+  box-shadow: none;
+  font-size: 15px;
+}
+.dark .journey-btn,
+.theme-night .journey-btn {
+  background: linear-gradient(180deg, #f0b45a, #e2a854);
+  color: #1c1008;
+}
+.dark .journey-btn.is-soft,
+.theme-night .journey-btn.is-soft {
+  border-color: #5a4030;
+  background: #2a1c12;
+  color: #f0b45a;
+}
+.journey-back {
+  min-height: 44px;
+  align-self: flex-start;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.journey-input {
+  width: 100%;
+  margin-top: 8px;
+  padding: 11px;
+  border: 1px solid #d9b48d;
+  border-radius: 14px;
+  background: #fffdf8;
+  color: inherit;
+  font-size: 15px;
+}
+.dark .journey-input,
+.theme-night .journey-input {
+  border-color: #5a4030;
+  background: #1f150d;
+}
+.journey-pill {
+  display: inline-block;
+  margin: 2px 4px 2px 0;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: #ffe2ad;
+  color: #7a3f12;
+  font-size: 12px;
+  font-weight: 700;
+}
+.dark .journey-pill,
+.theme-night .journey-pill {
+  background: #4a2e14;
+  color: #ffe2ad;
+}
+.journey-sugg {
+  position: relative;
+  margin-top: 10px;
+  padding: 10px 12px 10px 44px;
+  border: 1px solid #f0c27a;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff3d6, #fde6c0);
+  font-size: 14px;
+}
+.journey-sugg::before {
+  content: "✦";
+  position: absolute;
+  top: 9px;
+  left: 12px;
+  display: flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f6b04f;
+  color: #fff;
+  font-size: 13px;
+}
+.dark .journey-sugg,
+.theme-night .journey-sugg {
+  border-color: #8a6030;
+  background: linear-gradient(135deg, #3a2614, #2e1e10);
+}
+.journey-campfire {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 62%,
+    #fff4c4 0 10%,
+    #ffc35e 22%,
+    #e9792b 40%,
+    #e9792b00 68%
+  );
+}
+.journey-campfire::after {
+  content: "🔥";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 54px;
+}
+.family-memento {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid #8a5a2a;
+  border-radius: 20px;
+  background: radial-gradient(120% 120% at 15% 20%, #6b3a16, #3b200c 70%);
+  color: #ffe9c7;
+  box-shadow:
+    0 8px 22px #3b200c55,
+    inset 0 0 30px #f0a64522;
+}
+.family-memento-lamp {
+  display: flex;
+  flex: 0 0 60px;
+  height: 60px;
+  padding: 6px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe8cf, #f6c9b0 62%, #f2b39f00 74%);
+}
+
+/* The family protea (Nov 2026): one growing flower in place of the lanterns. */
+.protea { display: block; }
+.protea-glow { filter: drop-shadow(0 0 6px #ffd9a8) drop-shadow(0 0 14px #f2a0a866); }
+.journey-protea { display: flex; justify-content: center; margin: 0.25rem 0 -0.25rem; }
+.journey-protea .protea { width: 168px; height: 168px; }
+.journey-protea .protea.is-waiting { filter: grayscale(1); opacity: 0.4; }
+.protea-bud { display: inline-block; width: 14px; height: 14px; vertical-align: -2px; }
+.journey-home-scene { display: flex; justify-content: center; align-items: flex-end; gap: 0.25rem; }
+.journey-home-protea { width: 112px; height: 112px; }
+.family-memento-lamp .protea, .journey-fire .protea { width: 100%; height: 100%; }

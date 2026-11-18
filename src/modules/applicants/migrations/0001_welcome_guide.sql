@@ -1,0 +1,1 @@
+ALTER TABLE "applicant_applications" ADD COLUMN "guide_read_at" timestamp with time zone;

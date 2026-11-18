@@ -1,0 +1,160 @@
+/* Oe-aa-sies look (plan PR 6): the brand palette and the day/night colour variables.
+ * Another camp swaps this file to change its colours; globals.css keeps the layout and parts. */
+@theme inline {
+  /* Oe-aa-sies brand book Vol. 2 palette */
+  --color-rust: #9e5b25; /* AA with white text (5.0:1) */
+  --color-clay: #ce977c;
+  --color-ochre: #e2a854;
+  --color-mauve: #be9880;
+  --color-ice: #bce6ed;
+  --color-earth: #432710;
+  --color-dusk: #6a4f3d;
+  /* Component tokens: hard-coded colours moved here, values unchanged. */
+  --color-menu-border: var(--menu-border);
+  --color-menu: var(--menu-bg);
+  --color-menu-foreground: var(--menu-fg);
+  --color-pack-ink: var(--pack-ink);
+}
+
+:root {
+  /* Page text sits on the photo under a light veil (Backdrop), so it stays dark-on-cream. */
+  --background: #f7efe6;
+  --foreground: #2e1c0e;
+  --card: rgb(255 250 243 / 0.3);
+  --card-foreground: #2e1c0e;
+  --popover: #fffaf3;
+  --popover-foreground: #2e1c0e;
+  --primary: #9e5b25;
+  --primary-foreground: #ffffff;
+  --secondary: #f1ded0;
+  --secondary-foreground: #2e1c0e;
+  --muted: #f1ded0;
+  --muted-foreground: #4f3727;
+  --accent: #7d4922;
+  --accent-foreground: #ffffff;
+  --destructive: #a3362f;
+  --border: #d9b9a2;
+  --input: #c9a084;
+  --ring: #9e5b25;
+  --chart-1: #9e5b25;
+  --chart-2: #e2a854;
+  --chart-3: #ce977c;
+  --chart-4: #be9880;
+  --chart-5: #432710;
+  --radius: 1rem;
+  --sidebar: rgb(247 239 230 / 0.88);
+  --sidebar-foreground: #2e1c0e;
+  --sidebar-primary: #9e5b25;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1ded0;
+  --sidebar-accent-foreground: #2e1c0e;
+  --sidebar-border: #d9b9a2;
+  --sidebar-ring: #9e5b25;
+  --sunset: rgb(67 39 16 / 0.72);
+  --sunset-foreground: #fff8ee;
+  --late: #9e5b25;
+  --late-foreground: #ffffff;
+  --soon: #e2a854;
+  --soon-foreground: #2e1c0e;
+  --normal: #ce977c;
+  --normal-foreground: #2e1c0e;
+  --blocked: #432710;
+  --blocked-foreground: #ffffff;
+  --waiting: #6a4f3d;
+  --bar-from: #9e5b25;
+  --bar-to: #e2a854;
+  --tabbar: rgb(67 39 16 / 0.92);
+  --tabbar-foreground: #fff8ee;
+  --banner: #6a4f3d;
+  --banner-foreground: #ffffff;
+  /* Backdrop (photo, veil, drifting logo) */
+  --veil: linear-gradient(180deg, rgb(247 239 230 / 0.15) 0, rgb(247 239 230 / 0.3) 14rem);
+  --watermark: #9e5b25;
+  --watermark-opacity: 0.1;
+  /* Applicant settings menu (exact colours, not the night border/popover tokens) */
+  --menu-border: #d9b9a2;
+  --menu-bg: #fffaf3;
+  --menu-fg: #2e1c0e;
+  /* Shifts HELP sheet */
+  --pack-ink: #2a2118;
+  --pack-paper: #fffdf4;
+  --pack-line: #c9d7e8;
+  /* Family-path fire */
+  --fire-hot: #fff4c4;
+  --fire-mid: #ffc35e;
+  --fire-ember: #e08a2c;
+  /* Protea emblem */
+  --protea-stem: #5f7a3a;
+  --protea-leaf-left: #6f8f45;
+  --protea-leaf-right: #7f9e52;
+  --protea-bract-back: #f2a0a8;
+  --protea-bract-back-stroke: #c8606e;
+  --protea-dome: #f3e2d6;
+  --protea-dome-stroke: #d9c3b0;
+  --protea-dome-highlight: #fffaf0;
+  --protea-anther: #c9bba8;
+  --protea-bract-front: #e8707e;
+  --protea-bract-front-stroke: #b04a5a;
+  /* Browser chrome (also in camp-art/colors.ts for Next metadata) */
+  --manifest-background: #f6efe6;
+  --manifest-theme: #5a4636;
+}
+
+/* Night: the same photo at dusk under a dark veil, ochre firelight accents. `.dark` kept for shadcn. */
+.dark,
+.theme-night {
+  --background: #1e140e;
+  --foreground: #f3e8da;
+  --card: rgb(35 24 18 / 0.25);
+  --card-foreground: #f3e8da;
+  --popover: #2a1c14;
+  --popover-foreground: #f3e8da;
+  --primary: #e2a854;
+  --primary-foreground: #2a1608;
+  --secondary: #3a2a20;
+  --secondary-foreground: #f3e8da;
+  --muted: #3a2a20;
+  --muted-foreground: #d2bfae;
+  --accent: #e2a854;
+  --accent-foreground: #2a1608;
+  --destructive: #ff8a7a;
+  --border: #5a3d2a;
+  --input: #7a5640;
+  --ring: #e2a854;
+  --chart-1: #e2a854;
+  --chart-2: #ce977c;
+  --chart-3: #be9880;
+  --chart-4: #bce6ed;
+  --chart-5: #f3e8da;
+  --sidebar: rgb(20 13 9 / 0.82);
+  --sidebar-foreground: #e8d6c4;
+  --sidebar-primary: #e2a854;
+  --sidebar-primary-foreground: #2a1608;
+  --sidebar-accent: #3a2a20;
+  --sidebar-accent-foreground: #f3e8da;
+  --sidebar-border: #3a2a20;
+  --sidebar-ring: #e2a854;
+  --sunset: rgb(20 13 9 / 0.7);
+  --sunset-foreground: #f6d49a;
+  --late: #e2a854;
+  --late-foreground: #2a1608;
+  --soon: #ce977c;
+  --soon-foreground: #2a1608;
+  --normal: #4a3020;
+  --normal-foreground: #f3e8da;
+  --blocked: #be9880;
+  --blocked-foreground: #2a1608;
+  --waiting: #e2a854;
+  --bar-from: #ce977c;
+  --bar-to: #e2a854;
+  --tabbar: rgb(20 13 9 / 0.92);
+  --tabbar-foreground: #e8d6c4;
+  --banner: #bce6ed;
+  --banner-foreground: #1e140e;
+  --veil: linear-gradient(180deg, rgb(18 12 10 / 0.2) 0, rgb(18 12 10 / 0.35) 14rem);
+  --watermark: #fff8ee;
+  --watermark-opacity: 0.08;
+  --menu-border: #5a4030;
+  --menu-bg: #2e2016;
+  --menu-fg: #f1ded0;
+}

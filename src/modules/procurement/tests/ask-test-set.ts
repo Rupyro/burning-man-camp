@@ -1,0 +1,25 @@
+// "Ask the camp" test set: real-sounding camp requests with the team that should get them.
+// Any router change (demo words or AI instructions) must keep this score up.
+export const ASK_TEST_SET: readonly { text: string; team: string; buy: boolean }[] = [
+  { text: "need 20 kg of ice by Tuesday", team: "kitchen", buy: true },
+  { text: "buy 6 bags of coffee for the first week", team: "kitchen", buy: true },
+  { text: "we're out of gas bottle for the braai", team: "kitchen", buy: false },
+  { text: "someone must plan dinner for build week", team: "kitchen", buy: false },
+  { text: "book a truck to the yard on Friday", team: "logistics", buy: false },
+  { text: "container loading needs 8 people on Saturday", team: "logistics", buy: false },
+  { text: "need 200 l of diesel before we leave", team: "logistics", buy: true },
+  { text: "who can do the pickup from the airport tomorrow", team: "logistics", buy: false },
+  { text: "the shade structure needs 30 more cable ties", team: "camp_infra", buy: true },
+  { text: "fix the generator before power goes out", team: "camp_infra", buy: false },
+  { text: "need 4 rolls of shade cloth by 14 April", team: "camp_infra", buy: true },
+  { text: "paint the art car on Sunday", team: "gift_projects", buy: false },
+  { text: "send the fee invoice to the new campers", team: "finance", buy: false },
+  { text: "refund Sam for the receipt he sent", team: "finance", buy: false },
+  { text: "find a DJ for the Thursday party", team: "programming", buy: false },
+  { text: "write a welcome note for each new member", team: "community", buy: false },
+  { text: "the cleaning roster has a gap on Monday", team: "duties", buy: false },
+  { text: "sweep the camp for moop before we leave", team: "moop", buy: false },
+  { text: "make a poster for instagram about the build", team: "marketing", buy: false },
+  { text: "bring the drone to film the burn", team: "content", buy: false },
+  { text: "update the camp guide with the new shower rules", team: "knowledge", buy: false },
+];

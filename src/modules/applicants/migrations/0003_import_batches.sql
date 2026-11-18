@@ -1,0 +1,1 @@
+ALTER TABLE "applicant_family_years" ADD COLUMN "import_batch_id" uuid;
