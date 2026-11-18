@@ -5,7 +5,12 @@ import { writeFileSync } from "node:fs";
 import { stdin, stdout } from "node:process";
 import { createInterface } from "node:readline/promises";
 import current from "../camp.config";
-import { type CampPackKey, campConfigProblems } from "../src/lib/camp-config";
+import {
+  CAMP_TYPES,
+  type CampPackKey,
+  type CampTypeKey,
+  campConfigProblems,
+} from "../src/lib/camp-config";
 import {
   configFrom,
   feeCents,
@@ -34,6 +39,17 @@ const tagline = await ask(
   `Operations platform for the ${name} camp at AfrikaBurn`,
 );
 step(3);
+console.log("Camp types:");
+for (const [i, t] of CAMP_TYPES.entries()) console.log(`  ${i + 1}. ${t.label}`);
+const typeAnswer = await ask(
+  "What kind of camp is it? (number)",
+  String(CAMP_TYPES.findIndex((t) => t.key === (current.camp as { type?: string }).type) + 1 || 1),
+);
+const campType: CampTypeKey = CAMP_TYPES[Number(typeAnswer) - 1]?.key ?? "theme";
+const sizeAnswer = Number(
+  await ask("About how many people?", String((current.camp as { size?: number }).size ?? 25)),
+);
+const size = Number.isInteger(sizeAnswer) && sizeAnswer > 0 ? sizeAnswer : undefined;
 console.log("Core is always on: kitchen, shade, build/strike, MOOP/LNT, money, joining.");
 const packs: CampPackKey[] = [];
 for (const p of PICKABLE_PACKS)
@@ -68,6 +84,8 @@ const config = configFrom({
   name,
   tagline,
   packs,
+  campType,
+  ...(size ? { size } : {}),
   currency,
   symbol,
   campFee,

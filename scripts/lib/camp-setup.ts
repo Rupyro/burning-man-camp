@@ -1,10 +1,20 @@
 // Plan PR 16: the setup questions and the camp.config.ts they write. Pure (no prompts, no files).
-import { type CampConfig, type CampPackKey, DEFAULT_OWNERS } from "../../src/lib/camp-config";
+import {
+  type CampConfig,
+  type CampPackKey,
+  type CampTypeKey,
+  DEFAULT_OWNERS,
+} from "../../src/lib/camp-config";
 
 export const PICKABLE_PACKS: { key: CampPackKey; label: string }[] = [
   { key: "sound", label: "Sound camp (pulls in power)" },
   { key: "mutant-vehicle", label: "Mutant vehicle (pulls in power)" },
-  { key: "power", label: "Power: generators and fuel, on its own" },
+  { key: "power", label: "Big power: generators and fuel, on its own" },
+  { key: "fire-flame", label: "Fire and flame effects" },
+  { key: "kitchen", label: "Kitchen and food gifting" },
+  { key: "art", label: "Art project" },
+  { key: "village", label: "Village or HUB" },
+  { key: "workshops", label: "Workshops and offerings" },
 ];
 export const TRADITIONS = [{ key: "rain-dance", label: "Rain dance" }] as const;
 
@@ -23,6 +33,9 @@ export interface SetupAnswers {
   name: string;
   tagline?: string;
   packs: CampPackKey[];
+  /** Camp type and size (step 3); left out of the config when not given. */
+  campType?: CampTypeKey;
+  size?: number;
   currency: string;
   symbol: string;
   campFee: number;
@@ -72,6 +85,8 @@ export function configFrom(a: SetupAnswers): CampConfig {
       slug: slugFor(name),
       tagline: a.tagline?.trim() || `Operations platform for the ${name} camp at AfrikaBurn`,
       packs: ["core", ...a.packs],
+      ...(a.campType ? { type: a.campType } : {}),
+      ...(a.size ? { size: a.size } : {}),
     },
     look: { logo: "/backdrop/logomark.png", emblem: "protea" },
     money: {
@@ -104,7 +119,7 @@ export default defineCampConfig({
     shortName: ${q(c.camp.shortName)},
     slug: ${q(c.camp.slug)},
     tagline: ${q(c.camp.tagline)},
-    packs: ${list(c.camp.packs)},
+    packs: ${list(c.camp.packs)},${c.camp.type ? `\n    type: ${q(c.camp.type)},` : ""}${c.camp.size ? `\n    size: ${c.camp.size},` : ""}
   },
   look: { logo: ${q(c.look.logo)}, emblem: ${q(c.look.emblem)} },
   money: { currency: ${q(c.money.currency)}, symbol: ${q(c.money.symbol)}, campFeeCents: ${cents(c.money.campFeeCents)}, xceed: { enabled: ${c.money.xceed.enabled} } },
