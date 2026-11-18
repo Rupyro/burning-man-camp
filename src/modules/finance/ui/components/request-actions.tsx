@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { MONEY_UNIT } from "@/lib/camp";
 import {
   type DecisionNext,
   type DecisionReason,
@@ -246,7 +247,7 @@ export function ExpenseForm({ id, today }: { id: string; today: string }) {
         )
       }
     >
-      <Label htmlFor="cost">What did it cost? (rand)</Label>
+      <Label htmlFor="cost">What did it cost? ({MONEY_UNIT})</Label>
       <Input id="cost" name="cost" required inputMode="decimal" className={field} />
       <Label htmlFor="on">When</Label>
       <Input id="on" name="on" type="date" required defaultValue={today} className={field} />

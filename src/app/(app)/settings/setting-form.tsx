@@ -2,6 +2,7 @@
 import { saveAutomationSetting } from "@/base/settings/server/actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { MONEY_SYMBOL } from "@/lib/camp";
 import { ActionForm } from "../_components/action-form";
 
 export interface SettingRow {
@@ -16,7 +17,7 @@ export interface SettingRow {
 const shown = (s: { kind: SettingRow["kind"]; value: number }) =>
   s.kind === "rand" ? String(s.value / 100) : String(s.value);
 
-/** One setting: a short explanation, the value, and Save. Rand amounts are typed in whole rand. */
+/** One setting: a short explanation, the value, and Save. Money amounts are typed in whole units. */
 export function SettingForm({ s }: { s: SettingRow }) {
   const id = `setting-${s.key}`;
   return (
@@ -49,7 +50,7 @@ export function SettingForm({ s }: { s: SettingRow }) {
         </select>
       ) : (
         <div className="flex items-center gap-2">
-          {s.kind === "rand" ? <span className="text-sm">R</span> : null}
+          {s.kind === "rand" ? <span className="text-sm">{MONEY_SYMBOL}</span> : null}
           <Input
             id={id}
             name="value"

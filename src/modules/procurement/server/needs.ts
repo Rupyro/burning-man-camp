@@ -11,6 +11,7 @@ import {
   ValidationError,
 } from "@/base/api";
 import { projects } from "@/base/api/schema";
+import { MONEY_SYMBOL } from "@/lib/camp";
 import { campInputToInstant } from "@/lib/dates";
 import { haveIt } from "../rules/have-it";
 import { canMove, isOpen, NEED_STATUSES, type NeedStatus } from "../rules/status";
@@ -28,13 +29,19 @@ function quantity(text: string): number {
   return Math.round(n * 100) / 100;
 }
 
+const SYMBOL_PREFIX = new RegExp(
+  `^${MONEY_SYMBOL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s?`,
+  "i",
+);
+
 function randCents(text: string | undefined): number | null {
   if (text === undefined || text.trim() === "") return null;
-  const clean = text.trim().replace(/^R\s?/i, "").replaceAll(",", "").replaceAll(" ", "");
+  const clean = text.trim().replace(SYMBOL_PREFIX, "").replaceAll(",", "").replaceAll(" ", "");
   if (!/^\d+(\.\d{1,2})?$/.test(clean))
-    throw new ValidationError("Use an amount like 4500 or R4,500");
+    throw new ValidationError(`Use an amount like 4500 or ${MONEY_SYMBOL}4,500`);
   const c = Math.round(Number(clean) * 100);
-  if (c <= 0 || c > 100_000_000_00) throw new ValidationError("Use an amount more than R0");
+  if (c <= 0 || c > 100_000_000_00)
+    throw new ValidationError(`Use an amount more than ${MONEY_SYMBOL}0`);
   return c;
 }
 

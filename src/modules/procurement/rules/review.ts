@@ -1,5 +1,7 @@
 // Admin daily review (Oct 28 2026): what counts as "yesterday", which drafts are flagged, and
 // the AI spend line.
+
+import { MONEY_SYMBOL } from "@/lib/camp";
 import { campInputToInstant, instantToCampInput } from "@/lib/dates";
 
 export const STALE_DRAFT_DAYS = 2;
@@ -17,11 +19,11 @@ export function isStaleDraft(d: { status: string; createdAt: Date }, now: Date) 
   return d.status === "draft" && now.getTime() - d.createdAt.getTime() >= STALE_DRAFT_DAYS * DAY;
 }
 
-const rand = (cents: number) => `R${Math.round(cents / 100)}`;
+const rand = (cents: number) => `${MONEY_SYMBOL}${Math.round(cents / 100)}`;
 
 export function spendLine(spentCents: number, capCents: number) {
   if (capCents <= 0)
-    return "The AI is off (the monthly limit is R0), so only the demo version runs.";
+    return `The AI is off (the monthly limit is ${MONEY_SYMBOL}0), so only the demo version runs.`;
   const head = `This month the AI has cost ${rand(spentCents)}`;
   if (spentCents >= capCents)
     return `${head} and reached the ${rand(capCents)} limit, so the demo version is used until next month.`;

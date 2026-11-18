@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { MONEY_UNIT } from "@/lib/camp";
 import { type NeedStatus, STATUS_LABEL } from "../../rules/status";
 import { askFinance, editNeed, moveNeed, raiseNeed, setCritical } from "../../server/needs";
 import { setCount } from "../../server/stock";
@@ -158,7 +159,7 @@ export function NeedLeadActions(props: {
             inputMode="decimal"
             defaultValue={props.estimate}
             className={field}
-            placeholder="About how much? (rand)"
+            placeholder={`About how much? (${MONEY_UNIT})`}
             required
           />
           <Button type="submit" disabled={pending} className="min-h-11 self-start">
@@ -260,7 +261,7 @@ export function EditNeedForm(props: {
               </option>
             ))}
           </select>
-          <Label htmlFor="e-estimate">Estimate (rand)</Label>
+          <Label htmlFor="e-estimate">Estimate ({MONEY_UNIT})</Label>
           <Input
             id="e-estimate"
             name="estimate"

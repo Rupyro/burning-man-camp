@@ -3,6 +3,7 @@
 import { and, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import { ForbiddenError, moduleAction, type ReadOnlyDb, ValidationError } from "@/base/api";
+import { MONEY_SYMBOL } from "@/lib/camp";
 import { parseRand } from "../rules/money";
 import { summaryCsv } from "../rules/summary";
 import {
@@ -18,7 +19,7 @@ const dateOnly = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Use a date like 2027-0
 
 function cents(amount: string): number {
   const c = parseRand(amount);
-  if (c === null) throw new ValidationError("Use an amount like 4500 or R4,500.50");
+  if (c === null) throw new ValidationError(`Use an amount like 4500 or ${MONEY_SYMBOL}4,500.50`);
   return c;
 }
 
