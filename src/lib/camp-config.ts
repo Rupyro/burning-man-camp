@@ -4,7 +4,29 @@
 
 import type { CampCustom } from "./camp-packs";
 
-export type CampPackKey = "core" | "sound" | "mutant-vehicle" | "power";
+export type CampPackKey =
+  | "core"
+  | "sound"
+  | "mutant-vehicle"
+  | "power"
+  | "fire-flame"
+  | "kitchen"
+  | "art"
+  | "village"
+  | "workshops";
+
+/**
+ * Kinds of Burning Man camp (Placement's placed-camp categories, plus open camping). A camp's
+ * type decides which Placement screens it sees, e.g. open camping hides the Statement of Intent.
+ */
+export const CAMP_TYPES = [
+  { key: "theme", label: "Theme camp (placed)" },
+  { key: "art-support", label: "Art support camp" },
+  { key: "mutant-vehicle", label: "Mutant vehicle camp" },
+  { key: "work-support", label: "Work or civic support camp" },
+  { key: "open", label: "Open camping (not placed)" },
+] as const;
+export type CampTypeKey = (typeof CAMP_TYPES)[number]["key"];
 
 /** Database enum values for who owns a piece of gear. Frozen in the schema (no migration). */
 export const OWNER_KEYS = ["oeaasies", "khoena", "shared", "borrowed", "rented"] as const;
@@ -31,6 +53,10 @@ export interface CampConfig {
     tagline: string;
     /** Camp type packs; core always loads first even if left out. */
     packs: readonly CampPackKey[];
+    /** What kind of camp this is (CAMP_TYPES). Optional until every camp has set it. */
+    type?: CampTypeKey;
+    /** About how many people camp with us, including first-timers. */
+    size?: number;
   };
   look: {
     /** URL of the logo; files live in camp-art/ and are served from public/ at build. */
@@ -73,6 +99,10 @@ export function campConfigProblems(c: CampConfig): string[] {
   if (!c.camp.name.trim()) out.push("camp.name is empty");
   if (!/^[a-z0-9]+$/.test(c.camp.slug)) out.push("camp.slug must be lowercase letters and digits");
   if (!/^[A-Z]{3}$/.test(c.money.currency)) out.push("money.currency must be a 3-letter code");
+  if (c.camp.type !== undefined && !CAMP_TYPES.some((t) => t.key === c.camp.type))
+    out.push("camp.type must be one of the camp types");
+  if (c.camp.size !== undefined && (!Number.isInteger(c.camp.size) || c.camp.size < 1))
+    out.push("camp.size must be a whole number of people");
   if (new Set(c.camp.packs).size !== c.camp.packs.length) out.push("camp.packs has duplicates");
   const y = c.joining.familyYears.since;
   if (!Number.isInteger(y) || y < 1990 || y > 2100)
