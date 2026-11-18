@@ -1,7 +1,7 @@
 // End-time buttons for a new team notice, in camp time: tap one instead of typing a date.
 import { TZDate } from "@date-fns/tz";
 import { format } from "date-fns";
-import { CAMP_TIMEZONE } from "@/lib/dates";
+import { CAMP_TIMEZONE, localPattern } from "@/lib/dates";
 
 const at6pm = (now: Date, addDays: number) => {
   const z = new TZDate(now, CAMP_TIMEZONE);
@@ -27,7 +27,7 @@ export function noticeEndChoices(now: Date): { label: string; at: string }[] {
   const toFri = (5 - dow + 7) % 7 || 7;
   if (toFri > 1 && toFri < 7)
     out.push({
-      label: `Friday 6pm (${format(new TZDate(at6pm(now, toFri), CAMP_TIMEZONE), "d MMM")})`,
+      label: `Friday 6pm (${format(new TZDate(at6pm(now, toFri), CAMP_TIMEZONE), localPattern("d MMM"))})`,
       at: at6pm(now, toFri),
     });
   out.push({ label: "In a week", at: at6pm(now, 7) });

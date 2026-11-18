@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ModuleContext } from "@/base/api";
-import { formatCampDay } from "@/lib/dates";
+import { CAMP_TZ_LABEL, formatCampDay } from "@/lib/dates";
 import { categoryLabel } from "../../rules/csv";
 import { shoppingList } from "../../rules/shopping";
 import { STATUS_LABEL } from "../../rules/status";
@@ -55,7 +55,8 @@ export async function ListPage({ ctx, teamId }: { ctx: ModuleContext; teamId: st
           Shopping list: {team.name}, {ctx.edition.year}
         </h1>
         <p className="text-xs text-muted-foreground">
-          Generated {formatCampDay(ctx.now, "d MMM yyyy, HH:mm")} camp time (SAST) · {lines} line
+          Generated {formatCampDay(ctx.now, "d MMM yyyy, HH:mm")} camp time ({CAMP_TZ_LABEL}) ·{" "}
+          {lines} line
           {lines === 1 ? "" : "s"} · quantities are what's still missing after what we own
         </p>
         {groups.length === 0 ? <p className="mt-3 text-sm">Nothing to buy right now.</p> : null}

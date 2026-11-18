@@ -37,6 +37,10 @@ export interface EventPack {
   place: string;
   /** IANA time zone for every date and deadline. */
   timezone: string;
+  /** Short label printed after camp times, e.g. "PT". */
+  timezoneLabel: string;
+  /** "us" = "Sat, Aug 29, 2027, 9:00 AM"; "day-first" = "Sat 29 Aug 2027, 09:00". */
+  dateStyle: "us" | "day-first";
   /** Currency tickets and fees are in (ISO 4217). */
   currency: string;
   year: number;

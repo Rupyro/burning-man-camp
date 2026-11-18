@@ -16,6 +16,7 @@ import {
 } from "@/base/engine/server/actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CAMP_TZ_LABEL } from "@/lib/dates";
 import { ActionForm } from "../../_components/action-form";
 import {
   MODE_CHOICES,
@@ -96,7 +97,7 @@ export function DueForm(p: { taskId: string; date: string; time: string }) {
       read={(f) => editTask({ taskId: p.taskId, patch: readDueForm(getter(f)) })}
     >
       <Text name="dueDate" label="Due (date; empty = none)" type="date" value={p.date} />
-      <Text name="dueTime" label="Due (time, SAST)" type="time" value={p.time} />
+      <Text name="dueTime" label={`Due (time, ${CAMP_TZ_LABEL})`} type="time" value={p.time} />
     </ActionForm>
   );
 }
