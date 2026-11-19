@@ -1,7 +1,9 @@
 import { can, type ModuleContext } from "@/base/api";
+import { activeEvent } from "@/lib/active-packs";
 import { formatCampDay, formatCampTime, instantToCampInput } from "@/lib/dates";
 import { CATEGORY_LABEL, clashes, toCsv } from "../../rules/schedule";
 import { listEvents, type ScheduleRow } from "../../server/queries";
+import { AddEventForm, RemoveButton } from "../components/forms";
 
 function byDay(rows: readonly ScheduleRow[]) {
   const days: { key: string; rows: ScheduleRow[] }[] = [];
@@ -38,6 +40,7 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
       <p className="text-sm text-muted-foreground">
         What the camp offers to the city, and when. {rows.length} events.
       </p>
+      {manager ? <AddEventForm firstDay={activeEvent.event?.start} /> : null}
       {clash.length ? (
         <section role="alert" className="rounded-2xl border bg-card p-4 text-sm">
           <b>Overlaps to fix:</b>
@@ -65,6 +68,7 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
                   {r.host ? ` · hosted by ${r.host}` : ""}
                 </span>
                 {r.description ? <span className="block">{r.description}</span> : null}
+                {manager ? <RemoveButton id={r.id} /> : null}
               </li>
             ))}
           </ul>

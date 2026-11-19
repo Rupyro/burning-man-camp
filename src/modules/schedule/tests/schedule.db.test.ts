@@ -1,6 +1,6 @@
 // Camp schedule: managers add events in camp time; members see them; overlaps are flagged.
 import { renderToStaticMarkup } from "react-dom/server";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ok } from "@/base/api/testing";
 import {
   actAs,
@@ -12,6 +12,10 @@ import {
   setFlagAs,
   truncateAll,
 } from "@/base/api/testing-db";
+
+// The add and remove forms use the app router; static rendering needs a stand-in.
+vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh: () => undefined }) }));
+
 import { addEvent, removeEvent } from "../server/actions";
 import { listEvents } from "../server/queries";
 import { HomePage } from "../ui/pages/home";
@@ -60,9 +64,11 @@ describe("schedule", () => {
     expect(lead).toContain("Overlaps to fix");
     expect(lead).toContain("Knots and Tea");
     expect(lead).toContain("for the event guide (CSV)");
+    expect(lead).toContain("Add the event");
     const mine = renderToStaticMarkup(await HomePage({ ctx: await ctxFor(member) }));
     expect(mine).toContain("Knots");
     expect(mine).not.toContain("Overlaps to fix");
+    expect(mine).not.toContain("Add the event");
     await ok(removeEvent({ id: rows[1]?.id ?? "" }));
     expect(await listEvents(getDb(), EDITION.id)).toHaveLength(2);
   });
