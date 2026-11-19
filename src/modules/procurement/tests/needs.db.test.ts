@@ -100,7 +100,7 @@ describe("needs", () => {
       ValidationError,
     );
     await ok(moveNeed({ id, to: "to_buy" }));
-    const { taskId } = await ok(askFinance({ id, estimate: "R1,350" }));
+    const { taskId } = await ok(askFinance({ id, estimate: "$1,350" }));
     expect(taskId).toBeTruthy();
     await actAs(p.camp);
     await financeDecides(id, "approved");
@@ -233,7 +233,7 @@ describe("needs", () => {
     await expect(ok(editNeed({ id, quantity: "6" }))).rejects.toBeInstanceOf(ForbiddenError);
     await actAs(p.lead);
     await ok(moveNeed({ id, to: "to_buy" }));
-    await ok(editNeed({ id, estimate: "R900", neededBy: null }));
+    await ok(editNeed({ id, estimate: "$900", neededBy: null }));
     expect(await need(id)).toMatchObject({ estimateCents: 90_000, neededBy: null });
     await actAs(p.member);
     await expect(ok(editNeed({ id, quantity: "2" }))).rejects.toBeInstanceOf(ForbiddenError);

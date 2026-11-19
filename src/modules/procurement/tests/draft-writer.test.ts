@@ -9,12 +9,12 @@ describe("demo draft writer", () => {
   it("writes a polite vendor email with a subject, signed by the lead", () => {
     const d = writeDemo({ ...base, kind: "email", ask: "a quote for 200 kg of ice on 27 April" });
     expect(d.writer).toBe("demo");
-    expect(d.subject).toBe("Request from Oe-aa-sies: a quote for 200 kg of ice on 27 April");
+    expect(d.subject).toBe("Request from Your Camp: a quote for 200 kg of ice on 27 April");
     expect(d.body).toContain("Hi there,");
     expect(d.body).toContain(
       "Could you please help us with a quote for 200 kg of ice on 27 April?",
     );
-    expect(d.body).toContain("Lindiwe, Oe-aa-sies Kitchen");
+    expect(d.body).toContain("Lindiwe, Your Camp Kitchen");
   });
 
   it("cuts a long subject and strips a trailing full stop", () => {
@@ -27,7 +27,7 @@ describe("demo draft writer", () => {
     const d = writeDemo({
       ...base,
       kind: "whatsapp",
-      to: "Oe-aa-sies Camp group",
+      to: "Your Camp Camp group",
       ask: "container loading now starts at 10 am, not 9 am",
     });
     expect(d.subject).toBeNull();
@@ -45,13 +45,13 @@ describe("demo draft writer", () => {
 });
 
 describe("daily review rules", () => {
-  const now = new Date("2026-04-10T08:00:00Z"); // 10:00 camp time
+  const now = new Date("2026-04-10T17:00:00Z"); // 10:00 camp time
 
   it("yesterday runs midnight to midnight in camp time", () => {
     const y = yesterdayOf(now);
     expect(y.date).toBe("2026-04-09");
-    expect(y.start.toISOString()).toBe("2026-04-08T22:00:00.000Z");
-    expect(y.end.toISOString()).toBe("2026-04-09T22:00:00.000Z");
+    expect(y.start.toISOString()).toBe("2026-04-09T07:00:00.000Z");
+    expect(y.end.toISOString()).toBe("2026-04-10T07:00:00.000Z");
   });
 
   it("an unsent draft is flagged after two days, a sent or discarded one never", () => {
@@ -63,18 +63,18 @@ describe("daily review rules", () => {
     expect(isStaleDraft({ status: "discarded", createdAt: old }, now)).toBe(false);
   });
 
-  it("says the AI spend in rand against the limit", () => {
+  it("says the AI spend in dollars against the limit", () => {
     expect(spendLine(1_800, 15_000)).toBe(
-      "This month the AI has cost R18, which is under the R150 limit.",
+      "This month the AI has cost $18, which is under the $150 limit.",
     );
     expect(spendLine(14_000, 15_000)).toBe(
-      "This month the AI has cost R140, close to the R150 limit.",
+      "This month the AI has cost $140, close to the $150 limit.",
     );
     expect(spendLine(15_000, 15_000)).toBe(
-      "This month the AI has cost R150 and reached the R150 limit, so the demo version is used until next month.",
+      "This month the AI has cost $150 and reached the $150 limit, so the demo version is used until next month.",
     );
     expect(spendLine(0, 0)).toBe(
-      "The AI is off (the monthly limit is R0), so only the demo version runs.",
+      "The AI is off (the monthly limit is $0), so only the demo version runs.",
     );
   });
 });

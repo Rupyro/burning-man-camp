@@ -14,7 +14,7 @@ describe("what to bring screen", () => {
     expect(html).toMatch(/I bring · 1 of \d+/);
     expect(html).toContain("Priority");
     expect(html).toContain('checked=""');
-    expect(html).toContain("5 L for every day");
+    expect(html).toContain("1.5 gallons for every day");
     expect(html).toContain("Camping chairs");
     // Keyboard users see a focus ring on the box of the (visually hidden) checkbox.
     expect(html).toContain("peer sr-only");
