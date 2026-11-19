@@ -23,8 +23,8 @@ describe("readAnchorForm", () => {
       input: {
         key: "build_start",
         label: "Build",
-        startsAt: "2027-04-21T06:00:00.000Z",
-        endsAt: "2027-04-25T16:00:00.000Z",
+        startsAt: "2027-04-21T15:00:00.000Z",
+        endsAt: "2027-04-26T01:00:00.000Z",
         isConfirmed: true,
         sourceNote: "camp draft",
       },
@@ -41,7 +41,7 @@ describe("readAnchorForm", () => {
       input: {
         key: "gate_open",
         label: "Gate",
-        startsAt: "2027-04-25T22:00:00.000Z",
+        startsAt: "2027-04-26T07:00:00.000Z",
         endsAt: null,
         isConfirmed: false,
         sourceNote: null,
@@ -76,7 +76,7 @@ describe("edition form and summary", () => {
       anchorFormInitial({
         key: "build_start",
         label: "Build",
-        startsAt: new Date("2027-04-21T06:00:00Z"),
+        startsAt: new Date("2027-04-21T15:00:00Z"),
         endsAt: null,
         isConfirmed: true,
         sourceNote: null,

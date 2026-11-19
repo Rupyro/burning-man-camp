@@ -41,7 +41,7 @@ describe("shifts seed", () => {
     await seed(ctx);
     await seed(ctx);
     const [settings] = await getDb().select().from(shiftsSettings);
-    expect(settings?.freezeAt.toISOString()).toBe("2027-04-18T22:00:00.000Z");
+    expect(settings?.freezeAt.toISOString()).toBe("2027-08-23T07:00:00.000Z");
     const duties = await getDb().select().from(shiftsDutyTypes);
     expect(duties.map((d) => d.key).sort()).toEqual([
       "art_car_crew",
@@ -66,7 +66,7 @@ describe("shifts seed", () => {
       .from(shiftsSlots)
       .where(eq(shiftsSlots.dutyTypeId, breakfast?.id ?? ""));
     expect(slots).toHaveLength(6); // Mon–Sat
-    expect(slots[0]?.startsAt.toISOString()).toBe("2027-04-26T07:00:00.000Z"); // 09:00 SAST
+    expect(slots[0]?.startsAt.toISOString()).toBe("2027-08-30T16:00:00.000Z"); // 09:00 PT
     expect((await getDb().select().from(shiftsChecklistItems)).length).toBeGreaterThan(30);
     expect((await getDb().select().from(shiftsSlots)).length).toBe(6 * 5 + 7 * 2 + 3 + 1);
     expect((await getDb().select().from(shiftsSignups)).length).toBe(17);
