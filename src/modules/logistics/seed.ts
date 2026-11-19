@@ -15,20 +15,20 @@ import {
 } from "./schema";
 
 const PLACES = [
-  ["Cape Town storage", "storage", "Fake storage unit (demo), Paarden Eiland"],
+  ["Storage unit (demo)", "storage", "Fake storage unit (demo), Reno"],
   ["Container yard (demo)", "container_yard", "Where the containers wait between burns"],
-  ["Tankwa site", "site", "Our spot on the playa"],
-  ["Observatory", "city_area", null],
-  ["Southern Suburbs", "city_area", null],
-  ["Stellenbosch", "city_area", null],
-  ["Cape Town airport", "airport", null],
+  ["Black Rock City site", "site", "Our spot on the playa"],
+  ["San Francisco", "city_area", null],
+  ["Oakland", "city_area", null],
+  ["Sacramento", "city_area", null],
+  ["Reno airport", "airport", null],
 ] as const;
 
 const VEHICLES = [
-  ["Hired 8-ton truck (demo)", "truck", 2, "8 t, tail lift"],
-  ["Lex's bakkie (demo)", "bakkie", 3, "Canopy, tow bar"],
+  ["Rented 26 ft box truck (demo)", "truck", 2, "26 ft, lift gate"],
+  ["Lex's pickup (demo)", "bakkie", 3, "Camper shell, tow hitch"],
   ["Container truck: Container A", "container_truck", 1, "Container A on and off site"],
-  ["Trailer (camp)", "trailer", null, "2.5 m, needs a tow bar"],
+  ["Trailer (camp)", "trailer", null, "8 ft, needs a tow hitch"],
 ] as const;
 
 type LoadSeed = [
@@ -47,12 +47,12 @@ const LOADS: LoadSeed[] = [
     2,
     1,
     2,
-    ["2027-04-16", "06:00"],
+    ["2027-08-19", "06:00"],
     "packing",
     [
-      ["Shade cloth 6x6", 12, "pcs", false, true],
+      ["Shade cloth 20x20 ft", 12, "pcs", false, true],
       ["Scaffold poles", 40, "pcs", false, true],
-      ["Generator 5 kVA", 1, "pcs", true, false],
+      ["Generator 5 kW", 1, "pcs", true, false],
       ["Staple guns", 2, "pcs", false, false],
     ],
   ],
@@ -61,21 +61,21 @@ const LOADS: LoadSeed[] = [
     0,
     0,
     2,
-    ["2027-04-19", "07:00"],
+    ["2027-08-22", "07:00"],
     "planned",
     [
-      ["Water 25 L", 40, "pcs", true],
-      ["Gas bottles 9 kg", 6, "pcs", true],
+      ["Water 5 gal", 40, "pcs", true],
+      ["Propane tanks 20 lb", 6, "pcs", true],
       ["Kitchen crates", 14, "pcs"],
       ["Chest freezers", 2, "pcs"],
     ],
   ],
   [
-    "Bakkie run: art car parts",
+    "Pickup run: art car parts",
     1,
     5,
     null,
-    ["2027-04-20", "09:00"],
+    ["2027-08-23", "09:00"],
     "planned",
     [["Steel for the art car", 1, "lot", true]],
   ],
@@ -84,14 +84,14 @@ const LOADS: LoadSeed[] = [
     1,
     0,
     2,
-    ["2027-04-12", "08:00"],
+    ["2027-08-15", "08:00"],
     "delivered",
     [
       ["Tent pegs (big)", 200, "pcs", false, true],
-      ["Rope 50 m", 6, "pcs", false, true],
+      ["Rope 150 ft", 6, "pcs", false, true],
     ],
   ],
-  ["Strike: container back", 2, 2, 1, ["2027-05-04", "10:00"], "planned", []],
+  ["Strike: container back", 2, 2, 1, ["2027-09-08", "10:00"], "planned", []],
 ];
 
 /** Who travels how (by fake member index), [direction, mode, day, area, seats]. */
@@ -103,20 +103,20 @@ const TRAVEL: [
   number | null,
   number,
 ][] = [
-  [0, "to_burn", "offering_ride", "2027-04-21", 3, 3],
-  [1, "to_burn", "offering_ride", "2027-04-22", 4, 2],
-  [2, "to_burn", "offering_ride", "2027-04-21", 5, 2],
-  [3, "to_burn", "need_ride", "2027-04-21", 3, 1],
-  [4, "to_burn", "need_ride", "2027-04-22", 4, 1],
-  [5, "to_burn", "need_ride", "2027-04-23", null, 2],
-  [6, "to_burn", "own_arrangement", "2027-04-20", null, 0],
-  [7, "to_burn", "need_ride", "2027-04-22", 6, 1],
-  [8, "to_burn", "own_arrangement", "2027-04-19", null, 0],
-  [9, "to_burn", "offering_ride", "2027-04-24", 3, 1],
-  [0, "from_burn", "offering_ride", "2027-05-03", 3, 3],
-  [3, "from_burn", "need_ride", "2027-05-03", 3, 1],
-  [4, "from_burn", "need_ride", "2027-05-04", null, 1],
-  [10, "from_burn", "own_arrangement", "2027-05-02", null, 0],
+  [0, "to_burn", "offering_ride", "2027-08-24", 3, 3],
+  [1, "to_burn", "offering_ride", "2027-08-25", 4, 2],
+  [2, "to_burn", "offering_ride", "2027-08-24", 5, 2],
+  [3, "to_burn", "need_ride", "2027-08-24", 3, 1],
+  [4, "to_burn", "need_ride", "2027-08-25", 4, 1],
+  [5, "to_burn", "need_ride", "2027-08-26", null, 2],
+  [6, "to_burn", "own_arrangement", "2027-08-23", null, 0],
+  [7, "to_burn", "need_ride", "2027-08-25", 6, 1],
+  [8, "to_burn", "own_arrangement", "2027-08-22", null, 0],
+  [9, "to_burn", "offering_ride", "2027-08-27", 3, 1],
+  [0, "from_burn", "offering_ride", "2027-09-06", 3, 3],
+  [3, "from_burn", "need_ride", "2027-09-06", 3, 1],
+  [4, "from_burn", "need_ride", "2027-09-07", null, 1],
+  [10, "from_burn", "own_arrangement", "2027-09-05", null, 0],
 ];
 
 export async function seed({ db, edition, people: demo }: ModuleSeedContext) {
@@ -172,7 +172,7 @@ export async function seed({ db, edition, people: demo }: ModuleSeedContext) {
         departsAt: departs ? campInputToInstant(departs[0], departs[1]) : null,
         status,
         deliveredConfirmedAt:
-          status === "delivered" ? campInputToInstant("2027-04-12", "15:30") : null,
+          status === "delivered" ? campInputToInstant("2027-08-15", "15:30") : null,
         deliveredConfirmedByPersonId: status === "delivered" ? demo.lead : null,
       })
       .returning();
@@ -185,7 +185,7 @@ export async function seed({ db, edition, people: demo }: ModuleSeedContext) {
         quantity,
         unit,
         isCritical: critical ?? false,
-        packedAt: packed ? campInputToInstant("2027-04-10", "12:00") : null,
+        packedAt: packed ? campInputToInstant("2027-08-13", "12:00") : null,
         packedByPersonId: packed ? person(0) : null,
       })),
     );
@@ -196,14 +196,14 @@ export async function seed({ db, edition, people: demo }: ModuleSeedContext) {
       editionId: edition.id,
       description: "Medical kit (large)",
       isCritical: true,
-      neededBy: "2027-04-18",
+      neededBy: "2027-08-21",
     },
     {
       editionId: edition.id,
-      description: "Fire extinguisher 9 kg",
+      description: "Fire extinguisher 10 lb",
       quantity: 2,
       isCritical: true,
-      neededBy: "2027-04-16",
+      neededBy: "2027-08-19",
     },
     { editionId: edition.id, description: "Spare tarps", quantity: 4 },
   ]);
@@ -236,7 +236,7 @@ export async function seed({ db, edition, people: demo }: ModuleSeedContext) {
         personId: demo.member,
         direction: "to_burn" as const,
         mode: "need_ride" as const,
-        travelDate: "2027-04-21",
+        travelDate: "2027-08-24",
         areaPlaceId: placeId(3),
         seatsNeeded: 1,
       },
@@ -245,13 +245,13 @@ export async function seed({ db, edition, people: demo }: ModuleSeedContext) {
         personId: demo.member,
         direction: "from_burn" as const,
         mode: "offering_ride" as const,
-        travelDate: "2027-05-03",
+        travelDate: "2027-09-06",
         areaPlaceId: placeId(3),
         seatsOffered: 2,
       },
     ])
     .returning();
-  const asked = campInputToInstant("2027-03-30", "19:00");
+  const asked = campInputToInstant("2027-07-30", "19:00");
   await db.insert(logisticsRideMatches).values([
     {
       driverPlanId: plan(0, "to_burn"),
