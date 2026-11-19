@@ -2,8 +2,8 @@
 
 Written Nov 18, 2026 (ET); updated Nov 19, 2026, after the merge run. Each PR below touches
 protected paths (migrations, tests, or both). On Nov 18 Ruchir approved all of them, in this
-order, so the agent added the `allow-protected-change` label to exactly these PRs. `large-ok`
-was not needed.
+order, so the agent added the `allow-protected-change` label to exactly these PRs. Only #40
+also got `large-ok`: with its coverage tests it counted 620 lines, over the 600 limit.
 
 ## Status (Nov 19, 2026, about 1:30 AM ET)
 
