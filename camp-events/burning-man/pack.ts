@@ -19,6 +19,7 @@ export default defineEventPack({
   key: "burning-man",
   label: "Burning Man",
   place: "Black Rock City, Nevada",
+  coords: { lat: 40.786, lon: -119.206 },
   timezone: "America/Los_Angeles",
   timezoneLabel: "PT",
   dateStyle: "us",
