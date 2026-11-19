@@ -23,8 +23,10 @@ export type ModuleId =
   | "exports"
   | "binder"
   | "applicants"
+  | "exodus"
   | "mv"
   | "registers"
+  | "schedule"
   | "sound"
   | "tickets";
 
