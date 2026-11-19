@@ -67,7 +67,7 @@ describe("applicants and finance", () => {
       sourceRefType: "applicants.application",
       sourceRefId: id,
     });
-    expect(await app()).toMatchObject({ feeCents: 350_000, feeRefId: fee?.id, paidAt: null });
+    expect(await app()).toMatchObject({ feeCents: 45_000, feeRefId: fee?.id, paidAt: null });
     const created = (await getDb().select().from(domainEvents)).filter(
       (e) => e.name === "finance.fee.created",
     );

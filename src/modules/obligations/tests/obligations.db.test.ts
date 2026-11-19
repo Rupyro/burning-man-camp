@@ -132,7 +132,7 @@ describe("obligations", () => {
       }),
     );
     const [row] = await listObligations(getDb(), EDITION.id);
-    expect(row?.dueAt?.toISOString()).toBe("2027-04-02T10:00:00.000Z"); // noon SAST
+    expect(row?.dueAt?.toISOString()).toBe("2027-04-02T19:00:00.000Z"); // noon PT
     expect(row?.ownerPersonId).toBe(member);
     expect(row?.dateConfirmed).toBe(true);
     expect(row?.documentCount).toBe(2);

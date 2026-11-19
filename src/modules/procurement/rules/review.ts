@@ -19,16 +19,16 @@ export function isStaleDraft(d: { status: string; createdAt: Date }, now: Date) 
   return d.status === "draft" && now.getTime() - d.createdAt.getTime() >= STALE_DRAFT_DAYS * DAY;
 }
 
-const rand = (cents: number) => `${MONEY_SYMBOL}${Math.round(cents / 100)}`;
+const money = (cents: number) => `${MONEY_SYMBOL}${Math.round(cents / 100)}`;
 
 export function spendLine(spentCents: number, capCents: number) {
   if (capCents <= 0)
     return `The AI is off (the monthly limit is ${MONEY_SYMBOL}0), so only the demo version runs.`;
-  const head = `This month the AI has cost ${rand(spentCents)}`;
+  const head = `This month the AI has cost ${money(spentCents)}`;
   if (spentCents >= capCents)
-    return `${head} and reached the ${rand(capCents)} limit, so the demo version is used until next month.`;
-  if (spentCents >= capCents * 0.8) return `${head}, close to the ${rand(capCents)} limit.`;
-  return `${head}, which is under the ${rand(capCents)} limit.`;
+    return `${head} and reached the ${money(capCents)} limit, so the demo version is used until next month.`;
+  if (spentCents >= capCents * 0.8) return `${head}, close to the ${money(capCents)} limit.`;
+  return `${head}, which is under the ${money(capCents)} limit.`;
 }
 
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];

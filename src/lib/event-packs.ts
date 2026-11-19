@@ -3,6 +3,7 @@
 // camp.config.ts picks one with event.pack. Its obligations merge after the camp's packs.
 
 import type { PackItem } from "./camp-packs";
+import type { QuizQuestion } from "./first-timer-quiz";
 
 /** "official" = posted by the event for this year; "pattern" = last year's date, until posted. */
 export type EventDateStatus = "official" | "pattern";
@@ -32,6 +33,15 @@ export interface EventRule {
   source: string;
 }
 
+export interface EventProject {
+  /** The camp pack that shows it, e.g. "mutant-vehicle" or "art". */
+  pack: string;
+  label: string;
+  summary: string;
+  steps: readonly { label: string; window: string }[];
+  source: string;
+}
+
 export interface EventPack {
   key: "burning-man" | "afrikaburn";
   label: string;
@@ -45,6 +55,12 @@ export interface EventPack {
   timezoneLabel: string;
   /** "us" = "Sat, Aug 29, 2027, 9:00 AM"; "day-first" = "Sat 29 Aug 2027, 09:00". */
   dateStyle: "us" | "day-first";
+  /** Water planning: what each person needs per day, in the event's usual unit. */
+  water?: { perPersonPerDay: number; unit: "gal" | "L"; source?: string };
+  /** Fuel storage: the most stored fuel a camp may hold and how full a can may be, with a source. */
+  fuel?: { storageLimit: number; maxFill: number; unit: "gal" | "L"; source: string };
+  /** Food permit: needed when cooking for more than `permitOver` campmates, or gifting food. */
+  food?: { permitOver: number; permitLabel: string; source: string };
   /** Currency tickets and fees are in (ISO 4217). */
   currency: string;
   year: number;
@@ -67,6 +83,13 @@ export interface EventPack {
   };
   /** Reading for someone going for the first time, in order. */
   firstTimer?: readonly { label: string; url: string }[];
+  /** A short quiz on the event's basics for first-timers (plan Phase 4). */
+  quiz?: readonly QuizQuestion[];
+  /**
+   * How to bring a project the event licenses or registers (a mutant vehicle, open-playa art),
+   * shown to camps with that camp pack. Windows are the event's usual ones, in plain words.
+   */
+  projects?: readonly EventProject[];
   /** Obligation definitions this event switches on (keys into the obligations module's seed). */
   obligations?: readonly PackItem[];
   /** Section labels this event renames, e.g. the obligations tile. */
