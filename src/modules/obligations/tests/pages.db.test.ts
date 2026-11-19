@@ -53,8 +53,8 @@ describe("obligations pages", () => {
   it("members get the list with theirs on top, no summary or table", async () => {
     const html = renderToStaticMarkup(await BoardPage({ ctx: await ctxFor(member) }));
     expect(html).toContain("Yours (2)");
-    expect(html).toContain("All camp deadlines (14)");
-    expect(html).toContain("TBC (2026: 5 Apr)");
+    expect(html).toContain("All camp deadlines (12)");
+    expect(html).toContain("TBC (2026: Apr 5)");
     expect(html).toContain("Late");
     expect(html).not.toContain('aria-label="Summary"');
     expect(html).not.toContain("<table");
@@ -64,7 +64,7 @@ describe("obligations pages", () => {
     const html = renderToStaticMarkup(await BoardPage({ ctx: await ctxFor(admin) }));
     expect(html).toContain('aria-label="Summary"');
     expect(html).toContain("<table");
-    expect(html).toContain("1/14");
+    expect(html).toContain("1/12");
   });
 
   it("detail: the owner can submit, only managers see Edit, done ones show Reopen", async () => {

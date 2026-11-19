@@ -58,6 +58,8 @@ export interface EventPack {
   water?: { perPersonPerDay: number; unit: "gal" | "L"; source?: string };
   /** Fuel storage: the most stored fuel a camp may hold and how full a can may be, with a source. */
   fuel?: { storageLimit: number; maxFill: number; unit: "gal" | "L"; source: string };
+  /** Food permit: needed when cooking for more than `permitOver` campmates, or gifting food. */
+  food?: { permitOver: number; permitLabel: string; source: string };
   /** Currency tickets and fees are in (ISO 4217). */
   currency: string;
   year: number;

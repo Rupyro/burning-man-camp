@@ -96,7 +96,7 @@ describe("to-do list", () => {
     expect(t.find((x) => x.key === "doc:principles")?.done).toBe(true);
     expect(t.find((x) => x.key === "doc:camp_agreement")?.done).toBe(false);
     expect(t.find((x) => x.key === "fee")).toMatchObject({
-      label: "Pay the camp fee (R3,500)",
+      label: "Pay the camp fee ($3,500)",
       done: false,
     });
     expect(t.find((x) => x.key === "fee")?.hint).toMatch(/Demo: no real money/);
@@ -122,7 +122,7 @@ describe("joining (paid + every requirement, including the interview)", () => {
     expect(missingForJoin({ ...all, paidAt: null })).toEqual(["Camp fee"]);
     expect(missingForJoin({ ...all, docsDone: ["principles"] })).toEqual([
       "Camp agreement (placeholder)",
-      "AfrikaBurn ticket plan",
+      "Burning Man ticket plan",
     ]);
     expect(missingForJoin({ ...all, interviewDoneAt: null })).toEqual(["Interview and acceptance"]);
     expect(missingForJoin({ ...all, submittedAt: null })).toEqual(["Application form"]);
@@ -214,9 +214,9 @@ describe("placeholder form", () => {
       "build_strike",
     ]);
   });
-  it("formats integer cents as rand", () => {
-    expect(formatRand(350_000)).toBe("R3,500");
-    expect(formatRand(432_050)).toBe("R4,320.50");
-    expect(formatRand(-100)).toBe("−R1");
+  it("formats integer cents as dollars", () => {
+    expect(formatRand(350_000)).toBe("$3,500");
+    expect(formatRand(432_050)).toBe("$4,320.50");
+    expect(formatRand(-100)).toBe("−$1");
   });
 });
