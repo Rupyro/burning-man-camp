@@ -21,6 +21,8 @@ export interface EventCalendarEntry {
   status: EventDateStatus;
   /** Where the date comes from. */
   source: string;
+  /** Only for camps that go through Placement (every camp type except "open" camping). */
+  placedOnly?: boolean;
 }
 
 export interface EventRule {
