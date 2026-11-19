@@ -5,6 +5,7 @@ import { isActionFailure } from "@/base/api/action-result";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { MONEY_UNIT } from "@/lib/camp";
 import { checkRequestForm, LIMITS, type RequestFormProblems } from "../../rules/request-form";
 import { createRequest, editRequest } from "../../server/requests";
 
@@ -160,7 +161,7 @@ export function RequestForm(props: {
         {...aria("title")}
       />
       <FieldNote id="title" problem={problems.title} count={title.length} max={LIMITS.title} />
-      <Label htmlFor="amount">About how much? (rand)</Label>
+      <Label htmlFor="amount">About how much? ({MONEY_UNIT})</Label>
       <Input
         id="amount"
         name="amount"

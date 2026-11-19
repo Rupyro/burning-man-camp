@@ -9,6 +9,12 @@ export const campConfig = config;
 export const CAMP_NAME = config.camp.name;
 /** Money symbol before amounts, e.g. "R". */
 export const MONEY_SYMBOL = config.money.symbol;
+/** What to call the money in labels, e.g. "About how much? (dollars)". */
+export const MONEY_UNIT =
+  ({ ZAR: "rand", USD: "dollars" } as Record<string, string>)[config.money.currency] ??
+  config.money.currency;
+/** Number format for amounts: "en-US" for dollars, "en-ZA" for rand. */
+export const MONEY_LOCALE = config.money.currency === "ZAR" ? "en-ZA" : "en-US";
 
 /** Whether a camp tradition is switched on (camp.config.ts extras.traditions). */
 export function hasTradition(key: string): boolean {

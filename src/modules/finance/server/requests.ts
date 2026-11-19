@@ -10,6 +10,7 @@ import {
   moduleAction,
   ValidationError,
 } from "@/base/api";
+import { MONEY_SYMBOL } from "@/lib/camp";
 import { campInputToInstant } from "@/lib/dates";
 import { autoApprovable } from "../rules/automations";
 import { DECISION_NEXT_STEPS, DECISION_REASONS, decisionProblem } from "../rules/decision-reasons";
@@ -43,7 +44,7 @@ const rand = z.string().max(40);
 /** Rand text → cents, or a friendly validation error. */
 function cents(amount: string): number {
   const c = parseRand(amount);
-  if (c === null) throw new ValidationError("Use an amount like 4500 or R4,500.50");
+  if (c === null) throw new ValidationError(`Use an amount like 4500 or ${MONEY_SYMBOL}4,500.50`);
   return c;
 }
 

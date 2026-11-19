@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { can, type ModuleContext } from "@/base/api";
-import { MONEY_SYMBOL } from "@/lib/camp";
+import { MONEY_LOCALE, MONEY_SYMBOL } from "@/lib/camp";
 import { canMove, isOpen, NEED_STATUSES } from "../../rules/status";
 import { getNeed, listSuppliers, namesOf } from "../../server/queries";
 import { CriticalTag, dueText, HaveItLine, StatusChip } from "../components/bits";
@@ -10,7 +10,7 @@ import { EditNeedForm, NeedLeadActions } from "../components/need-forms";
 const rand = (c: number | null) =>
   c === null
     ? ""
-    : `${MONEY_SYMBOL}${(c / 100).toLocaleString("en-ZA", { maximumFractionDigits: 2 })}`;
+    : `${MONEY_SYMBOL}${(c / 100).toLocaleString(MONEY_LOCALE, { maximumFractionDigits: 2 })}`;
 
 /** One need: the have-it check, where it stands, and the tools for whoever may act on it. */
 export async function NeedPage({ ctx, id }: { ctx: ModuleContext; id: string }) {

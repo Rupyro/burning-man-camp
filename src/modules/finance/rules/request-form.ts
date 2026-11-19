@@ -1,5 +1,7 @@
 // The request form, checked in the browser before anything is sent (QA 21 Oct 2026). The server
 // checks again; this is only so people see what's wrong next to the field.
+
+import { MONEY_SYMBOL } from "@/lib/camp";
 import { MAX_CENTS, parseRand } from "./money";
 
 export const LIMITS = { title: 120, why: 2000, supplier: 120 } as const;
@@ -17,13 +19,13 @@ const tooLong = (v: string, max: number) =>
 
 function amountProblem(raw: string): string | null {
   const a = raw.trim();
-  if (!a) return "Enter an amount, like 4500 or R4,500.50.";
+  if (!a) return `Enter an amount, like 4500 or ${MONEY_SYMBOL}4,500.50.`;
   if (parseRand(a) !== null) return null;
   if (/^-/.test(a) || /^r?\s*0+(\.0+)?$/i.test(a)) return "The amount must be more than zero.";
   const digits = Number(a.replace(/^r\s*/i, "").replace(/[ ,]/g, ""));
   if (Number.isFinite(digits) && digits * 100 > MAX_CENTS)
-    return "That amount is over R10 million. Check it, or ask finance.";
-  return "Use an amount like 4500 or R4,500.50 (numbers only).";
+    return `That amount is over ${MONEY_SYMBOL}10 million. Check it, or ask finance.`;
+  return `Use an amount like 4500 or ${MONEY_SYMBOL}4,500.50 (numbers only).`;
 }
 
 /** Field → message for everything that would be refused; empty when the form is fine. */

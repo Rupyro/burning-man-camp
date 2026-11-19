@@ -4,6 +4,7 @@
 import { and, asc, eq, inArray, like } from "drizzle-orm";
 import type { ModuleSeedContext } from "@/base/api";
 import { editionMembers, people } from "@/base/api/schema";
+import { campConfig } from "@/lib/camp";
 import { campInputToInstant, instantToCampInput } from "@/lib/dates";
 import { suggestFamilyRole } from "./rules/family";
 import type { Answers } from "./rules/form";
@@ -118,7 +119,7 @@ export async function seed(ctx: ModuleSeedContext) {
         decidedAt: decided ? ago(8) : null,
         decidedByPersonId: decided ? ctx.people.lead : null,
         feeCents: plan.status === "joined" ? 350_000 : null,
-        feeCurrency: plan.status === "joined" ? "ZAR" : null,
+        feeCurrency: plan.status === "joined" ? campConfig.money.currency : null,
         paidAt: plan.status === "joined" ? ago(5) : null,
         joinedAt: plan.status === "joined" ? ago(5) : null,
       })
@@ -167,7 +168,7 @@ export async function seed(ctx: ModuleSeedContext) {
       decidedAt: ago(8),
       decidedByPersonId: ctx.people.lead,
       feeCents: 350_000,
-      feeCurrency: "ZAR",
+      feeCurrency: campConfig.money.currency,
       paidAt: ago(3),
       joinedAt: ago(3),
     })
