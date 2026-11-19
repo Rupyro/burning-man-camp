@@ -11,7 +11,12 @@ export default defineEventPack({
   timezoneLabel: "SAST",
   dateStyle: "day-first",
   currency: "ZAR",
-  water: { perPersonPerDay: 5, unit: "L" },
+  // "5 litres per person per day", the Survival Guide figure, quoted on AfrikaBurn's own site.
+  water: {
+    perPersonPerDay: 5,
+    unit: "L",
+    source: "https://www.afrikaburn.org/latest-news/waterwise-day-zero-beyond/",
+  },
   year: 2027,
   calendar: [],
   words: {
