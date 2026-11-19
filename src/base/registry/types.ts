@@ -22,7 +22,8 @@ export type ModuleId =
   | "content"
   | "exports"
   | "binder"
-  | "applicants";
+  | "applicants"
+  | "schedule";
 
 export type RoleKey =
   | "admin"
