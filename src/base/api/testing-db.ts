@@ -3,6 +3,7 @@
 
 // exposes the framework hooks a module's flag/event/landing tests need.
 import { sql } from "drizzle-orm";
+import { EVENT_NAME } from "@/lib/event";
 import { firstRow } from "@/lib/rows";
 import type { ModuleAudience } from "../authz/access";
 import { Actor } from "../authz/actor";
@@ -58,9 +59,12 @@ type PersonSpec = {
 /** A small camp: edition 2027 (current), role catalogue, two teams. */
 export async function createCamp() {
   const db = getDb();
-  await db
-    .insert(editions)
-    .values({ id: EDITION.id, year: EDITION.year, title: "AfrikaBurn 2027", status: "planning" });
+  await db.insert(editions).values({
+    id: EDITION.id,
+    year: EDITION.year,
+    title: `${EVENT_NAME} 2027`,
+    status: "planning",
+  });
   await db
     .insert(campSettings)
     .values({ name: "Test camp", refPrefix: "TST", currentEditionId: EDITION.id });
