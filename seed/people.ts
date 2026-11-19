@@ -272,11 +272,12 @@ export async function seedPeople(db: Db, editionId: string) {
 
   const roleRows = await db.select().from(roles);
   const roleId = new Map(roleRows.map((r) => [r.key, r.id]));
-  await db
-    .insert(roleAssignments)
-    .values(
-      ROLES.map(([i, key]) => ({ editionId, personId: id(i), roleId: roleId.get(key) ?? "" })),
-    )
-    .onConflictDoNothing();
+  // Only roles this camp has: a camp without the Sound pack has no sound_officer to hand out.
+  const assignments = ROLES.flatMap(([i, key]) => {
+    const role = roleId.get(key);
+    return role ? [{ editionId, personId: id(i), roleId: role }] : [];
+  });
+  if (assignments.length)
+    await db.insert(roleAssignments).values(assignments).onConflictDoNothing();
   return { people: list.length };
 }
