@@ -59,6 +59,10 @@ Entries marked `"pattern"` are last year's date moved to the same weekday. Chang
 
 To add another event (a regional burn, for example), see [Event packs](event-packs.md).
 
+**Exodus sweep crew:** `exodus.sweepCrew` in `camp.config.ts` sets how many people stay for the final
+line sweep: max(min, ceil(campers / perCampers)). The shipped 2 and 10 are a placeholder, not a
+Burning Man rule. Set your own.
+
 ## 3. Write your camp's words
 
 | File | What it is |
