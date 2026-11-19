@@ -1,6 +1,7 @@
 // Composition root: the ONLY file that imports every module manifest.
 // Remove a module = delete its folder + route folder and its line here.
 import { manifest as applicants } from "./applicants/manifest";
+import { manifest as exodus } from "./exodus/manifest";
 import { manifest as finance } from "./finance/manifest";
 import { manifest as logistics } from "./logistics/manifest";
 import { manifest as obligations } from "./obligations/manifest";
@@ -18,6 +19,7 @@ export const modules = [
   logistics,
   applicants,
   shifts,
+  exodus,
   registers,
   schedule,
   sound,

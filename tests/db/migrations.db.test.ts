@@ -16,6 +16,7 @@ describe("per-module migrations", () => {
     expect(targets.map((t) => t.table)).toEqual([
       "__drizzle_migrations_base",
       "__drizzle_migrations_applicants",
+      "__drizzle_migrations_exodus",
       "__drizzle_migrations_finance",
       "__drizzle_migrations_logistics",
       "__drizzle_migrations_obligations",
