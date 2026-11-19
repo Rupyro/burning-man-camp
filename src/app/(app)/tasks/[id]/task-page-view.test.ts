@@ -68,7 +68,7 @@ describe("forms", () => {
 
   it("due date: camp time, or cleared", () => {
     expect(readDueForm(get({ dueDate: "2027-04-12", dueTime: "10:00" }))).toEqual({
-      dueAt: "2027-04-12T08:00:00.000Z",
+      dueAt: "2027-04-12T17:00:00.000Z",
     });
     expect(readDueForm(get({}))).toEqual({ dueAt: null });
   });

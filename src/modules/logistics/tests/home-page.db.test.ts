@@ -42,7 +42,7 @@ describe("logistics home page", () => {
     const out = await html(p.logi);
     expect(out).toContain('aria-label="Logistics totals"');
     expect(out).toContain("Critical, not on its way (3)");
-    expect(out).toContain("Fire extinguisher 9 kg × 2");
+    expect(out).toContain("Fire extinguisher 10 lb × 2");
     expect(out).toContain("Its load has no destination");
     expect(out).toContain("Put on load");
     expect(out).toContain("Loads (5)");

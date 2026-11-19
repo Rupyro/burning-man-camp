@@ -33,8 +33,8 @@ describe("finance request screens", () => {
   });
 
   it("the approver gets the decision buttons; the requester doesn't", async () => {
-    expect(await detail(p.finance, "Gas bottles")).toContain("Your call");
-    const own = await detail(p.member, "Gas bottles");
+    expect(await detail(p.finance, "Propane tanks")).toContain("Your call");
+    const own = await detail(p.member, "Propane tanks");
     expect(own).not.toContain("Your call");
     expect(own).toContain("Cancel request");
     expect(own).toContain("OEA-SR-001".replace("OEA", "TST"));
@@ -61,7 +61,7 @@ describe("finance request screens", () => {
   });
 
   it("404 for outsiders, other teams' leads, bad and unknown ids", async () => {
-    const gas = await idOf("Gas bottles");
+    const gas = await idOf("Propane tanks");
     await expect(DetailPage({ ctx: await ctxFor(p.outsider), id: gas })).rejects.toThrow(
       "NEXT_NOT_FOUND",
     );
