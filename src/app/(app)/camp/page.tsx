@@ -120,6 +120,18 @@ export default async function CampInfoPage() {
         <Link href="/year" className="text-sm underline">
           The whole {EVENT_NAME} year
         </Link>
+        <Link href="/countdown" className="text-sm underline">
+          Countdown to build and the burn
+        </Link>
+        <Link href="/water" className="text-sm underline">
+          Water plan
+        </Link>
+        <Link href="/fuel" className="text-sm underline">
+          Fuel plan
+        </Link>
+        <Link href="/playa-binder" className="text-sm underline">
+          Playa binder (print before you go)
+        </Link>
       </Block>
       <Block id="leads" title="Lead contacts">
         {leads?.length ? (
