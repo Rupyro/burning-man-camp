@@ -1,3 +1,4 @@
+import { MOOP_LABEL, STANDING_LABEL, type StandingYear } from "@/lib/camp-content";
 import { formatCampDay } from "@/lib/dates";
 import type { YearEntry, YearMonth } from "@/lib/year-calendar";
 import { dayInstant, monthLabel } from "@/lib/year-calendar";
@@ -20,10 +21,13 @@ export function YearView({
   eventName,
   year,
   months,
+  standing,
 }: {
   eventName: string;
   year: number;
   months: YearMonth[];
+  /** Placement history, newest first; null hides it (camps that aren't placed). */
+  standing: readonly StandingYear[] | null;
 }) {
   return (
     <div className="flex flex-col gap-3">
@@ -36,6 +40,31 @@ export function YearView({
           pattern" dates move once the event posts this year's.
         </p>
       </div>
+      {standing ? (
+        <section className="rounded-2xl border bg-card p-4" aria-label="Placement standing">
+          <h2 className="heading text-sm">Placement standing</h2>
+          {standing.length === 0 ? (
+            <p className="mt-1 text-sm text-muted-foreground">
+              No history yet. A camp lead adds each year in camp-content/standing.ts after the
+              Post-playa Report.
+            </p>
+          ) : (
+            <ul className="mt-2 flex flex-col gap-1 text-sm">
+              {standing.map((s) => (
+                <li key={s.year} className="flex flex-wrap justify-between gap-2">
+                  <span>
+                    <b>{s.year}</b> · {STANDING_LABEL[s.standing]}
+                    {s.note ? (
+                      <span className="block text-xs text-muted-foreground">{s.note}</span>
+                    ) : null}
+                  </span>
+                  {s.moop ? <span className="text-xs">MOOP Map: {MOOP_LABEL[s.moop]}</span> : null}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ) : null}
       {months.length === 0 ? (
         <p className="rounded-2xl border bg-card p-4 text-sm">
           This event pack has no calendar yet. Dates appear here once it's filled in.
