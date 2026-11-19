@@ -1,6 +1,7 @@
 import { can, type ModuleContext } from "@/base/api";
 import { EVENT } from "@/lib/event";
 import {
+  type Allocations,
   EARLY_LABEL,
   gateMissing,
   PASS_LABEL,
@@ -17,6 +18,12 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
   const manager = can(ctx.actor, "tickets.manage");
   const early = EVENT.words.earlyPass;
   const missing = mine ? gateMissing(mine) : [];
+  const board = manager
+    ? await Promise.all([
+        campTickets(ctx.db, ctx.edition.id),
+        getAllocations(ctx.db, ctx.edition.id),
+      ])
+    : null;
   return (
     <main className="mx-auto flex max-w-2xl flex-col gap-4 p-4">
       <h1 className="text-2xl font-semibold">Tickets and passes</h1>
@@ -31,16 +38,20 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
           <MyTicketsForm initial={mine} earlyPass={early} />
         </section>
       ) : null}
-      {manager ? <CampBoard ctx={ctx} early={early} /> : null}
+      {board ? <CampBoard rows={board[0]} alloc={board[1]} early={early} /> : null}
     </main>
   );
 }
 
-async function CampBoard({ ctx, early }: { ctx: ModuleContext; early: string }) {
-  const [rows, alloc] = await Promise.all([
-    campTickets(ctx.db, ctx.edition.id),
-    getAllocations(ctx.db, ctx.edition.id),
-  ]);
+function CampBoard({
+  rows,
+  alloc,
+  early,
+}: {
+  rows: Awaited<ReturnType<typeof campTickets>>;
+  alloc: Allocations;
+  early: string;
+}) {
   const s = summarize(rows, alloc);
   return (
     <section className="flex flex-col gap-3 rounded-2xl border bg-card p-4" aria-label="Camp board">
