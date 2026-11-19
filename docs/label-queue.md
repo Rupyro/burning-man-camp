@@ -1,8 +1,26 @@
-# Drafts waiting for the `allow-protected-change` label
+# Protected-path PRs: approval record
 
-Written Nov 18, 2026 (ET). Each draft below touches protected paths (migrations, tests, or both),
-so `protected-paths` (and `test-integrity`, when existing tests change) stays red until Ruchir
-checks it and adds the label. Nothing here has been labelled by an agent.
+Written Nov 18, 2026 (ET); updated Nov 19, 2026, after the merge run. Each PR below touches
+protected paths (migrations, tests, or both). On Nov 18 Ruchir approved all of them, in this
+order, so the agent added the `allow-protected-change` label to exactly these PRs. `large-ok`
+was not needed.
+
+## Status (Nov 19, 2026, about 1:30 AM ET)
+
+Merged (squash), in this order: #16, #17, #18, #30, #34, #39, #42, #20, #21, #26, #27, #32, #35,
+#28, #36, #38, #41, #40. Stacked PRs were retargeted to `main` before their base branch was
+deleted.
+
+Fixes made on the way, all in protected test files and under the same approval:
+
+- #18: obligations tests expect 12 seeded deadlines (6 event and team deadlines plus the 6
+  Burning Man Placement steps), not 6.
+- #41 and #40: the global coverage floor (71% branches, 68% functions) failed once the earlier
+  modules were on `main`. Added tests for the empty state, the manager view, the demo seed and
+  the router, plus `tests/unit/module-tables.test.ts`, which checks that every newer module table
+  is prefixed and tied to a year.
+
+The rest of this page is the original queue, kept as the record of what each PR touched and why.
 
 **How to approve one:** read the protected files listed, add the label, mark the PR ready, wait for
 every required check to go green, then squash-merge. After each merge, the other open PRs must be
@@ -67,3 +85,9 @@ pairs.
 - Dependabot PRs #1–#6: untouched on purpose.
 - Vercel auto-deploy: the Vercel GitHub app needs access to this repo. Until then, deploys are
   manual.
+- Demo database: the `DEMO_RESEED=1` deploy ran after #17 (and the variable was removed), but the
+  demo seed only inserts missing rows. Rows seeded under AfrikaBurn stay as they were: the
+  anchor dates ("AfrikaBurn opens", April 2027), the AfrikaBurn deadlines, and the logistics
+  places and loads (Tankwa site, Cape Town). New modules' demo rows are fine. Clearing the
+  demo database and seeding it fresh would fix this. It deletes data (fake only), so it's
+  Ruchir's call.
