@@ -47,6 +47,9 @@ export function CountdownView({ anchors, now }: { anchors: Anchor[]; now: Date }
           No dates yet. A lead will add them.
         </p>
       )}
+      <Link href="/year" className="text-sm font-semibold underline">
+        The whole year: every event deadline
+      </Link>
       <section className="rounded-2xl border bg-card p-4">
         <h2 className="heading text-sm">What to do this week</h2>
         <ul className="mt-2 flex flex-col">

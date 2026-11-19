@@ -50,6 +50,7 @@ export default defineEventPack({
       date: "2026-12-15",
       status: "pattern",
       source: SOI,
+      placedOnly: true,
     },
     {
       key: "soi_due",
@@ -59,6 +60,7 @@ export default defineEventPack({
       time: "12:00 PT",
       status: "pattern",
       source: SOI,
+      placedOnly: true,
     },
     {
       key: "sunrise_sale",
@@ -76,6 +78,7 @@ export default defineEventPack({
       date: "2027-02-15",
       status: "pattern",
       source: STEWARDS,
+      placedOnly: true,
     },
     {
       key: "stewards_form",
@@ -85,6 +88,7 @@ export default defineEventPack({
       until: "2027-02-26",
       status: "pattern",
       source: STEWARDS,
+      placedOnly: true,
     },
     {
       key: "stewards_purchase",
@@ -94,6 +98,7 @@ export default defineEventPack({
       until: "2027-04-19",
       status: "pattern",
       source: STEWARDS,
+      placedOnly: true,
     },
     {
       key: "questionnaire_due",
@@ -104,6 +109,7 @@ export default defineEventPack({
       time: "12:00 PT",
       status: "pattern",
       source: PLACEMENT,
+      placedOnly: true,
     },
     {
       key: "sap_request",
@@ -112,6 +118,7 @@ export default defineEventPack({
       date: "2027-04-15",
       status: "pattern",
       source: SAP,
+      placedOnly: true,
     },
     {
       key: "main_sale",
@@ -128,6 +135,7 @@ export default defineEventPack({
       date: "2027-05-15",
       status: "pattern",
       source: PLACEMENT,
+      placedOnly: true,
     },
     {
       key: "whatwherewhen_deadline",
@@ -144,6 +152,7 @@ export default defineEventPack({
       date: "2027-07-15",
       status: "pattern",
       source: SAP,
+      placedOnly: true,
     },
     {
       key: "box_office_early",
@@ -205,6 +214,7 @@ export default defineEventPack({
       until: "2027-10-15",
       status: "pattern",
       source: PLACEMENT,
+      placedOnly: true,
     },
   ],
   rules: [
