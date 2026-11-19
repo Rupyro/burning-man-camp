@@ -85,7 +85,7 @@ export function Sidebar(p: {
         <Settings aria-hidden className="size-4" />
         Settings
       </Link>
-      {/* Placeholder until Remo sends the camp's rain-dance artwork. A camp tradition: on when
+      {/* Placeholder until the camp sends the camp's rain-dance artwork. A camp tradition: on when
           camp.config.ts extras.traditions has "rain-dance". */}
       {hasTradition("rain-dance") && (
         <div

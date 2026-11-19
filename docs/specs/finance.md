@@ -11,7 +11,7 @@ headroom. Once approved, the requester buys the thing and **records the actual a
 receipt link. If they paid out of pocket, a **pay-back** (reimbursement) is owed until finance marks
 it paid. Leads see budget, committed, actual and remaining per team. Every step is audited.
 
-**Not:** member dues, deposits or ticket money (Howler + Jaxon's sheet, out of V1), ledgers,
+**Not:** member dues, deposits or ticket money (Howler + the dues sheet, out of V1), ledgers,
 bank matching (the spike's bank matcher stays parked), bank details of any kind, multi-currency
 roll-ups (rand only in V1; the column exists for later).
 
@@ -117,8 +117,8 @@ tests (4 → 5), which trips test-integrity: needs the `allow-protected-change` 
 Receipt photo uploads (no file storage yet; a link to the photo instead), budget lines, batched
 pay-backs, euro fees, procurement events, print view, editing policies in the app (seed/SQL only).
 
-## 10. Decisions for Ruchir / Jory (defaults in brackets)
-- **F1** Approval limits [the plan's placeholders above; Jory sets real numbers].
+## 10. Decisions for Ruchir and the treasurer (defaults in brackets)
+- **F1** Approval limits [the plan's placeholders above; the treasurer sets real numbers].
 - **F2** Can members see the camp budget by team? **Decided (Ruchir): no.** Members see only
   their own requests. Team budgets and camp totals are for leads (`finance.report.view`) only.
 - **F3** Admins approve or pay? [no; only finance approvers and camp leads hold money powers].
