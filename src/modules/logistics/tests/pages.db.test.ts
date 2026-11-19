@@ -119,7 +119,7 @@ describe("exports", () => {
     expect((await ok(exportCsv({ kind: "arrivals" }))).ok).toBe(true);
     const home = renderToStaticMarkup(await HomePage({ ctx: await ctxFor(p.camp) }));
     expect(home).toContain("Arrivals by day");
-    expect(home).toContain("Builders&#x27; WAP list (CSV)");
+    expect(home).toContain("Builders&#x27; Setup Access Pass list (CSV)");
     const logi = renderToStaticMarkup(await HomePage({ ctx: await ctxFor(p.logi) }));
     expect(logi).not.toContain("Arrivals by day");
   });

@@ -59,7 +59,7 @@ describe("drafts", () => {
       teamId: p.kitchen,
       aiCostCents: 0,
     });
-    expect(row?.body).toContain("Alex, Oe-aa-sies Kitchen");
+    expect(row?.body).toContain("Alex, Your Camp Kitchen");
     expect(await outbox()).toEqual([]);
     await ok(
       editDraft({ id: d.id, to: email.to, subject: "Ice quote", body: "Hi, 200 kg please." }),

@@ -86,6 +86,7 @@ export const STATE_LABEL: Record<ObligationState, string> = {
 
 export const AUTHORITY_LABEL = {
   afrikaburn: "AfrikaBurn",
+  burning_man: "Burning Man",
   dmv: "DMV",
   fuel_team: "Fuel team",
   sound_team: "Sound team",

@@ -27,7 +27,7 @@ describe("buildDigest", () => {
       ],
       "https://camp.test",
     );
-    expect(d.subject).toBe("Oe-aa-sies: 3 updates");
+    expect(d.subject).toBe("Your Camp: 3 updates");
     expect(d.text.indexOf("Overdue\n")).toBeLessThan(d.text.indexOf("New comments\n"));
     expect(d.text).toContain("Other\n- Gap: Bar Fri\n  https://camp.test/shifts/1");
     expect(d.text).toContain("https://camp.test/notifications");
@@ -35,7 +35,7 @@ describe("buildDigest", () => {
 
   it("says 'update' for one", () => {
     expect(buildDigest([{ type: "task.comment", title: "x", href: "/" }], "").subject).toBe(
-      "Oe-aa-sies: 1 update",
+      "Your Camp: 1 update",
     );
   });
 });

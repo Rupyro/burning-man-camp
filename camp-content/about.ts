@@ -6,7 +6,7 @@ export const ABOUT_BANNER = "Dust, shade, music and good people.";
 export const ABOUT_BLOCKS = [
   {
     title: "Who we are",
-    body: `${CAMP_NAME} is a theme camp at AfrikaBurn in the Tankwa Karoo: about 70 people from South Africa, Europe and beyond who build a shady, friendly home in the dust and share it with everyone who walks past.`,
+    body: `${CAMP_NAME} is a theme camp at Burning Man in Black Rock City, Nevada: about 70 people who build a shady, friendly home on the playa and share it with everyone who walks past.`,
   },
   {
     pack: "mutant-vehicle",

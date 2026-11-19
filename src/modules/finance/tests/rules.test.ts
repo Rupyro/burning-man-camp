@@ -22,8 +22,8 @@ describe("money", () => {
   it.each([
     ["4500", 450000],
     ["4 500", 450000],
-    ["R4,500", 450000],
-    ["r 4,500.50", 450050],
+    ["$4,500", 450000],
+    ["$ 4,500.50", 450050],
     ["900.5", 90050],
     ["0.99", 99],
     ["1,234,567", 123456700],
@@ -42,13 +42,13 @@ describe("money", () => {
     expect(parseRand("10,000,000")).toBe(MAX_CENTS);
   });
 
-  it("formats whole and part rands, and negatives", () => {
-    expect(formatRand(450000)).toBe("R4,500");
-    expect(formatRand(432050)).toBe("R4,320.50");
-    expect(formatRand(5)).toBe("R0.05");
-    expect(formatRand(0)).toBe("R0");
-    expect(formatRand(-120000)).toBe("−R1,200");
-    expect(formatRand(123456700)).toBe("R1,234,567");
+  it("formats whole and part dollars, and negatives", () => {
+    expect(formatRand(450000)).toBe("$4,500");
+    expect(formatRand(432050)).toBe("$4,320.50");
+    expect(formatRand(5)).toBe("$0.05");
+    expect(formatRand(0)).toBe("$0");
+    expect(formatRand(-120000)).toBe("−$1,200");
+    expect(formatRand(123456700)).toBe("$1,234,567");
   });
 });
 

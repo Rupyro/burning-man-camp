@@ -28,9 +28,9 @@ const statuses = async () =>
     r.dedupeKey,
     r.status,
   ]);
-/** 06:00 and 07:30 in camp time (Africa/Johannesburg, UTC+2) on NOW's day. */
-const SIX_AM = new Date("2027-04-10T04:00:00Z");
-const HALF_SEVEN = new Date("2027-04-10T05:30:00Z");
+/** 06:00 and 07:30 in camp time (America/Los_Angeles, UTC-7 in April) on NOW's day. */
+const SIX_AM = new Date("2027-04-10T13:00:00Z");
+const HALF_SEVEN = new Date("2027-04-10T14:30:00Z");
 
 describe("engine: outbox and digest", () => {
   beforeEach(async () => {
@@ -109,7 +109,7 @@ describe("engine: outbox and digest", () => {
     expect(digests).toHaveLength(1);
     const d = firstRow(digests, "digest");
     expect(d.toPersonId).toBe(ids.gift);
-    expect(d.payload).toMatchObject({ subject: "Oe-aa-sies: 2 updates" });
+    expect(d.payload).toMatchObject({ subject: "Your Camp: 2 updates" });
     const text = (d.payload as { text: string }).text;
     expect(text).toContain("New comments\n- New comment: Rig lights");
     expect(text).toContain("- New comment: Paint");
