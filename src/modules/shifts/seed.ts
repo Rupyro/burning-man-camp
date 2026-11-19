@@ -283,8 +283,11 @@ export async function seed({ db, edition, people: demo }: ModuleSeedContext) {
 
   // A few claims so open, partly-filled and filled shifts all show. Nobody is auto-assigned:
   // every row is a member's own claim in the demo story.
-  const claim = (key: string, day: number, who: string[]) =>
-    who.map((personId) => ({ slotId: slotIds[key]?.[day] ?? "", personId }));
+  // A duty from a pack this camp doesn't have (art car crew without Mutant vehicle) has no slots.
+  const claim = (key: string, day: number, who: string[]) => {
+    const slotId = slotIds[key]?.[day];
+    return slotId ? who.map((personId) => ({ slotId, personId })) : [];
+  };
   const signups = [
     ...claim("kitchen_breakfast", 0, [demo.member, person(0), person(1)]),
     ...claim("kitchen_dinner", 0, [person(2), person(3)]),
