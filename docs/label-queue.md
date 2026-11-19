@@ -20,6 +20,16 @@ Fixes made on the way, all in protected test files and under the same approval:
   the router, plus `tests/unit/module-tables.test.ts`, which checks that every newer module table
   is prefixed and tied to a year.
 
+## Approved Nov 19, 2026 (Ruchir's "go ahead", t16u, 6:32 AM ET)
+
+`allow-protected-change` only; no `large-ok`.
+
+| PR | What | Protected files | Why |
+|---|---|---|---|
+| #54 | Rename the bakkie vehicle type to truck | `src/modules/logistics/migrations/0001_bakkie_to_truck.sql` (+ meta); `src/modules/logistics/tests/loads.db.test.ts` | The migration turns existing bakkie rows into truck; the test uses the new name |
+| #55 | `schedule_lead` and `village_liaison` roles; Exodus sweep-crew rule as a config value (placeholder) | `src/lib/camp-config.test.ts`, `src/modules/exodus/tests/exodus.test.ts`, `src/modules/{schedule,village}/tests/permissions.test.ts` | New tests for the sweep-crew config check and rule, and for what the two new roles may do |
+| #56 | Nightly encrypted database backup to a 7-day workflow artifact | `.github/workflows/backup.yml` | A new workflow. Repo secrets `BACKUP_DATABASE_URL` and `BACKUP_PASSPHRASE` were set through `gh` without printing them; the first run (Nov 19, 7:08 AM ET) passed |
+
 The rest of this page is the original queue, kept as the record of what each PR touched and why.
 
 **How to approve one:** read the protected files listed, add the label, mark the PR ready, wait for
@@ -85,9 +95,5 @@ pairs.
 - Dependabot PRs #1–#6: untouched on purpose.
 - Vercel auto-deploy: the Vercel GitHub app needs access to this repo. Until then, deploys are
   manual.
-- Demo database: the `DEMO_RESEED=1` deploy ran after #17 (and the variable was removed), but the
-  demo seed only inserts missing rows. Rows seeded under AfrikaBurn stay as they were: the
-  anchor dates ("AfrikaBurn opens", April 2027), the AfrikaBurn deadlines, and the logistics
-  places and loads (Tankwa site, Cape Town). New modules' demo rows are fine. Clearing the
-  demo database and seeding it fresh would fix this. It deletes data (fake only), so it's
-  Ruchir's call.
+- Demo database: emptied and seeded fresh on Nov 19, 2026 (fake data only), so the AfrikaBurn
+  dates, Tankwa site and Cape Town places are gone. `DEMO_RESEED` was removed afterwards.
