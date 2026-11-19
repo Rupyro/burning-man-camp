@@ -3,6 +3,7 @@ import { can } from "@/base/authz/permissions";
 import { listAnchorDates } from "@/base/editions/settings";
 import { CAMP_GUIDE, leadContacts } from "@/base/landing/camp-info";
 import { listDirectory } from "@/base/people/directory";
+import { hasPack } from "@/lib/active-packs";
 import { formatCampDay } from "@/lib/dates";
 import { EVENT, EVENT_NAME } from "@/lib/event";
 import { basePage } from "../_components/base-page";
@@ -27,6 +28,9 @@ const list = (items: readonly string[]) => (
 );
 
 /** Camp info (spec B3.1 §4): guide, packing, rules, key dates and who leads what. */
+/** Licensing and registration steps for the camp's vehicle and art packs. */
+const projects = (EVENT.projects ?? []).filter((p) => hasPack(p.pack));
+
 export default async function CampInfoPage() {
   const { dates, leads } = await basePage(async (ctx) => ({
     dates: await listAnchorDates(ctx.db, ctx.edition.id),
@@ -62,6 +66,25 @@ export default async function CampInfoPage() {
               </li>
             ))}
           </ol>
+        </Block>
+      ) : null}
+      {projects.length ? (
+        <Block id="projects" title="Vehicles and art">
+          {projects.map((p) => (
+            <div key={p.pack} className="text-sm">
+              <b>{p.label}.</b> {p.summary}
+              <ul className="mt-1 list-disc pl-5">
+                {p.steps.map((s) => (
+                  <li key={s.label}>
+                    {s.label}: {s.window}
+                  </li>
+                ))}
+              </ul>
+              <a href={p.source} className="underline" target="_blank" rel="noreferrer">
+                Source
+              </a>
+            </div>
+          ))}
         </Block>
       ) : null}
       {EVENT.rules.length ? (
