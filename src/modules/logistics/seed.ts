@@ -26,7 +26,7 @@ const PLACES = [
 
 const VEHICLES = [
   ["Rented 26 ft box truck (demo)", "truck", 2, "26 ft, lift gate"],
-  ["Lex's pickup (demo)", "bakkie", 3, "Camper shell, tow hitch"],
+  ["Lex's pickup (demo)", "truck", 3, "Camper shell, tow hitch"],
   ["Container truck: Container A", "container_truck", 1, "Container A on and off site"],
   ["Trailer (camp)", "trailer", null, "8 ft, needs a tow hitch"],
 ] as const;
