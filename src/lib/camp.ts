@@ -1,6 +1,11 @@
 // The app's way in to camp.config.ts: import camp settings from here, not from the root file.
 import config from "../../camp.config";
-import { campConfigProblems, type OwnerKey } from "./camp-config";
+import {
+  type CampConfig,
+  campConfigProblems,
+  DEFAULT_SWEEP_CREW,
+  type OwnerKey,
+} from "./camp-config";
 
 export type { OwnerKey };
 
@@ -29,3 +34,7 @@ if (problems.length) throw new Error(`camp.config.ts needs fixing:\n- ${problems
 export function ownerLabel(key: string): string {
   return campConfig.owners.labels[key as OwnerKey] ?? key;
 }
+
+/** Exodus sweep-crew rule (PLACEHOLDER, camp.config.ts exodus.sweepCrew): max(min, ceil(n / per)). */
+export const SWEEP_CREW_RULE: { min: number; perCampers: number } =
+  (config as CampConfig).exodus?.sweepCrew ?? DEFAULT_SWEEP_CREW;

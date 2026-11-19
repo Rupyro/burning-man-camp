@@ -42,6 +42,8 @@ export type RoleKey =
   | "safety_officer"
   | "mv_dmv_contact"
   | "information_officer"
+  | "schedule_lead"
+  | "village_liaison"
   | "pilot";
 export type TeamRole = "lead" | "co_lead" | "member";
 export type Capability = `${string}.${string}`;

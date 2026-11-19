@@ -85,7 +85,16 @@ export interface CampConfig {
   owners: { campKey: OwnerKey; labels: Record<OwnerKey, string> };
   /** The camp's own additions to its packs, and pack items it drops (plan PR 2, PR 11). */
   custom?: CampCustom;
+  /**
+   * Exodus. PLACEHOLDER: how many people stay for the final line sweep is
+   * max(min, ceil(campers / perCampers)), by default max(2, ceil(campers / 10)). It isn't a
+   * Burning Man rule; the camp lead sets the real numbers.
+   */
+  exodus?: { sweepCrew: { min: number; perCampers: number } };
 }
+
+/** The placeholder sweep-crew rule used when camp.config.ts doesn't set exodus.sweepCrew. */
+export const DEFAULT_SWEEP_CREW = { min: 2, perCampers: 10 } as const;
 
 /** Typed helper so camp.config.ts gets checked and autocompleted. */
 export function defineCampConfig<const T extends CampConfig>(config: T): T {
@@ -117,6 +126,11 @@ export function campConfigProblems(c: CampConfig): string[] {
     if (seen.has(m.key)) out.push(`custom.materialCategories has "${m.key}" twice`);
     seen.add(m.key);
   }
+  const sweep = c.exodus?.sweepCrew;
+  if (sweep && !(Number.isInteger(sweep.min) && sweep.min >= 0))
+    out.push("exodus.sweepCrew.min must be a whole number, 0 or more");
+  if (sweep && !(Number.isInteger(sweep.perCampers) && sweep.perCampers >= 1))
+    out.push("exodus.sweepCrew.perCampers must be a whole number, 1 or more");
   if (!(OWNER_KEYS as readonly string[]).includes(c.owners.campKey))
     out.push("owners.campKey must be one of the database keys (ours, borrowed, rented)");
   for (const k of OWNER_KEYS) {

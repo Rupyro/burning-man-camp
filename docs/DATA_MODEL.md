@@ -160,7 +160,7 @@ Used for "available work" filtering and shift eligibility in addition to arrival
 
 ### `roles` (catalogue)
 | id · key varchar U · label · kind enum `role_kind` (`system`,`capability`,`officer`) · description |
-Seed: `admin` (system), `camp_lead` (system), `member` (implicit), `finance_approver` (capability), `kitchen_sensitive_viewer` (capability, granted to kitchen leads), `lnt_lead`, `fire_safety_officer`, `sound_officer`, `safety_officer`, `mv_dmv_contact`, `information_officer` (officer: labels + obligations, no extra permissions), `pilot` (system: sees modules whose flag audience is `pilot`).
+Seed: `admin` (system), `camp_lead` (system), `member` (implicit), `finance_approver` (capability), `kitchen_sensitive_viewer` (capability, granted to kitchen leads), `lnt_lead`, `fire_safety_officer`, `sound_officer`, `safety_officer`, `mv_dmv_contact`, `information_officer` (officer: labels + obligations, no extra permissions), `schedule_lead` and `village_liaison` (officer, from the Workshops and Village packs: manage the schedule and the village shares), `pilot` (system: sees modules whose flag audience is `pilot`).
 
 ### `role_assignments`
 | id · edition_id FK? (null = permanent, e.g. admin) · person_id FK · role_id FK · scope_team_id FK? · granted_by_person_id FK · starts_at? · ends_at? (access expiry after season) | U (edition_id, person_id, role_id, scope_team_id) where deleted_at is null |

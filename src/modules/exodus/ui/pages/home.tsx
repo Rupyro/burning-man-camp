@@ -1,5 +1,5 @@
 import { can, type ModuleContext } from "@/base/api";
-import { campConfig } from "@/lib/camp";
+import { campConfig, SWEEP_CREW_RULE } from "@/lib/camp";
 import type { CampConfig } from "@/lib/camp-config";
 import { formatCampDay, formatCampTime, instantToCampInput } from "@/lib/dates";
 import { byDay, sweepCrew } from "../../rules/exodus";
@@ -32,6 +32,10 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
         <p className="text-sm">
           {crew.staying.length} staying ({crew.wanted} wanted)
           {crew.staying.length ? `: ${crew.staying.join(", ")}` : ""}.
+        </p>
+        <p className="text-xs text-muted-foreground">
+          Placeholder rule: at least {SWEEP_CREW_RULE.min}, or one in {SWEEP_CREW_RULE.perCampers}{" "}
+          campers. The camp lead sets the real numbers in camp.config.ts.
         </p>
         {manager && crew.short ? (
           <p role="alert" className="text-sm font-semibold">

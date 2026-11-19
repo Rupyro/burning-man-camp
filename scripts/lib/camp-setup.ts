@@ -4,6 +4,7 @@ import {
   type CampPackKey,
   type CampTypeKey,
   DEFAULT_OWNERS,
+  DEFAULT_SWEEP_CREW,
 } from "../../src/lib/camp-config";
 
 export const PICKABLE_PACKS: { key: CampPackKey; label: string }[] = [
@@ -98,6 +99,7 @@ export function configFrom(a: SetupAnswers): CampConfig {
     joining: { familyYears: { enabled: a.familyYears, since: a.since } },
     extras: { traditions: a.traditions as CampConfig["extras"]["traditions"] },
     event: { pack: "burning-man" },
+    exodus: { sweepCrew: { ...DEFAULT_SWEEP_CREW } },
     owners: DEFAULT_OWNERS,
     ...(own.length ? { custom: { materialCategories: own } } : {}),
   };
@@ -125,7 +127,11 @@ export default defineCampConfig({
   money: { currency: ${q(c.money.currency)}, symbol: ${q(c.money.symbol)}, campFeeCents: ${cents(c.money.campFeeCents)}, xceed: { enabled: ${c.money.xceed.enabled} } },
   joining: { familyYears: { enabled: ${c.joining.familyYears.enabled}, since: ${c.joining.familyYears.since} } },
   extras: { traditions: ${list(c.extras.traditions)} },
-  event: { pack: ${q(c.event.pack)} },
+  event: { pack: ${q(c.event.pack)} },${
+    c.exodus
+      ? `\n  // PLACEHOLDER rule, not Burning Man's: people who stay for the final sweep =\n  // max(min, ceil(campers / perCampers)). The camp lead sets the real numbers.\n  exodus: { sweepCrew: { min: ${c.exodus.sweepCrew.min}, perCampers: ${c.exodus.sweepCrew.perCampers} } },`
+      : ""
+  }
   owners: {
     campKey: ${q(c.owners.campKey)},
     labels: {
