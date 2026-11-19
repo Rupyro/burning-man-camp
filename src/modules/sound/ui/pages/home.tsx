@@ -1,15 +1,13 @@
-import { can, type ModuleContext } from "@/base/api";
+import type { ModuleContext } from "@/base/api";
 import { CAMP_TZ_LABEL, formatCampTime, instantToCampInput } from "@/lib/dates";
 import { byNeighbor, inQuietHours } from "../../rules/sound";
 import { getPlan, listLog } from "../../server/queries";
-import { LogForm, PlanForm } from "../components/forms";
 
 export async function HomePage({ ctx }: { ctx: ModuleContext }) {
   const [plan, log] = await Promise.all([
     getPlan(ctx.db, ctx.edition.id),
     listLog(ctx.db, ctx.edition.id),
   ]);
-  const manager = can(ctx.actor, "sound.manage");
   const nowClock = instantToCampInput(ctx.now ?? new Date()).time;
   const quietNow = inQuietHours(nowClock, plan.quietFrom, plan.quietUntil);
   const top = byNeighbor(log).slice(0, 3);
@@ -23,7 +21,6 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
         </p>
         {plan.speakersFace ? <p className="text-sm">Speakers face: {plan.speakersFace}</p> : null}
         {plan.notes ? <p className="text-sm text-muted-foreground">{plan.notes}</p> : null}
-        {manager ? <PlanForm initial={plan} /> : null}
       </section>
       <section
         className="flex flex-col gap-2 rounded-2xl border bg-card p-4"
@@ -52,7 +49,6 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
             </li>
           ))}
         </ul>
-        <LogForm />
       </section>
     </main>
   );

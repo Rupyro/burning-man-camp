@@ -50,7 +50,6 @@ describe("sound", () => {
     const html = renderToStaticMarkup(await HomePage({ ctx: await ctxFor(member) }));
     expect(html).toContain("Keep it under 95 dB");
     expect(html).toContain("Speakers face: Open playa");
-    expect(html).not.toContain("Save the plan");
   });
 
   it("a member logs a neighbor's visit, and it shows with who logged it", async () => {
@@ -69,6 +68,5 @@ describe("sound", () => {
     expect(html).toContain("Next-door camp");
     expect(html).toContain("We: Turned it down");
     expect(html).toContain("Logged by Member M");
-    expect(html).toContain("Save the plan");
   });
 });
