@@ -53,6 +53,9 @@ export function CountdownView({ anchors, now }: { anchors: Anchor[]; now: Date }
       <Link href="/water" className="text-sm font-semibold underline">
         Water plan: how much the camp brings
       </Link>
+      <Link href="/fuel" className="text-sm font-semibold underline">
+        Fuel plan: generator fuel and cans
+      </Link>
       <Link href="/playa-binder" className="text-sm font-semibold underline">
         Playa binder: leave no trace and exodus plan to print
       </Link>

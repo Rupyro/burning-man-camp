@@ -39,7 +39,7 @@ const dropPending = (ctx: ActionContext, requestId: string) =>
   ctx.tx.delete(st).where(and(eq(st.spendRequestId, requestId), eq(st.status, "pending")));
 const id = z.object({ id: z.string().uuid() });
 const dateOnly = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Use a date like 2027-03-01");
-const rand = z.string().max(40);
+const amountText = z.string().max(40);
 
 /** Rand text → cents, or a friendly validation error. */
 function cents(amount: string): number {
@@ -200,7 +200,7 @@ async function approveSmall(
 const fields = z.object({
   teamId: z.string().uuid(),
   title: z.string().trim().min(3).max(120),
-  amount: rand,
+  amount: amountText,
   justification: z.string().trim().max(2000).nullable().optional(),
   supplierName: z.string().trim().max(120).nullable().optional(),
   neededBy: dateOnly.nullable().optional(),
@@ -308,7 +308,7 @@ export const decideRequest = moduleAction(
       reason: z.enum(DECISION_REASONS).optional(),
       /** Step 3, only for some reasons. */
       next: z.enum(DECISION_NEXT_STEPS).nullable().optional(),
-      capAmount: rand.nullable().optional(),
+      capAmount: amountText.nullable().optional(),
       moveToBudgetId: z.string().uuid().nullable().optional(),
       comment: z.string().trim().max(1000).nullable().optional(),
     }),
