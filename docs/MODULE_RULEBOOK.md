@@ -464,7 +464,7 @@ A module PR is done when:
 ## 12. Feature flags (switching a module on or off)
 
 - One row per module in the base `module_settings` table: `enabled`, `audience` (`everyone` | `pilot` | `admins`), `updated_by`, `updated_at`. Default comes from `manifest.flag`. Admins change it on **Settings → Modules**; every change is audited.
-- `pilot` audience: only people with the `pilot` tag (set by admins) see the tile and can enter, which is how Remo, Jory and a logistics lead can try a module before everyone else.
+- `pilot` audience: only people with the `pilot` tag (set by admins) see the tile and can enter, which is how a few leads can try a module before everyone else.
 - Environment override for previews and tests: `MODULES_DISABLED=kitchen,programming`.
 - Switching off never deletes data or tasks. Tasks the module created stay visible in base views, labelled with the module name, but their deep links show "this module is switched off".
 - Flags are module-level only. Feature toggles inside a module are ordinary settings in that module's tables, not more flags.
