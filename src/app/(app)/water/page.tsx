@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { activeEvent } from "@/lib/active-packs";
 import { campConfig } from "@/lib/camp";
 import type { CampConfig } from "@/lib/camp-config";
@@ -95,6 +96,9 @@ export default async function WaterPage(props: { searchParams: Promise<Query> })
           dump it on the ground.
         </p>
       </section>
+      <Link href="/fuel" className="text-sm font-semibold underline">
+        Fuel plan: generator fuel and cans
+      </Link>
     </div>
   );
 }
