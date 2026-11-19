@@ -11,6 +11,7 @@ export default defineEventPack({
   timezoneLabel: "SAST",
   dateStyle: "day-first",
   currency: "ZAR",
+  water: { perPersonPerDay: 5, unit: "L" },
   year: 2027,
   calendar: [],
   words: {

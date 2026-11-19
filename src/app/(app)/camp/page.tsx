@@ -4,7 +4,7 @@ import { listAnchorDates } from "@/base/editions/settings";
 import { CAMP_GUIDE, leadContacts } from "@/base/landing/camp-info";
 import { listDirectory } from "@/base/people/directory";
 import { formatCampDay } from "@/lib/dates";
-import { EVENT_NAME } from "@/lib/event";
+import { EVENT, EVENT_NAME } from "@/lib/event";
 import { basePage } from "../_components/base-page";
 
 function Block(p: { id: string; title: string; children: React.ReactNode }) {
@@ -50,6 +50,34 @@ export default async function CampInfoPage() {
       <Block id="rules" title="Camp rules">
         {list(CAMP_GUIDE.rules)}
       </Block>
+      {EVENT.firstTimer?.length ? (
+        <Block id="first-timer" title={`First time at ${EVENT_NAME}?`}>
+          <p className="text-sm">Read these before you go, in this order:</p>
+          <ol className="list-decimal space-y-1 pl-5 text-sm">
+            {EVENT.firstTimer.map((l) => (
+              <li key={l.url}>
+                <a href={l.url} className="underline" target="_blank" rel="noreferrer">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </Block>
+      ) : null}
+      {EVENT.rules.length ? (
+        <Block id="event-rules" title={`${EVENT_NAME}'s rules for camps`}>
+          <ul className="flex flex-col gap-2 text-sm">
+            {EVENT.rules.map((r) => (
+              <li key={r.key}>
+                <b>{r.label}.</b> {r.summary}{" "}
+                <a href={r.source} className="underline" target="_blank" rel="noreferrer">
+                  Source
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Block>
+      ) : null}
       <Block id="dates" title="Key dates">
         {dates.length ? (
           <ul className="space-y-1 text-sm">
@@ -65,6 +93,9 @@ export default async function CampInfoPage() {
         )}
         <Link href="/obligations" className="text-sm underline">
           {EVENT_NAME} deadlines
+        </Link>
+        <Link href="/year" className="text-sm underline">
+          The whole {EVENT_NAME} year
         </Link>
       </Block>
       <Block id="leads" title="Lead contacts">
