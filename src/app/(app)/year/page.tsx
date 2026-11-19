@@ -2,6 +2,7 @@ import { getNow } from "@/base/guard/request";
 import { activeEvent } from "@/lib/active-packs";
 import { campConfig } from "@/lib/camp";
 import type { CampConfig } from "@/lib/camp-config";
+import { STANDING_HISTORY } from "@/lib/camp-content";
 import { instantToCampInput } from "@/lib/dates";
 import { byMonth, calendarForCamp, withStates } from "@/lib/year-calendar";
 import { basePage } from "../_components/base-page";
@@ -12,5 +13,12 @@ export default async function YearPage() {
   const type = (campConfig as CampConfig).camp.type;
   const today = instantToCampInput(now).date;
   const months = byMonth(withStates(calendarForCamp(activeEvent, type), today));
-  return <YearView eventName={activeEvent.words.name} year={activeEvent.year} months={months} />;
+  return (
+    <YearView
+      eventName={activeEvent.words.name}
+      year={activeEvent.year}
+      months={months}
+      standing={type === "open" ? null : STANDING_HISTORY}
+    />
+  );
 }

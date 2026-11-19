@@ -45,6 +45,8 @@ export interface EventPack {
   timezoneLabel: string;
   /** "us" = "Sat, Aug 29, 2027, 9:00 AM"; "day-first" = "Sat 29 Aug 2027, 09:00". */
   dateStyle: "us" | "day-first";
+  /** Water planning: what each person needs per day, in the event's usual unit. */
+  water?: { perPersonPerDay: number; unit: "gal" | "L"; source?: string };
   /** Currency tickets and fees are in (ISO 4217). */
   currency: string;
   year: number;
@@ -65,6 +67,8 @@ export interface EventPack {
     earlyPass: string;
     directions: { label: string; url: string };
   };
+  /** Reading for someone going for the first time, in order. */
+  firstTimer?: readonly { label: string; url: string }[];
   /** Obligation definitions this event switches on (keys into the obligations module's seed). */
   obligations?: readonly PackItem[];
   /** Section labels this event renames, e.g. the obligations tile. */
