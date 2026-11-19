@@ -4,12 +4,10 @@
 - **Switch a module off / to pilot:** `pnpm module:flag <id> off|on|pilot|admins|everyone`. Audited.
   Data and migrations stay; the route returns 404 and the tile disappears.
 - **Run migrations:** `pnpm db:migrate` (base first, then each module; safe to re-run).
-- **Backups and restore:** `.github/workflows/backup.yml` runs nightly at 02:15 SAST on a GitHub-hosted
-  runner. It dumps the real database (`oe_real`) and the demo database (`neondb`), encrypts them with
-  `BACKUP_PASSPHRASE` and keeps them as Actions artifacts for 7 days. Neon point-in-time restore is the
-  second net. Restore drill: run the workflow by hand with `restore_test` ticked. It restores the demo
-  dump into a scratch database `oe_restore_test`, compares every table's row count, then drops only it.
-  The real database's URL is in Vercel as `REAL_DATABASE_URL(_UNPOOLED)` and is not wired to the app yet.
+- **Backups and restore:** this repo has no backup workflow yet (the original camp's nightly
+  dump job wasn't carried over). Until one is added, Neon's own restore (point-in-time, within your
+  Neon plan's history window) is the safety net. Adding a scheduled, encrypted dump is a to-do; it
+  lives in `.github/workflows/`, a protected path, so it needs Ruchir's label.
 - To come: add an admin, roll the year, email stopped.
 
 ## Deploys and database migrations (Vercel)
