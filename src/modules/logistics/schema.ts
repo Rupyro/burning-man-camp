@@ -44,7 +44,6 @@ export const logisticsPlaceKindEnum = pgEnum("logistics_place_kind", [
 ]);
 export const logisticsVehicleKindEnum = pgEnum("logistics_vehicle_kind", [
   "car",
-  "bakkie",
   "truck",
   "trailer",
   "container_truck",
@@ -95,7 +94,7 @@ export const logisticsVehicles = pgTable("logistics_vehicles", {
   id: uuid("id").primaryKey().$defaultFn(newId),
   editionId: edition(),
   label: text("label").notNull(),
-  kind: logisticsVehicleKindEnum("kind").notNull().default("bakkie"),
+  kind: logisticsVehicleKindEnum("kind").notNull().default("truck"),
   driverPersonId: person("driver_person_id"),
   seats: smallint("seats"),
   cargoNotes: text("cargo_notes"),

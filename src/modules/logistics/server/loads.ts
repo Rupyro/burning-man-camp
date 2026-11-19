@@ -89,7 +89,7 @@ export const createVehicle = moduleAction(
   {
     input: z.object({
       label: text(80).min(1),
-      kind: z.enum(["car", "bakkie", "truck", "trailer", "container_truck", "mutant_vehicle"]),
+      kind: z.enum(["car", "truck", "trailer", "container_truck", "mutant_vehicle"]),
       driverPersonId: optId,
       seats: z.number().int().min(1).max(60).nullable().optional(),
       cargoNotes: text(300).optional(),
