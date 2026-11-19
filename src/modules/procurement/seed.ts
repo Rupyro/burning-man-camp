@@ -24,7 +24,7 @@ const PLACES = [
   ["Cape Town storage", "storage", "Fake storage unit (demo)."],
   ["Site: kitchen", "site_area", "On playa, behind the kitchen shade."],
   ["Site: build yard", "site_area", "On playa, next to the art car."],
-  ["With Remo (demo)", "person", "Kit someone has at home."],
+  ["At a member's home (demo)", "person", "Kit someone has at home."],
 ] as const;
 
 type Stock = [place: number, condition: Condition, qty: number];

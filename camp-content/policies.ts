@@ -1,4 +1,4 @@
-// Placeholder approval-policy names and limits (decision F1: Jory sets the real numbers).
+// Placeholder approval-policy names and limits (decision F1: the treasurer sets the real numbers).
 // The matching logic stays in the finance module.
 import { MONEY_SYMBOL } from "../src/lib/camp";
 import type { PolicyLike } from "../src/modules/finance/rules/policy";

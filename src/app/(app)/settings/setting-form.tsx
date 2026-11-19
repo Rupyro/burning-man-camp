@@ -7,7 +7,7 @@ import { ActionForm } from "../_components/action-form";
 
 export interface SettingRow {
   key: string;
-  kind: "onoff" | "days" | "rand";
+  kind: "onoff" | "days" | "money";
   label: string;
   help: string;
   value: number;
@@ -15,7 +15,7 @@ export interface SettingRow {
 }
 
 const shown = (s: { kind: SettingRow["kind"]; value: number }) =>
-  s.kind === "rand" ? String(s.value / 100) : String(s.value);
+  s.kind === "money" ? String(s.value / 100) : String(s.value);
 
 /** One setting: a short explanation, the value, and Save. Money amounts are typed in whole units. */
 export function SettingForm({ s }: { s: SettingRow }) {
@@ -30,7 +30,7 @@ export function SettingForm({ s }: { s: SettingRow }) {
           return Promise.resolve({ ok: false as const, error: "Type a number" });
         return saveAutomationSetting({
           key: s.key,
-          value: s.kind === "rand" ? Math.round(n * 100) : Math.round(n),
+          value: s.kind === "money" ? Math.round(n * 100) : Math.round(n),
         });
       }}
     >
@@ -50,7 +50,7 @@ export function SettingForm({ s }: { s: SettingRow }) {
         </select>
       ) : (
         <div className="flex items-center gap-2">
-          {s.kind === "rand" ? <span className="text-sm">{MONEY_SYMBOL}</span> : null}
+          {s.kind === "money" ? <span className="text-sm">{MONEY_SYMBOL}</span> : null}
           <Input
             id={id}
             name="value"
