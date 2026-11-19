@@ -1,6 +1,7 @@
-// Core: always on. The teams, roles, AfrikaBurn duties and shifts every camp has.
-// Obligations and shift templates are keys into the definitions kept by the obligations and
-// shifts modules (the AfrikaBurn rules stay built in); a pack only switches them on.
+// Core: always on. The teams, roles and shifts every camp has. The event's own paperwork
+// (deadlines and forms) lives in its event pack, camp-events/<event>/.
+// Shift templates are keys into the definitions kept by the shifts module; a pack only
+// switches them on.
 import { definePack } from "../../src/lib/camp-packs";
 
 export default definePack({
@@ -48,21 +49,9 @@ export default definePack({
     { key: "camping", label: "Camping" },
     { key: "other", label: "Other" },
   ],
-  obligations: [
-    { key: "theme_camp_registration", label: "Theme camp registration" },
-    { key: "wap_requests", label: "WAP (early-arrival pass) requests" },
-    { key: "lnt_plan", label: "Leave No Trace plan and LNT lead" },
-    { key: "fire_safety", label: "Fire safety officer and extinguishers" },
-    { key: "water_ice_orders", label: "Water and ice orders" },
-    { key: "food_safety_form", label: "Food Safety Form (only if gifting food)" },
-    { key: "supplier_registration", label: "Supplier registration" },
-    { key: "exit_lnt_signoff", label: "Final LNT sign-off at exit" },
-    { key: "camp_intent_form", label: "Tell AfrikaBurn we're coming back (intent form)" },
-    { key: "nominate_officers", label: "Name the 2027 officers (LNT, fire, sound, MV)" },
-  ],
   // App sections: module ids (a module no pack brings is switched off) and home tiles.
   sections: [
-    { key: "obligations", label: "AfrikaBurn duties" },
+    { key: "obligations", label: "Event deadlines" },
     { key: "finance", label: "Money" },
     { key: "procurement", label: "Gear and materials" },
     { key: "logistics", label: "Logistics" },

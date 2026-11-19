@@ -78,7 +78,8 @@ export interface CampConfig {
   extras: {
     traditions: readonly "rain-dance"[];
   };
-  event: { pack: "afrikaburn" };
+  /** The event the camp goes to (camp-events/<key>/): its dates, deadlines and rules. */
+  event: { pack: "burning-man" | "afrikaburn" };
   /**
    * Who owns gear: display names for the fixed database keys. campKey must be one of
    * OWNER_KEYS; the database default stays "oeaasies" (changing it needs a migration).
