@@ -2,7 +2,7 @@
 
 **Status:** built with the defaults below, for Ruchir's review (17 Oct 2026, ET). **Plan:** `PLAN.md`
 "Module: Logistics" (was S7), §4.7. **Tables:** `DATA_MODEL.md` §6. **Rulebook:** `MODULE_RULEBOOK.md`
-(events §7). Demo data only. **Waiting on:** Tam and Sage for the travel form fields (placeholders below).
+(events §7). Demo data only. **Waiting on:** the logistics leads for the travel form fields (placeholders below).
 
 ## 1. What it is (and isn't)
 Two halves on one screen:
@@ -102,13 +102,13 @@ Live tracking, route planning, fuel costs, vehicle paperwork, shuttles with time
 - **L4** Ride matching [same direction, dates within 1 day, same area or no area given].
 - **L5** WAP list [confirmed members with a partial or full build commitment; name and email only].
 - **L6** Travel form fields [direction, mode, area, date, time of day, seats, carrying cargo, notes]
-  until Tam and Sage confirm theirs.
+  until the logistics leads confirm theirs.
 - **L7** Who downloads the exports? [Logistics team leads, camp leads, admins].
 - **L8** A critical item counts as a gap until it's on a load with a destination [yes].
 
 ## 11. Open questions for Ruchir (one line each; the defaults above stand until answered)
 - **Q1** Who is on the Logistics team for 2027, and who leads it? (L1, L2, L7 hang off that team)
-- **Q2** What travel questions do Tam and Sage already ask members? (L6 fields are placeholders)
+- **Q2** What travel questions do the logistics leads already ask members? (L6 fields are placeholders)
 - **Q3** Who counts as a builder for the WAP list: full build only, or partial too? (L5: both)
 - **Q4** Does the camp lead submit WAP names, or does each builder request their own on Quicket?
 - **Q5** Which pickup areas should the ride board offer (CBD, southern suburbs, airport, Stellenbosch…)? (L4)
