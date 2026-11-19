@@ -288,5 +288,11 @@ export default defineEventPack({
     },
   ],
   obligations: [],
+  firstTimer: [
+    { label: "First-Timer's Guide", url: `${BM}/preparation/first-timers-guide/` },
+    { label: "Survival Guide", url: "https://survival.burningman.org/" },
+    { label: "The 10 Principles", url: "https://burningman.org/about/10-principles/" },
+    { label: "Tickets: how the sales work", url: TICKETS },
+  ],
   sections: [{ key: "obligations", label: "Burning Man deadlines" }],
 });

@@ -65,6 +65,8 @@ export interface EventPack {
     earlyPass: string;
     directions: { label: string; url: string };
   };
+  /** Reading for someone going for the first time, in order. */
+  firstTimer?: readonly { label: string; url: string }[];
   /** Obligation definitions this event switches on (keys into the obligations module's seed). */
   obligations?: readonly PackItem[];
   /** Section labels this event renames, e.g. the obligations tile. */
