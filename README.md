@@ -43,6 +43,9 @@ yourself.
 Secrets (database URLs, auth secret, API keys) belong in Vercel's environment variables or your
 camp's password manager, never in git.
 
+For the camp-lead side of setup (the setup questions, picking packs and the event, writing your
+camp's words, and the yearly date update), see [`docs/new-camp-guide.md`](docs/new-camp-guide.md).
+
 ## Run it locally
 
 Needs Node 24 (`.nvmrc`), pnpm 10 (`corepack enable`) and Postgres 16 (Docker, or any local install).
