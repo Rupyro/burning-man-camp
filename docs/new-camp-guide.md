@@ -57,6 +57,8 @@ links to its source.
 Entries marked `"pattern"` are last year's date moved to the same weekday. Change them to
 `"official"` once posted, and fix the date if it moved.
 
+To add another event (a regional burn, for example), see [Event packs](event-packs.md).
+
 ## 3. Write your camp's words
 
 | File | What it is |
