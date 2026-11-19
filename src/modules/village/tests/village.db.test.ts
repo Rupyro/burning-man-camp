@@ -10,12 +10,14 @@ import {
   EDITION,
   getDb,
   setFlagAs,
+  tasksApiFor,
   truncateAll,
 } from "@/base/api/testing-db";
 
 // The forms use the app router; static rendering needs a stand-in.
 vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh: () => undefined }) }));
 
+import { seed } from "../seed";
 import { addShare, setReturned } from "../server/actions";
 import { listShares } from "../server/queries";
 import { HomePage } from "../ui/pages/home";
@@ -61,5 +63,28 @@ describe("village", () => {
     expect(html).toContain("1 of theirs with us, 0 of ours with them");
     expect(html).toContain("Record it");
     expect((await listShares(getDb(), EDITION.id)).filter((r) => r.returned)).toHaveLength(1);
+  });
+
+  it("shows an empty list until something is shared", async () => {
+    const html = renderToStaticMarkup(await HomePage({ ctx: await ctxFor(member) }));
+    expect(html).toContain("Nothing shared yet.");
+    expect(html).not.toContain("Still out:");
+  });
+
+  it("the demo seed adds one borrowed and one returned loan, once", async () => {
+    const lead = await createPerson({ email: "l@example.test", name: "Lead L" });
+    const ctx = {
+      db: getDb(),
+      edition: EDITION,
+      people: { admin, lead, member },
+      tasks: await tasksApiFor(admin),
+    };
+    await seed(ctx);
+    await seed(ctx);
+    expect(await listShares(getDb(), EDITION.id)).toHaveLength(2);
+    const html = renderToStaticMarkup(await HomePage({ ctx: await ctxFor(admin) }));
+    expect(html).toContain("Their generator, our extension run");
+    expect(html).toContain("returned");
+    expect(html).toContain("borrowed from");
   });
 });
