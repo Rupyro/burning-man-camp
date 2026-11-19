@@ -2,7 +2,7 @@
 
 **Status:** decided by Ruchir (18 Oct 2026, ET; Decisions log). Replaces the block list in
 `b3-home.md` §3–4 for `/`. Theme, tab bar, sidebar and permissions from B3 are unchanged.
-**Design:** `design/home-up-next` mockups. North star (Sage): make responsibility visible and
+**Design:** `design/home-up-next` mockups. North star (member feedback): make responsibility visible and
 problems manageable before they become someone else's emergency; contributing should feel easy.
 
 ## 1. Member home (top to bottom)
@@ -54,8 +54,8 @@ Burn pack). Any example is labelled sample. No data.
 The Shifts module itself, the Burn pack, notifications in the queue (they stay in Alerts),
 editing Camp info content in the app.
 
-## B3.2 Sage's first-look fixes (decided by Ruchir, 21 Oct 2026 ET)
-Sage (camp member) found the home overwhelming: no clear "what do I do next". Changes:
+## B3.2 A member's first-look fixes (decided by Ruchir, 21 Oct 2026 ET)
+A camp member found the home overwhelming: no clear "what do I do next". Changes:
 - **My to-do:** the queue is titled **My to-do** (leads: **My to-do · waiting on you**), still at
   most 5 rows, each one tap to where you do it. A **Fill in your details** row (to `/me`) shows
   while your phone, an emergency contact (name and phone) or your arrival date is missing.
