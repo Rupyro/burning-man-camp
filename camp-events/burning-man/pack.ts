@@ -14,15 +14,20 @@ const SAP = `${HELP}/4415067257236-Setup-Access-Passes`;
 const TICKETS = `${BM}/ticketing-information/`;
 const EXODUS = `${BM}/preparation/getting-there-and-back/exodus/`;
 const EVENT = `${BM}/black-rock-city-2027/`;
+const FUEL = `${BM}/bring-your-art/fire-art-guidelines/fire-safety-agreements/fuel-and-hazardous-materials-storage/`;
 
 export default defineEventPack({
   key: "burning-man",
   label: "Burning Man",
   place: "Black Rock City, Nevada",
+  coords: { lat: 40.786, lon: -119.206 },
   timezone: "America/Los_Angeles",
   timezoneLabel: "PT",
   dateStyle: "us",
   currency: "USD",
+  water: { perPersonPerDay: 1.5, unit: "gal", source: "https://survival.burningman.org/" },
+  // At most 110 gallons (two 55-gallon drums) stored per camp; fill cans to 80% at most.
+  fuel: { storageLimit: 110, maxFill: 0.8, unit: "gal", source: FUEL },
   year: 2027,
   event: { start: "2027-08-29", end: "2027-09-06", status: "official", source: EVENT },
   words: {
@@ -287,5 +292,11 @@ export default defineEventPack({
     },
   ],
   obligations: [],
+  firstTimer: [
+    { label: "First-Timer's Guide", url: `${BM}/preparation/first-timers-guide/` },
+    { label: "Survival Guide", url: "https://survival.burningman.org/" },
+    { label: "The 10 Principles", url: "https://burningman.org/about/10-principles/" },
+    { label: "Tickets: how the sales work", url: TICKETS },
+  ],
   sections: [{ key: "obligations", label: "Burning Man deadlines" }],
 });
