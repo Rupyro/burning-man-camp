@@ -1,4 +1,4 @@
-CREATE TYPE "public"."registers_kind" AS ENUM('fuel', 'flame', 'stake');--> statement-breakpoint
+CREATE TYPE "public"."registers_kind" AS ENUM('fuel', 'flame', 'burn', 'stake');--> statement-breakpoint
 CREATE TABLE "registers_items" (
 	"id" uuid PRIMARY KEY NOT NULL,
 	"edition_id" uuid NOT NULL,

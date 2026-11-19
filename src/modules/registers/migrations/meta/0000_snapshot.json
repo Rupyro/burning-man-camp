@@ -1,5 +1,5 @@
 {
-  "id": "674122dd-505e-4629-850d-d74d10dd7058",
+  "id": "5a26f93f-f3ce-44ac-a1ca-7adb34c2b47b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -140,6 +140,7 @@
       "values": [
         "fuel",
         "flame",
+        "burn",
         "stake"
       ]
     }
