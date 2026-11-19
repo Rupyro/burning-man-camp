@@ -25,7 +25,7 @@ export function hasTradition(key: string): boolean {
 const problems = campConfigProblems(config);
 if (problems.length) throw new Error(`camp.config.ts needs fixing:\n- ${problems.join("\n- ")}`);
 
-/** Display name for a stored gear-owner key, e.g. "Ours" for oeaasies. */
+/** Display name for a stored gear-owner key, e.g. "Ours" for ours. */
 export function ownerLabel(key: string): string {
   return campConfig.owners.labels[key as OwnerKey] ?? key;
 }

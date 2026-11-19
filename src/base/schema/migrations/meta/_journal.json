@@ -92,6 +92,13 @@
       "when": 1793657541488,
       "tag": "0012_packing_ticks",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1795046712271,
+      "tag": "0013_usd_pacific",
+      "breakpoints": true
     }
   ]
 }
