@@ -10,7 +10,7 @@ theme-camp registration, WAP requests, MV registration and DMV licensing, sound 
 fire safety, gas/fuel, water and ice orders, Food Safety Form, supplier registration, final LNT
 exit sign-off. Each one is a **base task** (`kind = "obligations.obligation"`) with a 1:1 detail
 row. It is **not** per-member dues, deposits, shifts or attendance: member payments are out of V1
-(Howler + Jaxon's sheet), shifts are their own module.
+(Howler + the dues sheet), shifts are their own module.
 
 ## 2. Data
 `obligation_details` (module table, FK to base `tasks` only):
