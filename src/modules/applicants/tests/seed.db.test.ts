@@ -88,7 +88,7 @@ describe("applicants seed", () => {
     expect(kai?.interviewAt?.getTime()).toBeGreaterThan(Date.now());
     // Accepted applicants owe the camp fee: Finance made one each through the event bus.
     expect(await named("finance.fee.created")).toBe(2);
-    expect(rows.filter((r) => r.status === "accepted").every((r) => r.feeCents === 350_000)).toBe(
+    expect(rows.filter((r) => r.status === "accepted").every((r) => r.feeCents === 45_000)).toBe(
       true,
     );
   });

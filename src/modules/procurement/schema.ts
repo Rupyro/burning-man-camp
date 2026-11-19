@@ -31,11 +31,10 @@ const stamps = {
   version: integer("version").notNull().default(1),
 };
 
-// Frozen keys (plan: labels come from camp.config.ts owners; changing keys or the default needs a migration).
+// Who owns gear: ours, borrowed or rented (labels come from camp.config.ts owners). Changing the
+// keys or the default needs a migration (0007 replaced the old camp-specific keys).
 export const procurementOwnerEnum = pgEnum("procurement_owner_label", [
-  "oeaasies",
-  "khoena",
-  "shared",
+  "ours",
   "borrowed",
   "rented",
 ]);
@@ -72,7 +71,7 @@ export const procurementItems = pgTable(
     category: varchar("category", { length: 40 }).notNull().default("other"),
     unit: varchar("unit", { length: 16 }).notNull().default("pcs"),
     isAsset: boolean("is_asset").notNull().default(true),
-    ownerLabel: procurementOwnerEnum("owner_label").notNull().default("oeaasies"),
+    ownerLabel: procurementOwnerEnum("owner_label").notNull().default("ours"),
     isBottleneck: boolean("is_bottleneck").notNull().default(false),
     notes: text("notes"),
     deletedAt: timestamp("deleted_at", { withTimezone: true }),

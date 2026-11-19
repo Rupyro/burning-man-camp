@@ -16,12 +16,12 @@ import {
 
 /** Demo Burn week (Mon–Sun) and its build and strike days. Real dates come from anchor dates. */
 export const DEMO_BURN = {
-  start: "2027-04-26",
-  freeze: "2027-04-19",
-  buildDays: ["2027-04-23", "2027-04-24", "2027-04-25"],
-  strikeDays: ["2027-05-03"],
+  start: "2027-08-30",
+  freeze: "2027-08-23",
+  buildDays: ["2027-08-27", "2027-08-28", "2027-08-29"],
+  strikeDays: ["2027-09-07"],
 };
-const BURN_DAYS = ["04-26", "04-27", "04-28", "04-29", "04-30", "05-01", "05-02"].map(
+const BURN_DAYS = ["08-30", "08-31", "09-01", "09-02", "09-03", "09-04", "09-05"].map(
   (d) => `2027-${d}`,
 );
 const MON_SAT = BURN_DAYS.slice(0, 6);
