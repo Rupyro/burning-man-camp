@@ -6,6 +6,7 @@ export default defineEventPack({
   key: "afrikaburn",
   label: "AfrikaBurn",
   place: "Tankwa Town, South Africa",
+  coords: { lat: -32.33, lon: 19.75 },
   timezone: "Africa/Johannesburg",
   timezoneLabel: "SAST",
   dateStyle: "day-first",

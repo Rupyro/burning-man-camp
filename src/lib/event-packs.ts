@@ -37,6 +37,8 @@ export interface EventPack {
   label: string;
   /** Where it happens, e.g. "Black Rock City, Nevada". */
   place: string;
+  /** The site, for sunrise and sunset (day/night theme). */
+  coords: { lat: number; lon: number };
   /** IANA time zone for every date and deadline. */
   timezone: string;
   /** Short label printed after camp times, e.g. "PT". */
