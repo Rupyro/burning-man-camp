@@ -26,7 +26,7 @@ module), vehicle registration (Obligations), offline writes (V1), ID or passport
 ## 2. Data (`logistics_` tables, FKs to base tables only)
 - `logistics_places` (camp-wide): name, kind (storage, container_yard, site, pickup, airport,
   city_area, supplier), address_text, notes. Unique lower(name).
-- `logistics_vehicles` (per edition): label, kind (car, bakkie, truck, trailer, container_truck,
+- `logistics_vehicles` (per edition): label, kind (car, truck, trailer, container_truck,
   mutant_vehicle), driver_person_id, seats, cargo_notes.
 - `logistics_loads` (per edition): name, direction (outbound, return, internal), vehicle,
   origin, destination (nullable: a load without one is a gap for its critical items), departs_at,
