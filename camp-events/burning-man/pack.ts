@@ -335,5 +335,50 @@ export default defineEventPack({
       source: `${BM}/bring-your-art/register-your-art/`,
     },
   ],
+  // Every answer comes from a rule or page already linked in this pack.
+  quiz: [
+    {
+      key: "water",
+      question: "How much water should each person bring for each day, for drinking and cooking?",
+      options: ["Half a gallon", "1.5 gallons", "Whatever the camp has"],
+      answer: 1,
+      source: "https://survival.burningman.org/",
+    },
+    {
+      key: "gray_water",
+      question: "What happens to gray water (dishwater, shower water)?",
+      options: ["Pour it on the playa to keep the dust down", "Evaporate it or haul it out"],
+      answer: 1,
+      source: `${BM}/preparation/camping-tips/gray-water/`,
+    },
+    {
+      key: "strike",
+      question: "At strike, what happens to stakes and lag bolts?",
+      options: ["Every one is pulled and packed out", "Cut them off at ground level"],
+      answer: 0,
+      source: `${BM}/preparation/leaving-no-trace/moop/`,
+    },
+    {
+      key: "selling",
+      question: "Can the camp sell spots, meal plans or all-inclusive packages?",
+      options: ["Yes, if the price covers costs", "No: dues share real costs only"],
+      answer: 1,
+      source: `${BM}/camps/cultural-direction-setting-decommodification/commodification-gifting-decommodification-and-participation/`,
+    },
+    {
+      key: "early_arrival",
+      question: "Who uses the camp's Setup Access Passes to arrive early?",
+      options: ["Anyone who asks first", "Only the people building camp"],
+      answer: 1,
+      source: SAP,
+    },
+    {
+      key: "vehicle_pass",
+      question: "Does a car driving in need a vehicle pass bought in advance?",
+      options: ["Yes", "No, you buy it at the Gate"],
+      answer: 0,
+      source: `${HELP}/360025856692-Who-needs-to-have-a-Vehicle-Pass`,
+    },
+  ],
   sections: [{ key: "obligations", label: "Burning Man deadlines" }],
 });
