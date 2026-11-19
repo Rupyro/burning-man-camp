@@ -10,7 +10,6 @@ import {
   TICKET_STATES,
 } from "../../rules/gate";
 import { campTickets, getAllocations, myTickets } from "../../server/queries";
-import { AllocationsForm, MyTicketsForm } from "../components/forms";
 
 export async function HomePage({ ctx }: { ctx: ModuleContext }) {
   const personId = ctx.actor.personId;
@@ -35,7 +34,11 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
               ? "Gate-ready: you have everything you need to get in."
               : `Not Gate-ready yet: still need a ${missing.join(", ")}.`}
           </p>
-          <MyTicketsForm initial={mine} earlyPass={early} />
+          <ul className="mt-2 text-sm">
+            <li>{TICKET_LABEL[mine.ticket]}</li>
+            <li>{PASS_LABEL[mine.vehiclePass]}</li>
+            <li>{EARLY_LABEL[mine.earlyArrival]}</li>
+          </ul>
         </section>
       ) : null}
       {board ? <CampBoard rows={board[0]} alloc={board[1]} early={early} /> : null}
@@ -75,7 +78,6 @@ function CampBoard({
           </li>
         ))}
       </ul>
-      <AllocationsForm initial={alloc} earlyPass={early} />
       <table className="w-full text-left text-sm">
         <thead>
           <tr>
