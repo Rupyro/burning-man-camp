@@ -5,7 +5,7 @@ import { projects, teams } from "@/base/schema";
 import { firstRow } from "@/lib/rows";
 import { as, type PeopleIds, peopleFixture } from "./people-fixture";
 
-export const NOW = new Date("2027-04-10T07:00:00Z");
+export const NOW = new Date("2027-04-10T16:00:00Z");
 export const days = (n: number) => new Date(NOW.getTime() + n * 86_400_000);
 
 export interface EngineIds extends PeopleIds {

@@ -29,7 +29,7 @@ describe("finance home page", () => {
     const out = await html(p.member);
     expect(out).toContain("Request money");
     expect(out).toContain('aria-label="How asking for money works"');
-    expect(out).toContain("Gas bottles (4 × 9 kg)");
+    expect(out).toContain("Propane tanks (4 × 20 lb)");
     expect(out).toContain("Waiting for a finance approver");
     expect(out).not.toContain("Camp budget by team");
     expect(out).not.toContain(" approved of R");
