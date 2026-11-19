@@ -24,6 +24,14 @@ export async function seed({ db, edition, people }: ModuleSeedContext) {
     },
     {
       editionId: edition.id,
+      kind: "burn",
+      label: "Temple offering lantern (demo)",
+      quantity: 1,
+      location: "Public burn platform",
+      notes: "Burned on a raised platform, never on the bare playa",
+    },
+    {
+      editionId: edition.id,
       kind: "stake",
       label: "Shade structure rebar (demo)",
       quantity: 48,

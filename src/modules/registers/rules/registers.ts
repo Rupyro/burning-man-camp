@@ -1,12 +1,13 @@
 // Safety registers (plan Phases 6 and 8): what fuel the camp stores, which flame effects it runs,
-// and how many stakes and lag bolts went into the playa, so every one comes out at strike.
+// what art the camp burns and how, and how many stakes and lag bolts went into the playa, so every one comes out at strike.
 
-export const KINDS = ["fuel", "flame", "stake"] as const;
+export const KINDS = ["fuel", "flame", "burn", "stake"] as const;
 export type RegisterKind = (typeof KINDS)[number];
 
 export const KIND_LABEL: Record<RegisterKind, string> = {
   fuel: "Fuel stored",
   flame: "Flame effects and fire",
+  burn: "Art burns (burn plan)",
   stake: "Stakes and lag bolts",
 };
 

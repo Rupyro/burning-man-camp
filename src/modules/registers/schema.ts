@@ -17,7 +17,7 @@ export const registersItems = pgTable(
       .references(() => editions.id, { onDelete: "restrict" }),
     kind: registersKindEnum("kind").notNull(),
     label: varchar("label", { length: 120 }).notNull(),
-    /** Fuel: amount in the event's unit. Stakes: how many went in. Flame: number of effects. */
+    /** Fuel: amount in the event's unit. Stakes: how many went in. Flame: number of effects. Burn: pieces burned. */
     quantity: integer("quantity").notNull().default(1),
     /** Stakes pulled at strike (stakes only). */
     pulled: integer("pulled").notNull().default(0),
