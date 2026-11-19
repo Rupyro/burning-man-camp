@@ -17,7 +17,7 @@ landing page design (Ruchir wants to discuss design first) and minus announcemen
 - **Roles** (camp-wide hats) and **role assignments**, per edition or permanent.
 - **Capabilities** computed on the server from roles + team memberships + the record.
 - **Admin-only notes** in their own table.
-- **CSV member import** for Jaxon's confirmed-member sheet: column mapping, validation report,
+- **CSV member import** for the camp's confirmed-member sheet: column mapping, validation report,
   dry run, apply, idempotent on email, possible duplicates flagged (never silently merged), audited.
 - **Screens:** My profile (`/me`), People directory (`/people`), a person's page (`/people/[id]`,
   with status, team, role and note controls for those allowed), Teams (`/teams`), Import
@@ -121,7 +121,7 @@ All are pure functions of `(actor, resource)` in `src/base/authz/permissions.ts`
   "create new person" or "same person as X" (which adds this year's record to X and keeps X's
   email). Two rows with the same email in one file: the second is an error.
 - **I6** If the import would take confirmed members over capacity, then the report warns but
-  doesn't block (Jaxon's sheet is the source of truth for who paid).
+  doesn't block (the dues sheet is the source of truth for who paid).
 - **I7** Import never sends invites. Inviting stays a separate admin step.
 - **I8 (deny)** A non-admin calling the import action gets Forbidden; nothing is written.
 
@@ -133,7 +133,7 @@ All are pure functions of `(actor, resource)` in `src/base/authz/permissions.ts`
 
 ## 5. Not in B1
 Landing page visual design; announcements and the camp guide; the "my stuff" base tasks (B2);
-the Settings → Modules screen; Jaxon's live sheet sync (the CSV import is the manual path);
+the Settings → Modules screen; a live sheet sync (the CSV import is the manual path);
 emergency-contact purge job; per-view audit of contacts or diets (Ruchir: not sensitive).
 
 ## 6. Flags (resolved)
