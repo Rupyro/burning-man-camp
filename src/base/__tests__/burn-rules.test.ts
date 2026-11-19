@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { burnAskOn, burnSilences, burnWelcome } from "@/base/people/burn-rules";
 
 const off = { onAt: null, arrivalAt: null, promptDismissedAt: null };
-const arrive = new Date("2027-04-26T10:00:00Z"); // Mon 26 Apr, 12:00 camp time
+const arrive = new Date("2027-04-26T10:00:00Z"); // Mon 26 Apr, 03:00 camp time
 
 describe("burnSilences", () => {
   it("quiets nudges, task alerts and Money notices", () => {
@@ -27,8 +27,8 @@ describe("burnWelcome (C)", () => {
     );
   });
   it("asks from the arrival day (camp time), including the first open after it", () => {
-    // 22:30 UTC on the 25th is already the 26th in camp time.
-    expect(burnWelcome({ ...off, arrivalAt: arrive }, new Date("2027-04-25T22:30:00Z"))).toBe(true);
+    // 07:30 UTC on the 26th is just after midnight in camp time.
+    expect(burnWelcome({ ...off, arrivalAt: arrive }, new Date("2027-04-26T07:30:00Z"))).toBe(true);
     expect(burnWelcome({ ...off, arrivalAt: arrive }, new Date("2027-04-28T08:00:00Z"))).toBe(true);
   });
   it("never comes back once answered or dismissed, or while Burn Mode is on", () => {

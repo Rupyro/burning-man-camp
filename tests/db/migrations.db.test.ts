@@ -21,7 +21,10 @@ describe("per-module migrations", () => {
       "__drizzle_migrations_mv",
       "__drizzle_migrations_obligations",
       "__drizzle_migrations_procurement",
+      "__drizzle_migrations_registers",
       "__drizzle_migrations_shifts",
+      "__drizzle_migrations_sound",
+      "__drizzle_migrations_tickets",
     ]);
   });
 

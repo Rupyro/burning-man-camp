@@ -1,10 +1,12 @@
 import type { ModuleSeedContext } from "@/base/api";
-import { activeKeys } from "@/lib/active-packs";
+import { activeEvent, activeKeys } from "@/lib/active-packs";
 import { campInputToInstant } from "@/lib/dates";
 import { createObligation, type NewObligation } from "./server/create";
 
 const AB = "https://www.afrikaburn.org";
 const QP = "https://quaggapedia.afrikaburn.com/index.php?title=";
+const BRC = "https://burningman.org/black-rock-city";
+const BMHELP = "https://help.burningman.org/hc/en-us/articles";
 /** 2027 guess = the 2026 date a year on, noon camp time. Marked tentative (dateConfirmed false). */
 const guess = (d2026: string) => campInputToInstant(d2026.replace(/^2026/, "2027"), "12:00");
 
@@ -142,6 +144,73 @@ const OBLIGATIONS: Seed[] = [
     sourceDocSlug: "quaggapedia-leave-no-trace",
     notes: "Camp isn't done until the LNT team signs off the site.",
   },
+  // Burning Man Placement (plan Phase 2): the camp-lead year, tracked like any other deadline.
+  {
+    key: "bm_statement_of_intent",
+    title: "Statement of Intent (Placement)",
+    authority: "burning_man",
+    category: "registration",
+    prev: "2026-01-15",
+    owner: "admin",
+    sourceUrl: `${BMHELP}/4410598647316-Theme-Camp-Statement-of-Intent-SOI-and-Stewards-Sale-Tickets`,
+    sourceDocSlug: "bm-statement-of-intent",
+    requiredDocuments: ["Camp description", "Camp size and dimensions", "Camp contacts"],
+    notes: "Filed in Burner Profile. Placed camps need it for Stewards Sale tickets.",
+  },
+  {
+    key: "bm_stewards_sale",
+    title: "Stewards Sale ticket list",
+    authority: "burning_man",
+    category: "tickets",
+    prev: "2026-02-26",
+    owner: "lead",
+    sourceUrl: `${BMHELP}/34445848189076-What-is-the-Stewards-Sale-Who-is-eligible`,
+    sourceDocSlug: "bm-stewards-sale",
+    requiredDocuments: ["Who gets a Stewards ticket"],
+  },
+  {
+    key: "bm_placement_questionnaire",
+    title: "Placement questionnaire",
+    authority: "burning_man",
+    category: "registration",
+    prev: "2026-03-19",
+    owner: "admin",
+    sourceUrl: `${BRC}/camps/placement-process/`,
+    sourceDocSlug: "bm-placement-process",
+    requiredDocuments: ["Site plan", "Interactivity and frontage", "Sound and power plan"],
+  },
+  {
+    key: "bm_setup_access_passes",
+    title: "Setup Access Pass request",
+    authority: "burning_man",
+    category: "wap",
+    prev: "2026-04-16",
+    owner: "lead",
+    sourceUrl: `${BMHELP}/4415067257236-Setup-Access-Passes`,
+    sourceDocSlug: "bm-setup-access-passes",
+    requiredDocuments: ["Build crew list"],
+  },
+  {
+    key: "bm_leave_no_trace",
+    title: "MOOP sweep and Leave No Trace before Exodus",
+    authority: "burning_man",
+    category: "lnt",
+    prev: "2026-09-08",
+    sourceUrl: `${BRC}/preparation/getting-there-and-back/exodus/`,
+    sourceDocSlug: "bm-exodus",
+    notes: "Line-sweep the site; the MOOP Map grades the camp and counts toward standing.",
+  },
+  {
+    key: "bm_post_playa_report",
+    title: "Post-playa Report",
+    authority: "burning_man",
+    category: "exit_signoff",
+    prev: "2026-10-15",
+    owner: "admin",
+    sourceUrl: `${BRC}/camps/placement-process/`,
+    sourceDocSlug: "bm-post-playa-report",
+    notes: "Due after the event; Placement reads it for next year's standing.",
+  },
 ];
 
 /** Fake, deterministic, idempotent (each key once per edition). Two demo extras show states. */
@@ -158,15 +227,25 @@ export async function seed({ db, edition, people, tasks }: ModuleSeedContext) {
   }
   // Demo variety (dates relative to the first seed): one late internal check, one already done.
   const now = Date.now();
+  const intent =
+    activeEvent.key === "burning-man"
+      ? {
+          title: "Tell Placement we're coming back (camp leads' check-in)",
+          authority: "burning_man" as const,
+          sourceUrl: `${BRC}/camps/placement-process/`,
+        }
+      : {
+          title: "Tell AfrikaBurn we're coming back (intent form)",
+          authority: "afrikaburn" as const,
+          sourceUrl: `${AB}/event/participation/theme-camps/`,
+        };
   await createObligation(tasks, db, edition, {
     key: "camp_intent_form",
-    title: "Tell AfrikaBurn we're coming back (intent form)",
-    authority: "afrikaburn",
+    ...intent,
     category: "registration",
     dueAt: new Date(now - 3 * 86_400_000),
     dateConfirmed: true,
     ownerPersonId: people.member,
-    sourceUrl: `${AB}/event/participation/theme-camps/`,
   });
   const done = await createObligation(tasks, db, edition, {
     key: "nominate_officers",

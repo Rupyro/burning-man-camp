@@ -9,8 +9,8 @@ export const CAMP_GUIDE = {
     "Stuck or can't make something? Tell your team lead early, so it doesn't become someone else's emergency.",
   ],
   packing: [
-    "Water: at least 20 L for yourself, plus your share for the camp",
-    "Shelter that survives wind: tent or shade, rebar pegs, ratchet straps",
+    "Water: at least 1.5 gallons a day for yourself, plus your share for the camp",
+    "Shelter that survives wind: tent or shade, rebar or lag-bolt stakes, ratchet straps",
     "Dust gear: goggles, dust mask, lip balm, wet wipes",
     "Warm layers for cold nights, and a headlamp with spare batteries",
     "Your MOOP bag: everything you bring goes home with you",
@@ -20,6 +20,6 @@ export const CAMP_GUIDE = {
     "Turn up for your shifts, or arrange a swap in good time",
     "Respect quiet hours and other people's tents",
     "Look after each other: water, shade and a friendly check-in",
-    "Read the AfrikaBurn survival guide before you travel",
+    "Read the Burning Man Survival Guide before you travel",
   ],
 } as const;

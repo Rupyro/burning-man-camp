@@ -23,7 +23,10 @@ export type ModuleId =
   | "exports"
   | "binder"
   | "applicants"
-  | "mv";
+  | "mv"
+  | "registers"
+  | "sound"
+  | "tickets";
 
 export type RoleKey =
   | "admin"

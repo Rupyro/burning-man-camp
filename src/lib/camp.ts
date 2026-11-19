@@ -14,7 +14,7 @@ export const MONEY_UNIT =
   ({ ZAR: "rand", USD: "dollars" } as Record<string, string>)[config.money.currency] ??
   config.money.currency;
 /** Number format for amounts: "en-US" for dollars, "en-ZA" for rand. */
-export const MONEY_LOCALE = config.money.currency === "ZAR" ? "en-ZA" : "en-US";
+export const MONEY_LOCALE = (config.money.currency as string) === "ZAR" ? "en-ZA" : "en-US";
 
 /** Whether a camp tradition is switched on (camp.config.ts extras.traditions). */
 export function hasTradition(key: string): boolean {
@@ -25,7 +25,7 @@ export function hasTradition(key: string): boolean {
 const problems = campConfigProblems(config);
 if (problems.length) throw new Error(`camp.config.ts needs fixing:\n- ${problems.join("\n- ")}`);
 
-/** Display name for a stored gear-owner key, e.g. "Ours" for oeaasies. */
+/** Display name for a stored gear-owner key, e.g. "Ours" for ours. */
 export function ownerLabel(key: string): string {
   return campConfig.owners.labels[key as OwnerKey] ?? key;
 }
