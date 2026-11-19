@@ -2,6 +2,7 @@
 import { newProject, newTask } from "@/base/engine/server/actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CAMP_TZ_LABEL } from "@/lib/dates";
 import { ActionForm } from "../_components/action-form";
 import { readTaskForm } from "../tasks/task-view";
 import { readProjectForm } from "./project-view";
@@ -46,7 +47,7 @@ export function AddTaskForm({ projectId, me }: { projectId: string; me?: string 
       <Input id="task-title" name="title" className="min-h-11" />
       <Label htmlFor="task-due-date">Due (date, optional)</Label>
       <Input id="task-due-date" name="dueDate" type="date" className="min-h-11" />
-      <Label htmlFor="task-due-time">Due (time, SAST)</Label>
+      <Label htmlFor="task-due-time">Due (time, {CAMP_TZ_LABEL})</Label>
       <Input id="task-due-time" name="dueTime" type="time" className="min-h-11" />
       <label className="flex min-h-11 items-center gap-2 text-sm">
         <input type="checkbox" name="takeIt" /> I'll own this task

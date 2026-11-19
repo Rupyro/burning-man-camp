@@ -7,6 +7,8 @@ export default defineEventPack({
   label: "AfrikaBurn",
   place: "Tankwa Town, South Africa",
   timezone: "Africa/Johannesburg",
+  timezoneLabel: "SAST",
+  dateStyle: "day-first",
   currency: "ZAR",
   year: 2027,
   calendar: [],

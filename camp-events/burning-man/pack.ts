@@ -20,6 +20,8 @@ export default defineEventPack({
   label: "Burning Man",
   place: "Black Rock City, Nevada",
   timezone: "America/Los_Angeles",
+  timezoneLabel: "PT",
+  dateStyle: "us",
   currency: "USD",
   year: 2027,
   event: { start: "2027-08-29", end: "2027-09-06", status: "official", source: EVENT },

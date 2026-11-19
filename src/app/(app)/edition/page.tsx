@@ -1,5 +1,5 @@
 import { getEditionSettings } from "@/base/editions/settings";
-import { formatCampTime } from "@/lib/dates";
+import { CAMP_TZ_LABEL, formatCampTime } from "@/lib/dates";
 import { basePage } from "../_components/base-page";
 import { anchorFormInitial, capacityLine } from "./anchor-input";
 import { AnchorForm, EditionForm } from "./edition-forms";
@@ -27,8 +27,9 @@ export default async function EditionPage() {
           Key dates
         </h2>
         <p className="text-sm text-muted-foreground">
-          Times are camp time (SAST). Task templates will schedule against these keys, so keep a key
-          once it's in use. Leave "Confirmed" unticked while a date is still a draft (shows TBC).
+          Times are camp time ({CAMP_TZ_LABEL}). Task templates will schedule against these keys, so
+          keep a key once it's in use. Leave "Confirmed" unticked while a date is still a draft
+          (shows TBC).
         </p>
         {s.anchors.length === 0 ? (
           <p className="text-sm">No key dates yet. Add the first one below.</p>

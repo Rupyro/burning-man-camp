@@ -2,6 +2,7 @@
 import { saveAnchorDate, saveEdition } from "@/base/people/server/actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CAMP_TZ_LABEL } from "@/lib/dates";
 import { ActionForm } from "../_components/action-form";
 import { type AnchorInitial, readAnchorForm, readEditionForm } from "./anchor-input";
 
@@ -55,7 +56,7 @@ export function AnchorForm({ initial }: { initial: AnchorInitial | null }) {
       <Field
         name="startTime"
         sfx={sfx}
-        label="Starts (time, SAST)"
+        label={`Starts (time, ${CAMP_TZ_LABEL})`}
         type="time"
         value={initial?.start.time}
       />
@@ -69,7 +70,7 @@ export function AnchorForm({ initial }: { initial: AnchorInitial | null }) {
       <Field
         name="endTime"
         sfx={sfx}
-        label="Ends (time, SAST)"
+        label={`Ends (time, ${CAMP_TZ_LABEL})`}
         type="time"
         value={initial?.end?.time}
       />
