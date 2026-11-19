@@ -12,14 +12,14 @@ import {
 } from "./task-view";
 
 const form = (o: Record<string, string>) => (k: string) => o[k] ?? "";
-const due = new Date("2027-04-12T08:00:00Z"); // 10:00 camp time
+const due = new Date("2027-04-12T17:00:00Z"); // 10:00 camp time
 
 describe("task labels", () => {
   it("says when it's due, and flags overdue or soon", () => {
     expect(dueLabel(null, "normal")).toBe("No due date");
-    expect(dueLabel(due, "normal")).toBe("Due Mon 12 Apr, 10:00 SAST");
-    expect(dueLabel(due, "soon")).toBe("Due soon · Mon 12 Apr, 10:00 SAST");
-    expect(dueLabel(due, "overdue")).toBe("Overdue · was due Mon 12 Apr, 10:00 SAST");
+    expect(dueLabel(due, "normal")).toBe("Due Mon, Apr 12, 10:00 AM PT");
+    expect(dueLabel(due, "soon")).toBe("Due soon · Mon, Apr 12, 10:00 AM PT");
+    expect(dueLabel(due, "overdue")).toBe("Overdue · was due Mon, Apr 12, 10:00 AM PT");
   });
 
   it("names statuses, helper room and the claim button", () => {
@@ -50,10 +50,10 @@ describe("readTaskForm", () => {
       readTaskForm("p1", form({ title: " Rig ", dueDate: "2027-04-12", dueTime: "10:00" })),
     ).toEqual({
       ok: true,
-      input: { projectId: "p1", title: "Rig", dueAt: "2027-04-12T08:00:00.000Z" },
+      input: { projectId: "p1", title: "Rig", dueAt: "2027-04-12T17:00:00.000Z" },
     });
     expect(readTaskForm("p1", form({ title: "Rig", dueDate: "2027-04-12" }))).toMatchObject({
-      input: { dueAt: "2027-04-11T22:00:00.000Z" },
+      input: { dueAt: "2027-04-12T07:00:00.000Z" },
     });
     expect(readTaskForm("p1", form({ title: "Rig", takeIt: "on" }), "me")).toMatchObject({
       input: { ownerPersonId: "me" },

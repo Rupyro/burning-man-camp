@@ -17,7 +17,7 @@ import {
 import { insertPlaceholderPolicies } from "./server/policies";
 import { spendingProject } from "./server/queries";
 
-const BUDGETS: [team: string, rand: number][] = [
+const BUDGETS: [team: string, amount: number][] = [
   ["camp_infra", 85_000],
   ["kitchen", 60_000],
   ["gift_projects", 40_000],
@@ -38,35 +38,35 @@ type Seed = {
   team: string;
   by: Who;
   title: string;
-  rand: number;
+  amount: number;
   status: SpendStatus;
   steps: Step[];
   why?: string;
   supplier?: string;
   /** Decisions so far, one per step in order: [approver, decision, comment?] */
   decisions?: [Who | "finance" | "camp", "approved" | "rejected" | "needs_info", string?][];
-  spent?: { rand: number; paidWith: "personal" | "camp_card"; owed?: boolean };
+  spent?: { amount: number; paidWith: "personal" | "camp_card"; owed?: boolean };
   task?: boolean;
 };
 
-/** About ten requests in every state, including the plan's R4,500 gas demo. */
+/** About ten requests in every state, including the plan's 4,500 propane demo. */
 const REQUESTS: Seed[] = [
   {
     team: "kitchen",
     by: "member",
-    title: "Gas bottles (4 × 9 kg)",
-    rand: 4500,
+    title: "Propane tanks (4 × 20 lb)",
+    amount: 4500,
     status: "submitted",
     steps: FIN,
-    why: "Cooking gas for build week and the burn.",
-    supplier: "Afrox Paarden Eiland",
+    why: "Cooking propane for build week and the burn.",
+    supplier: "Propane supplier (demo), Reno",
     task: true,
   },
   {
     team: "kitchen",
     by: "member",
     title: "Ice for build week",
-    rand: 900,
+    amount: 900,
     status: "approved",
     steps: LEAD,
     decisions: [["kitchenLead", "approved"]],
@@ -76,27 +76,27 @@ const REQUESTS: Seed[] = [
     team: "kitchen",
     by: "member",
     title: "Spices, oil and salt",
-    rand: 1200,
+    amount: 1200,
     status: "purchased",
     steps: LEAD,
     decisions: [["kitchenLead", "approved"]],
-    spent: { rand: 1150.5, paidWith: "personal", owed: true },
+    spent: { amount: 1150.5, paidWith: "personal", owed: true },
   },
   {
     team: "kitchen",
     by: "kitchenLead",
     title: "Stove regulator",
-    rand: 650,
+    amount: 650,
     status: "closed",
     steps: FIN,
     decisions: [["finance", "approved"]],
-    spent: { rand: 640, paidWith: "camp_card" },
+    spent: { amount: 640, paidWith: "camp_card" },
   },
   {
     team: "kitchen",
     by: "member",
     title: "Second chest fridge",
-    rand: 12000,
+    amount: 12000,
     status: "submitted",
     steps: BIG,
     decisions: [["finance", "approved", "Fine by budget; camp lead to confirm."]],
@@ -106,7 +106,7 @@ const REQUESTS: Seed[] = [
     team: "kitchen",
     by: "member",
     title: "Coffee plungers",
-    rand: 450,
+    amount: 450,
     status: "draft",
     steps: [],
   },
@@ -114,7 +114,7 @@ const REQUESTS: Seed[] = [
     team: "gift_projects",
     by: "lead",
     title: "LED strips for the dome",
-    rand: 3800,
+    amount: 3800,
     status: "needs_info",
     steps: FIN,
     decisions: [["finance", "needs_info", "Which supplier, and how many metres?"]],
@@ -123,7 +123,7 @@ const REQUESTS: Seed[] = [
     team: "gift_projects",
     by: "lead",
     title: "Fire extinguishers",
-    rand: 2400,
+    amount: 2400,
     status: "rejected",
     steps: FIN,
     decisions: [["finance", "rejected", "Camp infrastructure already bought these."]],
@@ -132,7 +132,7 @@ const REQUESTS: Seed[] = [
     team: "camp_infra",
     by: "admin",
     title: "Shade cloth, 50 m roll",
-    rand: 18500,
+    amount: 18500,
     status: "submitted",
     steps: BIG,
     why: "Replaces the torn 2026 shade over the kitchen.",
@@ -187,7 +187,7 @@ export async function seed({ db, edition, people, tasks }: ModuleSeedContext) {
   const roleRows = await db.select({ id: roles.id, key: roles.key }).from(roles);
   const roleOf = (approver: string) => roleRows.find((x) => `role:${x.key}` === approver)?.id;
   const budgetIds = new Map<string, string>();
-  for (const [key, rand] of BUDGETS) {
+  for (const [key, amount] of BUDGETS) {
     const t = team(key);
     if (!t) continue;
     const [b] = await db
@@ -196,7 +196,7 @@ export async function seed({ db, edition, people, tasks }: ModuleSeedContext) {
         editionId: edition.id,
         teamId: t.id,
         name: `${t.name} ${edition.year}`,
-        amountCents: rand * 100,
+        amountCents: amount * 100,
       })
       .returning({ id: financeBudgets.id });
     if (b) budgetIds.set(key, b.id);
@@ -245,7 +245,7 @@ export async function seed({ db, edition, people, tasks }: ModuleSeedContext) {
         requesterPersonId: requester,
         title: s.title,
         justification: s.why ?? null,
-        estimatedCents: Math.round(s.rand * 100),
+        estimatedCents: Math.round(s.amount * 100),
         supplierName: s.supplier ?? null,
         status: s.status,
         policyId: sent ? (policy?.id ?? null) : null,
@@ -294,7 +294,7 @@ export async function seed({ db, edition, people, tasks }: ModuleSeedContext) {
           teamId: t.id,
           payerPersonId: requester,
           paidWith: s.spent.paidWith,
-          amountCents: Math.round(s.spent.rand * 100),
+          amountCents: Math.round(s.spent.amount * 100),
           spentOn: `${edition.year}-03-01`,
           description: s.title,
           receiptUrl: "https://example.test/receipts/demo.jpg",
@@ -305,7 +305,7 @@ export async function seed({ db, edition, people, tasks }: ModuleSeedContext) {
           editionId: edition.id,
           expenseId: e.id,
           payeePersonId: requester,
-          amountCents: Math.round(s.spent.rand * 100),
+          amountCents: Math.round(s.spent.amount * 100),
         });
     }
   }
