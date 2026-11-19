@@ -1,24 +1,24 @@
 import { describe, expect, it } from "vitest";
 import { countdown, daysUntil, dueChip, readinessPercent } from "@/base/landing/home-rules";
 
-// 10 Apr 2027, 09:00 SAST
+// 10 Apr 2027, 00:00 camp time (PT)
 const NOW = new Date("2027-04-10T07:00:00Z");
 
 describe("home: countdown (spec B3 §3.3)", () => {
   it("counts whole camp-time days, and a past date shows 0", () => {
-    expect(daysUntil(new Date("2027-04-21T06:00:00Z"), NOW)).toBe(11);
-    // 23:30 SAST on the 10th is still today
-    expect(daysUntil(new Date("2027-04-10T21:30:00Z"), NOW)).toBe(0);
-    // 00:30 SAST on the 11th is tomorrow, though under 24 hours away
-    expect(daysUntil(new Date("2027-04-10T22:30:00Z"), NOW)).toBe(1);
-    expect(daysUntil(new Date("2027-04-01T06:00:00Z"), NOW)).toBe(0);
+    expect(daysUntil(new Date("2027-04-21T15:00:00Z"), NOW)).toBe(11);
+    // 23:30 camp time on the 10th is still today
+    expect(daysUntil(new Date("2027-04-11T06:30:00Z"), NOW)).toBe(0);
+    // 00:30 camp time on the 11th is tomorrow, though under 24 hours away
+    expect(daysUntil(new Date("2027-04-11T07:30:00Z"), NOW)).toBe(1);
+    expect(daysUntil(new Date("2027-04-01T15:00:00Z"), NOW)).toBe(0);
   });
 
   it("uses build_start and event_start; a missing date hides its half", () => {
     const anchors = [
-      { key: "container_day", startsAt: new Date("2027-04-17T06:00:00Z") },
-      { key: "build_start", startsAt: new Date("2027-04-21T06:00:00Z") },
-      { key: "event_start", startsAt: new Date("2027-04-26T10:00:00Z") },
+      { key: "container_day", startsAt: new Date("2027-04-17T15:00:00Z") },
+      { key: "build_start", startsAt: new Date("2027-04-21T15:00:00Z") },
+      { key: "event_start", startsAt: new Date("2027-04-26T19:00:00Z") },
     ];
     expect(countdown(anchors, NOW)).toEqual({
       build: { days: 11, at: anchors[1]?.startsAt },

@@ -19,23 +19,23 @@ const row = (over: Partial<StateInput> = {}): StateInput => ({
 describe("dueLabel", () => {
   it("shows the camp-time date when confirmed", () => {
     expect(dueLabel(new Date("2027-02-26T10:00:00Z"), true, "2026-02-28")).toEqual({
-      text: "Fri 26 Feb",
+      text: "Fri, Feb 26",
       tentative: false,
     });
   });
   it("shows TBC with last year's date when unconfirmed", () => {
     expect(dueLabel(days(5), false, "2026-02-28")).toEqual({
-      text: "TBC (2026: 28 Feb)",
+      text: "TBC (2026: Feb 28)",
       tentative: true,
     });
   });
   it("falls back to the guessed date, then to 'No date yet'", () => {
-    expect(dueLabel(new Date("2027-03-05T10:00:00Z"), false, null).text).toBe("TBC (5 Mar?)");
+    expect(dueLabel(new Date("2027-03-05T10:00:00Z"), false, null).text).toBe("TBC (Mar 5?)");
     expect(dueLabel(null, false, null)).toEqual({ text: "No date yet", tentative: true });
     expect(dueLabel(null, true, null).text).toBe("No date yet");
   });
-  it("uses camp time near midnight (SAST is UTC+2)", () => {
-    expect(dueLabel(new Date("2027-02-25T23:30:00Z"), true, null).text).toBe("Fri 26 Feb");
+  it("uses camp time near midnight (PT is UTC-8 in winter)", () => {
+    expect(dueLabel(new Date("2027-02-27T07:30:00Z"), true, null).text).toBe("Fri, Feb 26");
   });
 });
 
