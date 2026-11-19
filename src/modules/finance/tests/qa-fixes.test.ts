@@ -14,7 +14,7 @@ describe("request form check (before anything is sent)", () => {
   it("blank form: a message on each required field", () => {
     expect(checkRequestForm({ title: "", amount: "", why: "", supplier: "" })).toEqual({
       title: "Say what you need (at least 3 letters).",
-      amount: "Enter an amount, like 4500 or R4,500.50.",
+      amount: "Enter an amount, like 4500 or $4,500.50.",
     });
   });
   it("negative, zero, letters and huge amounts get a field message, not a crash", () => {
@@ -47,6 +47,6 @@ describe("budget card line", () => {
   it("says the total budget as the total, and 'left' only next to what's left", () => {
     expect(
       budgetLine({ actualCents: 150_000, committedCents: 119_050, budgetCents: 6_000_000 }),
-    ).toBe("R1,500 spent · R1,190.50 approved, not bought · of a R60,000 budget");
+    ).toBe("$1,500 spent · $1,190.50 approved, not bought · of a $60,000 budget");
   });
 });

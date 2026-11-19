@@ -67,7 +67,7 @@ describe("applicant pages", () => {
     expect(out).toContain("PLACEHOLDER:");
     expect(out).toContain("Camp agreement (placeholder)");
     expect(out).toContain("I&#x27;ve read this and agree");
-    expect(out).toContain("About Oe-aa-sies");
+    expect(out).toContain("About Your Camp");
     expect(out).toContain("The art car");
     expect(out).not.toContain("<img");
   });
@@ -75,8 +75,8 @@ describe("applicant pages", () => {
   it("with an interview booked: the date on the tracker and in the headline, no start button", async () => {
     await interviewBooked();
     const out = await html(ApplicantHome({ ctx: await ctx(p.kai), sent: true }));
-    expect(out).toContain("Your interview is booked for Wed 20 Jan at 18:30 SAST.");
-    expect(out).toContain("20 Jan, 18:30");
+    expect(out).toContain("Your interview is booked for Wed, Jan 20 at 6:30 PM PT.");
+    expect(out).toContain("Jan 20, 6:30 PM");
     expect(out).toContain("Application sent. We&#x27;ll be in touch.");
     expect(out).not.toContain("Start your application");
     expect(out).toContain("Interview scheduled");
@@ -85,7 +85,7 @@ describe("applicant pages", () => {
   it("the form: PLACEHOLDER marked, required questions starred, answers kept", async () => {
     const empty = await html(FormPage({ ctx: await ctx(p.kai) }));
     expect(empty).toContain("PLACEHOLDER:");
-    expect(empty).toContain("Why do you want to join Oe-aa-sies?");
+    expect(empty).toContain("Why do you want to join Your Camp?");
     expect(empty).toContain("Send application");
     expect(empty).toContain("Save draft");
     await interviewBooked();
@@ -105,7 +105,7 @@ describe("applicant pages", () => {
     expect(out).toContain("Interview scheduled (1)");
     expect(out).toContain("Not applied (1)");
     expect(out).toContain("Kai Applicant");
-    expect(out).toContain("Wed 20 Jan, 18:30");
+    expect(out).toContain("Wed, Jan 20, 6:30 PM");
     expect(out).not.toContain("Last year");
     const drafts = await html(ReviewPage({ ctx: await ctx(p.lead), stage: "draft" }));
     expect(drafts).toContain("Noa Applicant");

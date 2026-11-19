@@ -33,7 +33,7 @@ describe("obligations seed", () => {
     await seed(ctx);
     await seed(ctx);
     const rows = await getDb().select().from(obligationDetails);
-    expect(rows).toHaveLength(14);
+    expect(rows).toHaveLength(12);
     const mv = rows.find((r) => r.key === "mv_registration");
     expect(mv?.dateConfirmed).toBe(false);
     expect(mv?.previousYearDate).toBe("2026-04-05");
@@ -41,6 +41,6 @@ describe("obligations seed", () => {
       .select({ kind: tasks.kind })
       .from(tasks)
       .where(eq(tasks.kind, "obligations.obligation"));
-    expect(kinds).toHaveLength(14);
+    expect(kinds).toHaveLength(12);
   });
 });

@@ -66,6 +66,11 @@ export default async function CampInfoPage() {
               </li>
             ))}
           </ol>
+          {EVENT.quiz?.length ? (
+            <Link href="/camp/quiz" className="text-sm font-semibold underline">
+              Take the first-timer quiz
+            </Link>
+          ) : null}
         </Block>
       ) : null}
       {projects.length ? (
