@@ -16,11 +16,9 @@ export default defineCampConfig({
   extras: { traditions: ["rain-dance"] },
   event: { pack: "afrikaburn" },
   owners: {
-    campKey: "oeaasies",
+    campKey: "ours",
     labels: {
-      oeaasies: "Ours",
-      khoena: "Khoena's",
-      shared: "Shared",
+      ours: "Ours",
       borrowed: "Borrowed",
       rented: "Rented",
     },

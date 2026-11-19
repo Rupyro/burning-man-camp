@@ -94,7 +94,7 @@ const ITEMS: ItemSeed[] = [
     ],
   ],
   ["LED strip (5 m)", "sound_lighting", "pcs", [[1, "good", 12]]],
-  ["PA speaker", "sound_lighting", "pcs", [[2, "good", 2]], { owner: "shared" }],
+  ["PA speaker", "sound_lighting", "pcs", [[2, "good", 2]], { owner: "borrowed" }],
   ["Gas burner (3-plate)", "kitchen_equipment", "pcs", [[1, "good", 2]]],
   [
     "Cooler box (100 L)",
@@ -110,7 +110,7 @@ const ITEMS: ItemSeed[] = [
   ["Water drum (210 L)", "plumbing", "pcs", [[2, "good", 6]]],
   ["Shower pump", "plumbing", "pcs", [[2, "needs_repair", 1]]],
   ["Shade cloth (80%)", "building_material", "m", [[1, "good", 60]]],
-  ["Scaffold pipe (3 m)", "building_material", "pcs", [[2, "good", 40]], { owner: "khoena" }],
+  ["Scaffold pipe (3 m)", "building_material", "pcs", [[2, "good", 40]], { owner: "borrowed" }],
   ["Rebar stakes", "building_material", "pcs", [[0, "good", 80]]],
   ["Cable ties", "consumable", "pcs", [[0, "good", 500]], { asset: false }],
   ["Duct tape", "consumable", "pcs", [[0, "good", 6]], { asset: false }],
@@ -125,7 +125,7 @@ const ITEMS: ItemSeed[] = [
       [1, "broken", 1],
     ],
   ],
-  ["Camp chairs", "camping", "pcs", [[1, "good", 20]], { owner: "shared" }],
+  ["Camp chairs", "camping", "pcs", [[1, "good", 20]], { owner: "borrowed" }],
   ["Fairy lights", "decor", "pcs", [[1, "good", 8]]],
   ["Rice (10 kg bag)", "food", "pcs", [[2, "good", 2]], { asset: false }],
 ];
