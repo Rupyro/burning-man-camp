@@ -28,6 +28,12 @@ export default defineEventPack({
   water: { perPersonPerDay: 1.5, unit: "gal", source: "https://survival.burningman.org/" },
   // At most 110 gallons (two 55-gallon drums) stored per camp; fill cans to 80% at most.
   fuel: { storageLimit: 110, maxFill: 0.8, unit: "gal", source: FUEL },
+  // Central Nevada Health District Temporary Food Establishment permit.
+  food: {
+    permitOver: 125,
+    permitLabel: "Temporary Food Establishment permit (Central Nevada Health District)",
+    source: `${BM}/preparation/health-safety/permit-for-gifting-food/`,
+  },
   year: 2027,
   event: { start: "2027-08-29", end: "2027-09-06", status: "official", source: EVENT },
   words: {
