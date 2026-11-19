@@ -3,6 +3,7 @@
 // camp.config.ts picks one with event.pack. Its obligations merge after the camp's packs.
 
 import type { PackItem } from "./camp-packs";
+import type { QuizQuestion } from "./first-timer-quiz";
 
 /** "official" = posted by the event for this year; "pattern" = last year's date, until posted. */
 export type EventDateStatus = "official" | "pattern";
@@ -80,6 +81,8 @@ export interface EventPack {
   };
   /** Reading for someone going for the first time, in order. */
   firstTimer?: readonly { label: string; url: string }[];
+  /** A short quiz on the event's basics for first-timers (plan Phase 4). */
+  quiz?: readonly QuizQuestion[];
   /**
    * How to bring a project the event licenses or registers (a mutant vehicle, open-playa art),
    * shown to camps with that camp pack. Windows are the event's usual ones, in plain words.
