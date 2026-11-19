@@ -7,7 +7,7 @@ import { getNeed, listSuppliers, namesOf } from "../../server/queries";
 import { CriticalTag, dueText, HaveItLine, StatusChip } from "../components/bits";
 import { EditNeedForm, NeedLeadActions } from "../components/need-forms";
 
-const rand = (c: number | null) =>
+const money = (c: number | null) =>
   c === null
     ? ""
     : `${MONEY_SYMBOL}${(c / 100).toLocaleString(MONEY_LOCALE, { maximumFractionDigits: 2 })}`;
@@ -57,7 +57,7 @@ export async function NeedPage({ ctx, id }: { ctx: ModuleContext; id: string }) 
           {n.estimateCents ? (
             <>
               <dt className="text-muted-foreground">Estimate</dt>
-              <dd>{rand(n.estimateCents)}</dd>
+              <dd>{money(n.estimateCents)}</dd>
             </>
           ) : null}
           {n.ownerPersonId ? (
