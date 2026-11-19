@@ -120,7 +120,7 @@ describe("lead actions (Open applications)", () => {
         interviewTime: "18:30",
       }),
     );
-    expect((await appOf(p.kai))?.interviewAt?.toISOString()).toBe("2027-01-20T16:30:00.000Z");
+    expect((await appOf(p.kai))?.interviewAt?.toISOString()).toBe("2027-01-21T02:30:00.000Z");
     await ok(
       updateApplication({
         id,
@@ -129,7 +129,7 @@ describe("lead actions (Open applications)", () => {
         interviewTime: "09:00",
       }),
     );
-    expect((await appOf(p.kai))?.interviewAt?.toISOString()).toBe("2027-01-22T07:00:00.000Z");
+    expect((await appOf(p.kai))?.interviewAt?.toISOString()).toBe("2027-01-22T17:00:00.000Z");
     const r = await ok(updateApplication({ id, status: "accepted", note: "Lovely chat" }));
     expect(r).toEqual({ changed: true, joined: false, error: null });
     const app = await appOf(p.kai);

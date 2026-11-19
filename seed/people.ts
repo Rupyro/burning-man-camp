@@ -13,6 +13,7 @@ import {
   teamMemberships,
   teams,
 } from "../src/base/schema";
+import { EVENT_NAME } from "../src/lib/event";
 
 const FIRST = [
   "Alex",
@@ -171,12 +172,12 @@ export async function seedPeople(db: Db, editionId: string) {
     .insert(anchorDates)
     .values(
       [
-        ["shift_signups_open", "Shift sign-ups open", "2027-02-01T08:00:00Z"],
-        ["container_day", "Container Day", "2027-04-17T06:00:00Z"],
-        ["build_start", "Build starts", "2027-04-21T06:00:00Z"],
-        ["event_start", "AfrikaBurn opens", "2027-04-26T10:00:00Z"],
-        ["event_end", "AfrikaBurn ends", "2027-05-02T12:00:00Z"],
-        ["strike_end", "Strike done", "2027-05-05T12:00:00Z"],
+        ["shift_signups_open", "Shift sign-ups open", "2027-06-01T16:00:00Z"],
+        ["container_day", "Container Day", "2027-08-14T16:00:00Z"],
+        ["build_start", "Build starts", "2027-08-24T15:00:00Z"],
+        ["event_start", `${EVENT_NAME} opens`, "2027-08-29T07:01:00Z"],
+        ["event_end", `${EVENT_NAME} ends`, "2027-09-06T19:00:00Z"],
+        ["strike_end", "Strike done", "2027-09-08T19:00:00Z"],
       ].map(([key, label, at]) => ({
         editionId,
         key: key ?? "",

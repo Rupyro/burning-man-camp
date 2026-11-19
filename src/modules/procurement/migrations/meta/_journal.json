@@ -50,6 +50,13 @@
       "when": 1794180574671,
       "tag": "0006_custom_categories",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1795046704341,
+      "tag": "0007_neutral_owners",
+      "breakpoints": true
     }
   ]
 }

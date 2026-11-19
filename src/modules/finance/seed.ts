@@ -49,17 +49,17 @@ type Seed = {
   task?: boolean;
 };
 
-/** About ten requests in every state, including the plan's R4,500 gas demo. */
+/** About ten requests in every state, including the plan's 4,500 propane demo. */
 const REQUESTS: Seed[] = [
   {
     team: "kitchen",
     by: "member",
-    title: "Gas bottles (4 × 9 kg)",
+    title: "Propane tanks (4 × 20 lb)",
     amount: 4500,
     status: "submitted",
     steps: FIN,
-    why: "Cooking gas for build week and the burn.",
-    supplier: "Afrox Paarden Eiland",
+    why: "Cooking propane for build week and the burn.",
+    supplier: "Propane supplier (demo), Reno",
     task: true,
   },
   {

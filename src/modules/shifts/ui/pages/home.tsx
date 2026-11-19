@@ -77,6 +77,11 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
         >
           🎒 Burn pack: save it on your phone for camp
         </Link>
+        {can(ctx.actor, "shifts.manage") ? (
+          <Link href="/shifts/balance" className="mt-3 ml-2 text-sm font-semibold underline">
+            Participation balance
+          </Link>
+        ) : null}
       </header>
 
       {c ? (

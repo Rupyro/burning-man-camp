@@ -83,7 +83,7 @@ export function configFrom(a: SetupAnswers): CampConfig {
       name,
       shortName: name,
       slug: slugFor(name),
-      tagline: a.tagline?.trim() || `Operations platform for the ${name} camp at AfrikaBurn`,
+      tagline: a.tagline?.trim() || `Operations platform for the ${name} camp at Burning Man`,
       packs: ["core", ...a.packs],
       ...(a.campType ? { type: a.campType } : {}),
       ...(a.size ? { size: a.size } : {}),
@@ -97,7 +97,7 @@ export function configFrom(a: SetupAnswers): CampConfig {
     },
     joining: { familyYears: { enabled: a.familyYears, since: a.since } },
     extras: { traditions: a.traditions as CampConfig["extras"]["traditions"] },
-    event: { pack: "afrikaburn" },
+    event: { pack: "burning-man" },
     owners: DEFAULT_OWNERS,
     ...(own.length ? { custom: { materialCategories: own } } : {}),
   };
@@ -129,9 +129,7 @@ export default defineCampConfig({
   owners: {
     campKey: ${q(c.owners.campKey)},
     labels: {
-      oeaasies: ${q(c.owners.labels.oeaasies)},
-      khoena: ${q(c.owners.labels.khoena)},
-      shared: ${q(c.owners.labels.shared)},
+      ours: ${q(c.owners.labels.ours)},
       borrowed: ${q(c.owners.labels.borrowed)},
       rented: ${q(c.owners.labels.rented)},
     },

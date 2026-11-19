@@ -7,8 +7,8 @@ const NOW = new Date("2026-10-21T10:00:00Z");
 describe("shift sign-ups not open yet", () => {
   it("names the opening day from the shift_signups_open anchor date", () => {
     expect(SIGNUPS_OPEN_ANCHOR).toBe("shift_signups_open");
-    expect(notOpenYet(new Date("2027-02-01T08:00:00Z"), NOW)).toBe(
-      "Shift sign-ups open on 1 Feb. We'll send you an alert when they do.",
+    expect(notOpenYet(new Date("2027-02-01T17:00:00Z"), NOW)).toBe(
+      "Shift sign-ups open on Feb 1. We'll send you an alert when they do.",
     );
   });
   it("without a date (or a date already past) it still says what happens next", () => {
