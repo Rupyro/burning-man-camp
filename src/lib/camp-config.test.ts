@@ -26,6 +26,15 @@ describe("camp.config.ts", () => {
     expect(campConfigProblems(bad)).toHaveLength(5);
   });
 
+  it("ships the placeholder sweep-crew rule and checks its numbers", () => {
+    expect(config.exodus.sweepCrew).toEqual({ min: 2, perCampers: 10 });
+    const bad = { ...config, exodus: { sweepCrew: { min: -1, perCampers: 0 } } };
+    expect(campConfigProblems(bad)).toEqual([
+      "exodus.sweepCrew.min must be a whole number, 0 or more",
+      "exodus.sweepCrew.perCampers must be a whole number, 1 or more",
+    ]);
+  });
+
   it("only knows the neutral gear owners", () => {
     const old = { ...config, owners: { ...config.owners, campKey: "oeaasies" as "ours" } };
     expect(campConfigProblems(old)).toEqual([

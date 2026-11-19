@@ -17,6 +17,9 @@ export default defineCampConfig({
   joining: { familyYears: { enabled: true, since: 2023 } },
   extras: { traditions: [] },
   event: { pack: "burning-man" },
+  // PLACEHOLDER rule, not Burning Man's: people who stay for the final sweep =
+  // max(min, ceil(campers / perCampers)). The camp lead sets the real numbers.
+  exodus: { sweepCrew: { min: 2, perCampers: 10 } },
   owners: {
     campKey: "ours",
     labels: {

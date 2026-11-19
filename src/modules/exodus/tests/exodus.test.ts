@@ -18,6 +18,12 @@ describe("exodus rules", () => {
     expect(sweepCrewWanted(70)).toBe(7);
     expect(sweepCrewWanted(71)).toBe(8);
   });
+  it("takes the camp's own sweep rule from the config", () => {
+    expect(sweepCrewWanted(70, { min: 4, perCampers: 20 })).toBe(4);
+    expect(sweepCrewWanted(100, { min: 4, perCampers: 20 })).toBe(5);
+    const rows = [{ name: "A", day: "2027-09-07", staysForSweep: true }];
+    expect(sweepCrew(rows, 30, { min: 3, perCampers: 10 }).short).toBe(2);
+  });
   it("counts who stays and how many are missing", () => {
     const rows = [
       { name: "A", day: "2027-09-07", staysForSweep: true },
