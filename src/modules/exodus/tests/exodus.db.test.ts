@@ -42,15 +42,23 @@ describe("exodus", () => {
     await ok(setMyDeparture(leave));
     await ok(setMyDeparture({ ...leave, time: "07:30" }));
     await actAs(admin);
-    await ok(setMyDeparture({ ...leave, date: "2027-09-07", staysForSweep: true, travel: "" }));
+    await ok(
+      setMyDeparture({
+        ...leave,
+        date: "2027-09-07",
+        staysForSweep: true,
+        travel: "Container truck",
+      }),
+    );
     const rows = await listDepartures(getDb(), EDITION.id);
     expect(rows.map((r) => r.name)).toEqual(["Member M", "Admin A"]);
     const lead = renderToStaticMarkup(await HomePage({ ctx: await ctxFor(admin) }));
     expect(lead).toContain("Own car");
+    expect(lead).toContain("Container truck");
     expect(lead).toContain("1 staying");
     const mine = renderToStaticMarkup(await HomePage({ ctx: await ctxFor(member) }));
     expect(mine).toContain("Member M");
-    expect(mine).not.toContain("Own car");
+    expect(mine).not.toContain("Container truck");
     await actAs(member);
     await ok(clearMyDeparture({}));
     expect(await listDepartures(getDb(), EDITION.id)).toHaveLength(1);
