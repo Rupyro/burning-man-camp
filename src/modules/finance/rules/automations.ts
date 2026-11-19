@@ -12,7 +12,7 @@ export const RECEIPT_DAYS = [3, 7, 14] as const;
 export const CONDITION_RECEIPT_DAYS = 7;
 
 /**
- * Rule 10, OFF: per-team auto-approve limits in cents, by team key. Empty until Jory sets them,
+ * Rule 10, OFF: per-team auto-approve limits in cents, by team key. Empty until the treasurer sets them,
  * so nothing is ever auto-approved. See autoApprovable.
  */
 export const AUTO_APPROVE_LIMIT_CENTS: Readonly<Record<string, number>> = {};

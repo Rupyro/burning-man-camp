@@ -140,7 +140,7 @@ export const editionMembers = pgTable(
       .notNull()
       .references(() => people.id, { onDelete: "restrict" }),
     status: memberStatusEnum("status").notNull().default("prospect"),
-    /** Read-only import from Jaxon's sheet; the app never collects money. */
+    /** Read-only import from the dues sheet; the app never collects money. */
     paymentStatus: paymentStatusEnum("payment_status").notNull().default("unknown"),
     paymentStatusSyncedAt: timestamp("payment_status_synced_at", { withTimezone: true }),
     arrivalAt: timestamp("arrival_at", { withTimezone: true }),
