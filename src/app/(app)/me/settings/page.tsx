@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EVENT_SITE } from "@/lib/event";
 import { DustGustToggle } from "../../../_components/dust-gust";
 import { FunToggle } from "../../../_components/fun-extras";
 import { ThemeControls } from "../../../_components/theme-controls";
@@ -18,7 +19,7 @@ export default function SettingsPage() {
         </h2>
         <ThemeControls />
         <p className="text-xs text-muted-foreground">
-          Auto switches at sunrise and sunset in Tankwa (camp time).
+          Auto switches at sunrise and sunset in {EVENT_SITE} (camp time).
         </p>
       </section>
       <section aria-labelledby="set-dust" className={card}>

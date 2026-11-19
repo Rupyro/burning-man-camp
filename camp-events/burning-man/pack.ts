@@ -25,6 +25,21 @@ export default defineEventPack({
   currency: "USD",
   year: 2027,
   event: { start: "2027-08-29", end: "2027-09-06", status: "official", source: EVENT },
+  words: {
+    name: "Burning Man",
+    site: "Black Rock City",
+    principles: {
+      title: "The 10 Principles of Burning Man",
+      body: "I've read the 10 Principles (radical inclusion, gifting, decommodification, radical self-reliance, radical self-expression, communal effort, civic responsibility, leaving no trace, participation, immediacy).",
+    },
+    ticketPlan:
+      "I understand the camp doesn't sell tickets. I'll get my own Burning Man ticket and, if I drive, a vehicle pass from Burning Man's ticket sales.",
+    earlyPass: "Setup Access Pass",
+    directions: {
+      label: "Getting there and back (burningman.org)",
+      url: `${BM}/preparation/getting-there-and-back/`,
+    },
+  },
   calendar: [
     {
       key: "soi_opens",

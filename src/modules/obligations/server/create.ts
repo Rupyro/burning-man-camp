@@ -1,10 +1,11 @@
 import { and, eq } from "drizzle-orm";
 import type { ActionContext, ModuleTasksApi } from "@/base/api";
+import { EVENT_NAME } from "@/lib/event";
 import { obligationDetails, obligationDocuments } from "../schema";
 
 export const OBLIGATION_KIND = "obligations.obligation";
 export const OBLIGATIONS_TEAM = "camp_infra";
-export const projectName = (year: number) => `AfrikaBurn obligations ${year}`;
+export const projectName = (year: number) => `${EVENT_NAME} obligations ${year}`;
 
 export interface NewObligation {
   key: string;
@@ -41,7 +42,7 @@ export async function createObligation(
     teamKey: OBLIGATIONS_TEAM,
     name: projectName(edition.year),
     kind: "obligations",
-    description: "AfrikaBurn and other authority deadlines (Obligations module).",
+    description: `${EVENT_NAME} and other authority deadlines (Obligations module).`,
   });
   const task = await tasksApi.create({
     projectId: project.id,

@@ -4,6 +4,7 @@ import { listAnchorDates } from "@/base/editions/settings";
 import { CAMP_GUIDE, leadContacts } from "@/base/landing/camp-info";
 import { listDirectory } from "@/base/people/directory";
 import { formatCampDay } from "@/lib/dates";
+import { EVENT_NAME } from "@/lib/event";
 import { basePage } from "../_components/base-page";
 
 function Block(p: { id: string; title: string; children: React.ReactNode }) {
@@ -63,7 +64,7 @@ export default async function CampInfoPage() {
           <p className="text-sm">No dates set yet.</p>
         )}
         <Link href="/obligations" className="text-sm underline">
-          AfrikaBurn deadlines
+          {EVENT_NAME} deadlines
         </Link>
       </Block>
       <Block id="leads" title="Lead contacts">

@@ -50,6 +50,19 @@ export interface EventPack {
   event?: { start: string; end: string; status: EventDateStatus; source: string };
   calendar: readonly EventCalendarEntry[];
   rules: readonly EventRule[];
+  /** The event's own words, shown wherever the app talks about the event. */
+  words: {
+    /** "Burning Man" */
+    name: string;
+    /** Where camp is, e.g. "Black Rock City". */
+    site: string;
+    principles: { title: string; body: string };
+    /** What a new member confirms about tickets. */
+    ticketPlan: string;
+    /** The early-arrival pass, e.g. "Setup Access Pass". */
+    earlyPass: string;
+    directions: { label: string; url: string };
+  };
   /** Obligation definitions this event switches on (keys into the obligations module's seed). */
   obligations?: readonly PackItem[];
   /** Section labels this event renames, e.g. the obligations tile. */

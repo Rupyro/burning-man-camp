@@ -2,6 +2,7 @@
 // these questions stand in. Pure: no db, no next.
 import { hasPack } from "@/lib/active-packs";
 import { CAMP_NAME } from "@/lib/camp";
+import { EVENT_NAME } from "@/lib/event";
 
 /** Examples in the "help with" question; "art car" only for camps with the mutant vehicle pack. */
 const HELP_HINTS = [
@@ -33,7 +34,7 @@ export const FORM_FIELDS: readonly FormField[] = [
   { key: "country", label: "Where are you based?", kind: "text", required: true, max: 60 },
   {
     key: "burns",
-    label: "Have you been to AfrikaBurn or another burn?",
+    label: `Have you been to ${EVENT_NAME} or another burn?`,
     kind: "choice",
     required: true,
     max: 40,
