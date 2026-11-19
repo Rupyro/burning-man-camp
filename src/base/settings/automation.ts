@@ -9,7 +9,7 @@ import { type EngineCtx, nowOf } from "../engine/shared";
 import { ForbiddenError, ValidationError } from "../errors";
 import { automationSettings } from "../schema";
 
-export type SettingKind = "onoff" | "days" | "rand";
+export type SettingKind = "onoff" | "days" | "money";
 
 export interface SettingDef {
   key: string;
@@ -48,7 +48,7 @@ export const AUTOMATION_SETTINGS: readonly SettingDef[] = [
   },
   {
     key: "auto_approve_limit_cents",
-    kind: "rand",
+    kind: "money",
     label: "Small requests approve themselves",
     help: "Money requests under this amount are approved straight away. The treasurer still sees each one in a weekly list. Set to 0 to turn this off.",
     defaultValue: 50_000,
@@ -84,7 +84,7 @@ export const AUTOMATION_SETTINGS: readonly SettingDef[] = [
   },
   {
     key: "ai_monthly_cap_cents",
-    kind: "rand",
+    kind: "money",
     label: "Monthly AI limit",
     help: "The most the AI parts may spend in a month. When it's used up, Ask the camp goes back to the simple keyword version until next month. Set to 0 to keep AI off.",
     defaultValue: 15_000,
