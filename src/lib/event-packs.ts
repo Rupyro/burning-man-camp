@@ -32,6 +32,15 @@ export interface EventRule {
   source: string;
 }
 
+export interface EventProject {
+  /** The camp pack that shows it, e.g. "mutant-vehicle" or "art". */
+  pack: string;
+  label: string;
+  summary: string;
+  steps: readonly { label: string; window: string }[];
+  source: string;
+}
+
 export interface EventPack {
   key: "burning-man" | "afrikaburn";
   label: string;
@@ -71,6 +80,11 @@ export interface EventPack {
   };
   /** Reading for someone going for the first time, in order. */
   firstTimer?: readonly { label: string; url: string }[];
+  /**
+   * How to bring a project the event licenses or registers (a mutant vehicle, open-playa art),
+   * shown to camps with that camp pack. Windows are the event's usual ones, in plain words.
+   */
+  projects?: readonly EventProject[];
   /** Obligation definitions this event switches on (keys into the obligations module's seed). */
   obligations?: readonly PackItem[];
   /** Section labels this event renames, e.g. the obligations tile. */
