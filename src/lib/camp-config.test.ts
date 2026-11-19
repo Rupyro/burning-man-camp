@@ -6,11 +6,12 @@ import { CAMP_START_YEAR } from "./family-years";
 describe("camp.config.ts", () => {
   it("is valid", () => expect(campConfigProblems(config)).toEqual([]));
 
-  it("matches today's hard-coded Oe-aa-sies values", () => {
+  it("ships the neutral Burning Man starter values", () => {
     expect(config.joining.familyYears.since).toBe(CAMP_START_YEAR);
-    expect(config.camp.name).toBe("Oe-aa-sies");
-    expect(config.camp.slug).toBe("oeaasies");
-    expect(config.money.currency).toBe("ZAR");
+    expect(config.camp.name).toBe("Your Camp");
+    expect(config.camp.slug).toBe("yourcamp");
+    expect(config.money.currency).toBe("USD");
+    expect(config.event.pack).toBe("burning-man");
     expect(config.owners.campKey).toBe("ours");
     expect(config.owners.labels).toEqual({ ours: "Ours", borrowed: "Borrowed", rented: "Rented" });
   });

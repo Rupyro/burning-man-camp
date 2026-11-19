@@ -28,6 +28,8 @@ import {
   teams,
 } from "../src/base/schema";
 import { activePacks } from "../src/lib/active-packs";
+import { CAMP_NAME } from "../src/lib/camp";
+import { EVENT_NAME } from "../src/lib/event";
 import { firstRow } from "../src/lib/rows";
 import { modules } from "../src/modules";
 import { seedPeople } from "./people";
@@ -71,14 +73,14 @@ async function seedBase(db: Db) {
       {
         id: SEED_IDS.edition2026,
         year: 2026,
-        title: "AfrikaBurn 2026",
+        title: `${EVENT_NAME} 2026`,
         status: "closed",
         memberCapacity: 100,
       },
       {
         id: SEED_IDS.edition2027,
         year: 2027,
-        title: "AfrikaBurn 2027",
+        title: `${EVENT_NAME} 2027`,
         status: "planning",
         memberCapacity: 70,
       },
@@ -86,7 +88,7 @@ async function seedBase(db: Db) {
     .onConflictDoNothing();
   await db
     .insert(campSettings)
-    .values({ name: "Oe-aa-sieS", refPrefix: "OEA", currentEditionId: SEED_IDS.edition2027 })
+    .values({ name: CAMP_NAME, refPrefix: "CMP", currentEditionId: SEED_IDS.edition2027 })
     .onConflictDoNothing();
   await db
     .insert(roles)

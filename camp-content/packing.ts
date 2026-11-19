@@ -1,4 +1,4 @@
-// What to bring (from the Oe-Aa-Sies packing list AfrikaBurn '26) vs what the camp provides
+// What to bring to Black Rock City (adapted from an AfrikaBurn camp's packing list) vs what the camp provides
 // (Camp Fee Breakdown, Jan 2025). Plain data: the checklist ticks are stored per person, by key,
 // so keep keys stable. Another camp swaps this file (camp content, plan PR 14).
 
@@ -11,7 +11,7 @@ export const PACKING_LIST: PackingSection[] = [
       {
         key: "identification-passport",
         label: "Identification / Passport",
-        note: "For entering the AfrikaBurn please have it with you",
+        note: "Adults need a photo ID at the Gate, with your ticket and vehicle pass",
       },
       {
         key: "ticket-afrika-burn-car-pass",
@@ -46,7 +46,7 @@ export const PACKING_LIST: PackingSection[] = [
       {
         key: "extra-car-tire",
         label: "Extra Car Tire",
-        note: "The road to AfrikaBurn is challenging and eats tires",
+        note: "The last stretch to Black Rock City is long and remote: carry a spare",
       },
       {
         key: "tire-changing-and-or-repair-kit",
@@ -134,8 +134,8 @@ export const PACKING_LIST: PackingSection[] = [
     title: "Clothing",
     items: [
       {
-        key: "afrikaburn-outfits-or-your-birthday-suit",
-        label: "AfrikaBurn Outfits Or your Birthday Suit",
+        key: "burn-outfits-or-your-birthday-suit",
+        label: "Burn Outfits Or your Birthday Suit",
         note: "Plan ahead what you would like to wear, when do you want to wear it",
       },
       {
@@ -281,7 +281,7 @@ export const PACKING_LIST: PackingSection[] = [
       {
         key: "toilet-paper",
         label: "Toilet Paper",
-        note: "AfrikaBurn does not permit Baby Wipes",
+        note: "Wet wipes are MOOP: pack them out if you bring any",
       },
       {
         key: "basic-toiletries",
@@ -291,7 +291,7 @@ export const PACKING_LIST: PackingSection[] = [
       {
         key: "sunscreen-aftersun",
         label: "Sunscreen + AfterSun",
-        note: "The African sun is not your friend ;)",
+        note: "The Nevada desert sun is not your friend ;)",
       },
       {
         key: "medical-aid-kid",
@@ -306,7 +306,7 @@ export const PACKING_LIST: PackingSection[] = [
       {
         key: "drinking-water",
         label: "Drinking water",
-        note: "5 L for every day you're there",
+        note: "1.5 gallons for every day you're there",
       },
       {
         key: "alternative-milk",
@@ -374,7 +374,7 @@ export const CAMP_PROVIDES: string[] = [
   "Taking the camp's MOOP back to civilisation",
 ];
 
-/** "Please don't bring" (2024 guide; AfrikaBurn doesn't allow wet wipes). */
-export const PLEASE_DONT_BRING = ["Camping chairs", "Feathers", "Glitter", "Wet wipes"];
+/** "Please don't bring": the camp has seats, and the rest sheds MOOP on the playa. */
+export const PLEASE_DONT_BRING = ["Camping chairs", "Feathers", "Glitter", "Loose sequins"];
 
 export const PACKING_SOURCES = "From the 2026 packing list and the 2025 fee breakdown.";
