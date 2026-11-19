@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { can, type ModuleContext } from "@/base/api";
+import { EVENT_NAME } from "@/lib/event";
 import {
   AUTHORITY_LABEL,
   boardCounts,
@@ -40,10 +41,10 @@ export async function BoardPage({ ctx }: { ctx: ModuleContext }) {
   return (
     <div className="flex flex-col gap-5">
       <header className="rounded-2xl bg-sunset p-4 text-white lg:bg-none lg:p-0 lg:text-foreground">
-        <h1 className="heading text-lg">AfrikaBurn deadlines</h1>
+        <h1 className="heading text-lg">{EVENT_NAME} deadlines</h1>
         <p className="text-sm opacity-90">
-          What the camp owes AfrikaBurn and others for {ctx.edition.year}. “TBC” dates are last
-          year’s until AfrikaBurn publishes the new ones.
+          What the camp owes {EVENT_NAME} and others for {ctx.edition.year}. “TBC” dates are last
+          year’s until {EVENT_NAME} publishes the new ones.
         </p>
       </header>
 

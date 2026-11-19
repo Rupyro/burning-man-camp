@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ModuleContext } from "@/base/api";
 import { formatCampDay } from "@/lib/dates";
+import { EVENT_NAME } from "@/lib/event";
 import {
   APPLICATION_STATUSES,
   type ApplicationStatus,
@@ -55,7 +56,7 @@ export async function ReviewPage({
       <header>
         <h1 className="heading text-lg">Open applications</h1>
         <p className="text-sm text-muted-foreground">
-          {total} for AfrikaBurn {ctx.edition.year}. Open one to book an interview or change its
+          {total} for {EVENT_NAME} {ctx.edition.year}. Open one to book an interview or change its
           status. Joining happens by itself once they've paid and done everything.
         </p>
       </header>

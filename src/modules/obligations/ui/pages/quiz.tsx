@@ -1,5 +1,6 @@
 import type { ModuleContext } from "@/base/api";
 import { Emblem } from "@/lib/emblem";
+import { EVENT_NAME } from "@/lib/event";
 import { LNT_QUIZ } from "../../rules/quiz";
 import { hasPassedQuiz } from "../../server/quiz";
 import { QuizForm } from "../components/quiz-form";
@@ -22,8 +23,8 @@ export async function QuizPage({ ctx }: { ctx: ModuleContext }) {
       ) : (
         <>
           <p className="text-sm">
-            {LNT_QUIZ.length} quick questions from AfrikaBurn's leave no trace and generator guides.
-            Get them all right to earn your badge. You can try as often as you like.
+            {LNT_QUIZ.length} quick questions from {EVENT_NAME}'s leave no trace and generator
+            guides. Get them all right to earn your badge. You can try as often as you like.
           </p>
           <QuizForm />
         </>

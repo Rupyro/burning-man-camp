@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { can, type ModuleContext } from "@/base/api";
 import { DetailLayout, DetailSection } from "@/components/ui/detail-layout";
 import { instantToCampInput } from "@/lib/dates";
+import { EVENT_NAME } from "@/lib/event";
 import { AUTHORITY_LABEL, dueLabel, obligationState } from "../../rules/status";
 import { getObligation, listAssignable, listDocuments } from "../../server/queries";
 import { DueText, StateChip } from "../components/chip";
@@ -80,7 +81,7 @@ export async function DetailPage({ ctx, taskId }: { ctx: ModuleContext; taskId: 
       <DetailSection title="More">
         {o.sourceUrl ? (
           <a href={o.sourceUrl} className="underline" rel="noreferrer" target="_blank">
-            AfrikaBurn rules for this
+            {EVENT_NAME} rules for this
           </a>
         ) : null}
         <Link href={`/tasks/${o.taskId}`} className="underline">

@@ -1,4 +1,5 @@
 import type { Tile } from "@/base/landing/landing";
+import { EVENT_NAME } from "@/lib/event";
 import type { Category } from "./up-next";
 
 const MODULE_CARDS: { id: string; name: string; icon: string; member: string; lead: string }[] = [
@@ -34,8 +35,8 @@ const MODULE_CARDS: { id: string; name: string; icon: string; member: string; le
     id: "obligations",
     name: "Obligations",
     icon: "calendar-check",
-    member: "AfrikaBurn deadlines",
-    lead: "AfrikaBurn deadlines",
+    member: `${EVENT_NAME} deadlines`,
+    lead: `${EVENT_NAME} deadlines`,
   },
 ];
 
