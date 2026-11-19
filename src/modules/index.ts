@@ -5,6 +5,15 @@ import { manifest as finance } from "./finance/manifest";
 import { manifest as logistics } from "./logistics/manifest";
 import { manifest as obligations } from "./obligations/manifest";
 import { manifest as procurement } from "./procurement/manifest";
+import { manifest as registers } from "./registers/manifest";
 import { manifest as shifts } from "./shifts/manifest";
 
-export const modules = [obligations, finance, procurement, logistics, applicants, shifts] as const;
+export const modules = [
+  obligations,
+  finance,
+  procurement,
+  logistics,
+  applicants,
+  shifts,
+  registers,
+] as const;
