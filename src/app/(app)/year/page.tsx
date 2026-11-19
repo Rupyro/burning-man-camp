@@ -2,9 +2,9 @@ import { getNow } from "@/base/guard/request";
 import { activeEvent } from "@/lib/active-packs";
 import { campConfig } from "@/lib/camp";
 import type { CampConfig } from "@/lib/camp-config";
+import { STANDING_HISTORY } from "@/lib/camp-content";
 import { instantToCampInput } from "@/lib/dates";
 import { byMonth, calendarForCamp, withStates } from "@/lib/year-calendar";
-import { STANDING_HISTORY } from "../../../../camp-content/standing";
 import { basePage } from "../_components/base-page";
 import { YearView } from "./year-view";
 

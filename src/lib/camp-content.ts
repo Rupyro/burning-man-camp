@@ -3,3 +3,11 @@
 export { ABOUT_BANNER, ABOUT_BLOCKS } from "../../camp-content/about";
 export { CAMP_GUIDE } from "../../camp-content/guide";
 export { PLACEHOLDER_POLICIES } from "../../camp-content/policies";
+export {
+  MOOP_LABEL,
+  type MoopGrade,
+  STANDING_HISTORY,
+  STANDING_LABEL,
+  type Standing,
+  type StandingYear,
+} from "../../camp-content/standing";

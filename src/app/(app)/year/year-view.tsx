@@ -1,7 +1,7 @@
+import { MOOP_LABEL, STANDING_LABEL, type StandingYear } from "@/lib/camp-content";
 import { formatCampDay } from "@/lib/dates";
 import type { YearEntry, YearMonth } from "@/lib/year-calendar";
 import { dayInstant, monthLabel } from "@/lib/year-calendar";
-import { MOOP_LABEL, STANDING_LABEL, type StandingYear } from "../../../../camp-content/standing";
 
 const STATE_LABEL: Record<YearEntry["state"], string | null> = {
   past: "Done",
