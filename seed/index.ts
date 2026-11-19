@@ -55,7 +55,7 @@ const DEMO = [
   // The demo Applicant persona (spec applicants §8): a prospect, so the applicants seed can give
   // them an application before seed/demo.ts adds the other personas.
   { key: "applicant", email: "applicant@example.test", name: "Kai (demo applicant)" },
-  // The demo New applicant persona (Sage, 21 Oct 2026): just applied, also a prospect.
+  // The demo New applicant persona (member feedback, 21 Oct 2026): just applied, also a prospect.
   {
     key: "new_applicant",
     email: "new-applicant@example.test",
