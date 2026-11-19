@@ -2,6 +2,7 @@ import { can, type ModuleContext } from "@/base/api";
 import { activeEvent } from "@/lib/active-packs";
 import { fuelTotal, KIND_LABEL, KINDS, stakesLeft } from "../../rules/registers";
 import { listItems } from "../../server/queries";
+import { AddItemForm, PulledForm, RemoveButton } from "../components/forms";
 
 export async function HomePage({ ctx }: { ctx: ModuleContext }) {
   const rows = await listItems(ctx.db, ctx.edition.id);
@@ -23,6 +24,7 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
           {fuel.total} {unit} of fuel stored: more than the {limit?.storageLimit} {unit} limit.
         </p>
       ) : null}
+      {manager ? <AddItemForm unit={unit} /> : null}
       {KINDS.map((kind) => {
         const lines = rows.filter((r) => r.kind === kind);
         return (
@@ -51,6 +53,10 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
                         .filter(Boolean)
                         .join(" · ")}
                     </span>
+                    {manager && kind === "stake" ? (
+                      <PulledForm id={r.id} quantity={r.quantity} pulled={r.pulled} />
+                    ) : null}
+                    {manager ? <RemoveButton id={r.id} /> : null}
                   </li>
                 ))}
               </ul>
