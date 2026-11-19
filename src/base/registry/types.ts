@@ -24,6 +24,7 @@ export type ModuleId =
   | "binder"
   | "applicants"
   | "registers"
+  | "schedule"
   | "sound"
   | "tickets";
 
