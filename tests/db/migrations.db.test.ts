@@ -18,6 +18,7 @@ describe("per-module migrations", () => {
       "__drizzle_migrations_applicants",
       "__drizzle_migrations_finance",
       "__drizzle_migrations_logistics",
+      "__drizzle_migrations_mv",
       "__drizzle_migrations_obligations",
       "__drizzle_migrations_procurement",
       "__drizzle_migrations_shifts",
