@@ -28,7 +28,8 @@ export type ModuleId =
   | "registers"
   | "schedule"
   | "sound"
-  | "tickets";
+  | "tickets"
+  | "village";
 
 export type RoleKey =
   | "admin"
