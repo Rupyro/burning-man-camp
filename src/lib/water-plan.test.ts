@@ -30,7 +30,14 @@ describe("waterPlan", () => {
   });
 
   it("packs litres into jerry cans and totes", () => {
-    const p = waterPlan({ ...base, unit: "L", perPersonPerDay: 5, kitchenPerDay: 0, showersPerDay: 0, spare: 0 });
+    const p = waterPlan({
+      ...base,
+      unit: "L",
+      perPersonPerDay: 5,
+      kitchenPerDay: 0,
+      showersPerDay: 0,
+      spare: 0,
+    });
     expect(p.total).toBe(400);
     expect(p.small.count).toBe(16);
     expect(p.large.count).toBe(1);
