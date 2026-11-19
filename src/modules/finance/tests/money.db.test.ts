@@ -67,7 +67,7 @@ describe("expenses, pay-backs and budgets", () => {
     });
 
     const pays = (await landingFor(p.finance)).myItems.filter((i) => i.moduleId === "finance");
-    expect(pays.map((i) => i.title)).toEqual(["Pay back Sam R4,320 (TST-SR-001)"]);
+    expect(pays.map((i) => i.title)).toEqual(["Pay back Sam $4,320 (TST-SR-001)"]);
     await actAs(p.member);
     await expect(
       ok(settleReimbursement({ reimbursementId: owed?.id ?? "", outcome: "paid" })),
@@ -122,7 +122,7 @@ describe("expenses, pay-backs and budgets", () => {
     );
     const home = await landingFor(p.finance);
     expect(home.myItems.filter((i) => i.moduleId === "finance").map((i) => i.title)).toEqual([
-      "Approve TST-SR-001: Gas bottles, R4,500 (Kitchen)",
+      "Approve TST-SR-001: Gas bottles, $4,500 (Kitchen)",
     ]);
     expect(home.tiles.find((t) => t.id === "finance")?.badge).toBe(1);
     expect(
