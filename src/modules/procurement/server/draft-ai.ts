@@ -5,6 +5,7 @@ import "server-only";
 import { generateText } from "ai";
 import { CAMP_NAME } from "@/lib/camp";
 import { getEnv } from "@/lib/env";
+import { EVENT_NAME } from "@/lib/event";
 import { type DraftInput, type DraftWriter, writeDemo } from "../rules/draft-writer";
 
 export function draftPrompt(input: DraftInput) {
@@ -13,7 +14,7 @@ export function draftPrompt(input: DraftInput) {
       ? "a short, polite email to a supplier. First line: Subject: <subject>. Then the email."
       : "a short, friendly WhatsApp message to the camp group, no subject.";
   return [
-    `You write for ${CAMP_NAME}, a camp of about 100 people at AfrikaBurn. Write ${what}`,
+    `You write for ${CAMP_NAME}, a camp of about 100 people at ${EVENT_NAME}. Write ${what}`,
     `It goes to: ${input.to}. Sign it from ${input.senderName}, ${input.teamName} team.`,
     "Plain words, no made-up facts, prices or dates.",
     `What to say: ${input.ask}`,

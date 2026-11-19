@@ -1,3 +1,4 @@
+import { EVENT_NAME } from "@/lib/event";
 /**
  * Leave-no-trace and generator safety quiz. Facts from AfrikaBurn's Theme Camp LNT
  * Infopack 2025 and Generator Infopack 2025.
@@ -15,7 +16,7 @@ export const LNT_QUIZ: QuizQuestion[] = [
       "We burn what's left",
     ],
     answer: 1,
-    why: "What you bring to AfrikaBurn, you take home. There are no bins out there.",
+    why: `What you bring to ${EVENT_NAME}, you take home. There are no bins out there.`,
   },
   {
     q: "You spot a sequin and a cut-off cable tie in the dust. Do they count?",

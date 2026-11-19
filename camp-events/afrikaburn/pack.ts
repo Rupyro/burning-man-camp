@@ -12,6 +12,21 @@ export default defineEventPack({
   currency: "ZAR",
   year: 2027,
   calendar: [],
+  words: {
+    name: "AfrikaBurn",
+    site: "Tankwa",
+    principles: {
+      title: "The 11 Principles of AfrikaBurn",
+      body: "I've read the principles (radical inclusion, gifting, decommodification, self-reliance, self-expression, communal effort, civic responsibility, leave no trace, participation, immediacy, each one teach one).",
+    },
+    ticketPlan:
+      "I understand the camp doesn't sell tickets. I'll get my own AfrikaBurn ticket through Quicket.",
+    earlyPass: "WAP",
+    directions: {
+      label: "Directions on Quaggapedia",
+      url: "https://quaggapedia.afrikaburn.com/index.php?title=GETTING_THERE_%26_DIRECTIONS",
+    },
+  },
   rules: [],
   obligations: [
     { key: "theme_camp_registration", label: "Theme camp registration" },

@@ -1,5 +1,6 @@
 // The applicant journey (docs/specs/applicants.md §2). Pure: no db, no next.
 import { MONEY_SYMBOL } from "@/lib/camp";
+import { EVENT } from "@/lib/event";
 
 export const APPLICATION_STATUSES = [
   "draft",
@@ -32,13 +33,13 @@ export const REQUIRED_DOCS = [
   },
   {
     key: "principles",
-    title: "The 11 Principles of AfrikaBurn",
-    body: "I've read the principles (radical inclusion, gifting, decommodification, self-reliance, self-expression, communal effort, civic responsibility, leave no trace, participation, immediacy, each one teach one).",
+    title: EVENT.words.principles.title,
+    body: EVENT.words.principles.body,
   },
   {
     key: "ticket_plan",
-    title: "AfrikaBurn ticket plan",
-    body: "I understand the camp doesn't sell tickets. I'll get my own AfrikaBurn ticket through Quicket.",
+    title: `${EVENT.words.name} ticket plan`,
+    body: EVENT.words.ticketPlan,
   },
 ] as const;
 export type DocKey = (typeof REQUIRED_DOCS)[number]["key"];

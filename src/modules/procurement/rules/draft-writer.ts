@@ -2,6 +2,7 @@
 // draft they can edit. The writer sits behind this interface like the "Ask the camp" router, so
 // the demo version (fixed templates, no AI) and the AI version can be swapped.
 import { CAMP_NAME } from "@/lib/camp";
+import { EVENT_NAME } from "@/lib/event";
 
 export type DraftKind = "email" | "whatsapp";
 
@@ -50,7 +51,7 @@ export function writeDemo(input: DraftInput): Draft {
     body: [
       "Hi there,",
       "",
-      `We're a camp of about 100 people at AfrikaBurn. Could you please help us with ${ask}?`,
+      `We're a camp of about 100 people at ${EVENT_NAME}. Could you please help us with ${ask}?`,
       "",
       "Please let us know if you need anything else from us.",
       "",
