@@ -21,6 +21,7 @@ import { newId } from "@/lib/ids";
 
 export const obligationAuthorityEnum = pgEnum("obligation_authority", [
   "afrikaburn",
+  "burning_man",
   "dmv",
   "fuel_team",
   "sound_team",

@@ -291,7 +291,14 @@ export default defineEventPack({
       source: `${BM}/preparation/infrastructure/sound-policy/`,
     },
   ],
-  obligations: [],
+  obligations: [
+    { key: "bm_statement_of_intent", label: "Statement of Intent (Placement)" },
+    { key: "bm_stewards_sale", label: "Stewards Sale ticket list" },
+    { key: "bm_placement_questionnaire", label: "Placement questionnaire" },
+    { key: "bm_setup_access_passes", label: "Setup Access Pass request" },
+    { key: "bm_leave_no_trace", label: "MOOP sweep and Leave No Trace before Exodus" },
+    { key: "bm_post_playa_report", label: "Post-playa Report" },
+  ],
   firstTimer: [
     { label: "First-Timer's Guide", url: `${BM}/preparation/first-timers-guide/` },
     { label: "Survival Guide", url: "https://survival.burningman.org/" },
