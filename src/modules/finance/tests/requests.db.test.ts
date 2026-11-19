@@ -34,7 +34,7 @@ describe("spend requests", () => {
 
   it("R900 in budget: the team lead approves; refs count up; the requester gets a task", async () => {
     const a = await ask("900");
-    const b = await ask("R1,200", p.member, false);
+    const b = await ask("$1,200", p.member, false);
     expect([a.refCode, b.refCode]).toEqual(["TST-SR-001", "TST-SR-002"]);
     expect(await chain(a.id)).toEqual(["1.0 team_lead pending"]);
     const [t] = await getDb()
