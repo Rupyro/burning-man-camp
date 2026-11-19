@@ -24,6 +24,7 @@ export default defineEventPack({
   timezoneLabel: "PT",
   dateStyle: "us",
   currency: "USD",
+  water: { perPersonPerDay: 1.5, unit: "gal", source: "https://survival.burningman.org/" },
   year: 2027,
   event: { start: "2027-08-29", end: "2027-09-06", status: "official", source: EVENT },
   words: {
