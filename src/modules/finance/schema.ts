@@ -76,7 +76,7 @@ export const financeBudgets = pgTable(
     teamId: uuid("team_id").references(() => teams.id, { onDelete: "restrict" }),
     name: text("name").notNull(),
     amountCents: money("amount_cents").notNull(),
-    currency: char("currency", { length: 3 }).notNull().default("ZAR"),
+    currency: char("currency", { length: 3 }).notNull().default("USD"),
     status: financeBudgetStatusEnum("status").notNull().default("approved"),
     notes: text("notes"),
     ...stamps,
@@ -122,7 +122,7 @@ export const financeSpendRequests = pgTable(
     title: text("title").notNull(),
     justification: text("justification"),
     estimatedCents: money("estimated_cents").notNull(),
-    currency: char("currency", { length: 3 }).notNull().default("ZAR"),
+    currency: char("currency", { length: 3 }).notNull().default("USD"),
     supplierName: text("supplier_name"),
     neededBy: date("needed_by"),
     status: financeSpendStatusEnum("status").notNull().default("draft"),
@@ -252,7 +252,7 @@ export const financeExpenses = pgTable(
       .references(() => people.id, { onDelete: "restrict" }),
     paidWith: financePaidWithEnum("paid_with").notNull(),
     amountCents: money("amount_cents").notNull(),
-    currency: char("currency", { length: 3 }).notNull().default("ZAR"),
+    currency: char("currency", { length: 3 }).notNull().default("USD"),
     spentOn: date("spent_on").notNull(),
     description: text("description").notNull(),
     /** A link to the receipt photo (decision F6: no file storage yet). */
@@ -281,7 +281,7 @@ export const financeReimbursements = pgTable(
       .notNull()
       .references(() => people.id, { onDelete: "restrict" }),
     amountCents: money("amount_cents").notNull(),
-    currency: char("currency", { length: 3 }).notNull().default("ZAR"),
+    currency: char("currency", { length: 3 }).notNull().default("USD"),
     status: financeReimbursementStatusEnum("status").notNull().default("owed"),
     paidAt: timestamp("paid_at", { withTimezone: true }),
     paidByPersonId: uuid("paid_by_person_id").references(() => people.id, {
@@ -311,7 +311,7 @@ export const financeCampFees = pgTable(
       .notNull()
       .references(() => people.id, { onDelete: "restrict" }),
     amountCents: money("amount_cents").notNull(),
-    currency: char("currency", { length: 3 }).notNull().default("ZAR"),
+    currency: char("currency", { length: 3 }).notNull().default("USD"),
     status: financeFeeStatusEnum("status").notNull().default("due"),
     /** What asked for the fee (soft ref, e.g. applicants.application). */
     sourceRefType: varchar("source_ref_type", { length: 40 }).notNull(),

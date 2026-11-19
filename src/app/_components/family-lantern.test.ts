@@ -7,7 +7,7 @@ const now = new Date(Date.UTC(2026, 10, 1));
 describe("family lantern card on My profile", () => {
   it("shows the confirmed years and how long they've walked the path", () => {
     const html = renderToStaticMarkup(h(FamilyLantern, { years: [2024, 2025, 2026], now }));
-    expect(html).toContain("Oe-aa-sies Family");
+    expect(html).toContain("Your Camp Family");
     expect(html).toContain("2024 · 2025 · 2026 · 3 years in bloom");
     expect(html).not.toContain("Founding family");
     expect(html).toContain('data-stage="3"');

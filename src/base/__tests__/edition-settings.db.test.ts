@@ -33,7 +33,7 @@ describe("edition settings", () => {
     );
     await ok(saveAnchorDate(anchor()));
     const s = await getEditionSettings(await as(ids.camp));
-    expect(s.title).toBe("AfrikaBurn 2027");
+    expect(s.title).toBe("Burning Man 2027");
     expect(s.year).toBe(2027);
     expect(s.confirmed).toBeGreaterThan(0);
     expect(s.anchors.map((a) => a.key)).toEqual(["build_start", "event_start"]);
