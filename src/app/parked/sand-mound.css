@@ -1,4 +1,4 @@
-/* PARKED (Oct 19, 2026): the sand-mound "dust piles" were removed from the UI after Remo's
+/* PARKED (Oct 19, 2026): the sand-mound "dust piles" were removed from the UI after the Oct 19 design review's
    feedback. This file is NOT imported anywhere. To bring them back: @import it from
    globals.css and add the `sand-mound` class back where wanted (see docs/design/parked.md). */
 :root {
