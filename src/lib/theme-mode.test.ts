@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { parseMode, resolveTheme, sunState, TANKWA, themeBootScript } from "./theme-mode";
+import {
+  CAMP_SITE,
+  parseMode,
+  resolveTheme,
+  sunState,
+  TANKWA,
+  themeBootScript,
+} from "./theme-mode";
 
 // Camp time is SAST (UTC+2), so local hh:mm = UTC + 2h.
 const sast = (iso: string) => Date.parse(`${iso}+02:00`);
@@ -60,7 +67,9 @@ describe("mode and resolveTheme", () => {
   });
 
   it("auto follows the sun and schedules the next switch", () => {
-    const r = resolveTheme("auto", sast("2027-04-25T12:00:00"));
+    // Solar noon at the camp's own site (whichever event the config picks).
+    const noon = Date.UTC(2027, 3, 25, 12) - (CAMP_SITE.lon / 15) * 3_600_000;
+    const r = resolveTheme("auto", noon);
     expect(r.night).toBe(false);
     expect(r.nextChangeMs).toBeGreaterThan(0);
   });

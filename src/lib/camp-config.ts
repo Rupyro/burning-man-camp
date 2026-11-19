@@ -28,17 +28,15 @@ export const CAMP_TYPES = [
 ] as const;
 export type CampTypeKey = (typeof CAMP_TYPES)[number]["key"];
 
-/** Database enum values for who owns a piece of gear. Frozen in the schema (no migration). */
-export const OWNER_KEYS = ["oeaasies", "khoena", "shared", "borrowed", "rented"] as const;
+/** Database enum values for who owns a piece of gear (procurement_owner_label). */
+export const OWNER_KEYS = ["ours", "borrowed", "rented"] as const;
 export type OwnerKey = (typeof OWNER_KEYS)[number];
 
-/** Display names used today. campKey stays "oeaasies" because that's the database default. */
+/** Display names for the owner keys; campKey "ours" is the database default. */
 export const DEFAULT_OWNERS = {
-  campKey: "oeaasies",
+  campKey: "ours",
   labels: {
-    oeaasies: "Ours",
-    khoena: "Khoena's",
-    shared: "Shared",
+    ours: "Ours",
     borrowed: "Borrowed",
     rented: "Rented",
   },
@@ -82,7 +80,7 @@ export interface CampConfig {
   event: { pack: "burning-man" | "afrikaburn" };
   /**
    * Who owns gear: display names for the fixed database keys. campKey must be one of
-   * OWNER_KEYS; the database default stays "oeaasies" (changing it needs a migration).
+   * OWNER_KEYS; the database default is "ours".
    */
   owners: { campKey: OwnerKey; labels: Record<OwnerKey, string> };
   /** The camp's own additions to its packs, and pack items it drops (plan PR 2, PR 11). */
@@ -120,9 +118,7 @@ export function campConfigProblems(c: CampConfig): string[] {
     seen.add(m.key);
   }
   if (!(OWNER_KEYS as readonly string[]).includes(c.owners.campKey))
-    out.push(
-      "owners.campKey must be one of the database keys (oeaasies, khoena, shared, borrowed, rented)",
-    );
+    out.push("owners.campKey must be one of the database keys (ours, borrowed, rented)");
   for (const k of OWNER_KEYS) {
     if (!c.owners.labels[k]?.trim()) out.push(`owners.labels.${k} is empty`);
   }

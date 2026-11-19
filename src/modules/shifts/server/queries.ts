@@ -1,9 +1,9 @@
 import { and, asc, eq, gte, inArray, notInArray, or, sql } from "drizzle-orm";
 import { alias } from "drizzle-orm/pg-core";
 import type { ReadOnlyDb } from "@/base/api";
-import { anchorDates, people, personSkills, skills } from "@/base/api/schema";
+import { anchorDates, editionMembers, people, personSkills, skills } from "@/base/api/schema";
 import { instantToCampInput } from "@/lib/dates";
-import { contribution } from "../rules/contribution";
+import { contribution, plannedEnough } from "../rules/contribution";
 import { SIGNUPS_OPEN_ANCHOR } from "../rules/opening";
 import {
   shiftsDutyTypes as dt,
@@ -213,3 +213,46 @@ export async function standbyActivity(db: ReadOnlyDb, editionId: string, now: Da
     )
     .orderBy(asc(shiftsStandby.createdAt));
 }
+
+/**
+ * The participation balance (plan Phase 4): every confirmed member's contribution, so duty leads
+ * see who still needs shifts. Members with nothing planned are listed too. Null before setup.
+ */
+export async function campBalance(db: ReadOnlyDb, editionId: string) {
+  const [settings, members, shifts, credits] = await Promise.all([
+    settingsOf(db, editionId),
+    db
+      .select({ personId: people.id, name: people.displayName })
+      .from(editionMembers)
+      .innerJoin(people, eq(people.id, editionMembers.personId))
+      .where(and(eq(editionMembers.editionId, editionId), eq(editionMembers.status, "confirmed")))
+      .orderBy(asc(people.displayName)),
+    db
+      .select({
+        personId: su.personId,
+        status: su.status,
+        startsAt: sl.startsAt,
+        endsAt: sl.endsAt,
+        phase: dt.phase,
+      })
+      .from(su)
+      .innerJoin(sl, eq(sl.id, su.slotId))
+      .innerJoin(dt, eq(dt.id, sl.dutyTypeId))
+      .where(and(eq(sl.editionId, editionId), notInArray(su.status, [...DEAD]))),
+    db
+      .select({ personId: shiftsPrecredits.personId, hours: shiftsPrecredits.hours })
+      .from(shiftsPrecredits)
+      .where(eq(shiftsPrecredits.editionId, editionId)),
+  ]);
+  if (!settings) return null;
+  return members.map((m) => {
+    const c = contribution(
+      shifts.filter((s) => s.personId === m.personId),
+      settings,
+      credits.filter((x) => x.personId === m.personId).reduce((a, x) => a + x.hours, 0),
+      (d) => instantToCampInput(d).date,
+    );
+    return { ...m, c, enough: plannedEnough(c) };
+  });
+}
+export type BalanceRow = NonNullable<Awaited<ReturnType<typeof campBalance>>>[number];

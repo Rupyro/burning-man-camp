@@ -4,29 +4,31 @@ import current from "../../camp.config";
 import { campConfigProblems } from "../../src/lib/camp-config";
 import { configFrom, feeCents, renderCampConfig, SETUP_STEPS, slugFor } from "./camp-setup";
 
-const OE = {
-  name: "Oe-aa-sies",
+const STARTER = {
+  name: "Your Camp",
   packs: ["sound", "mutant-vehicle", "power"] as const,
-  currency: "zar",
-  symbol: "R",
-  campFee: 350_000,
+  currency: "usd",
+  symbol: "$",
+  campFee: 45_000,
   familyYears: true,
   since: 2023,
-  traditions: ["rain-dance"],
+  traditions: [] as string[],
+  campType: "theme" as const,
+  size: 70,
 };
 
 describe("camp setup", () => {
   it("has 7 steps", () => expect(SETUP_STEPS).toHaveLength(7));
 
-  it("Oe-aa-sies answers rebuild today's camp.config.ts exactly", () => {
-    const c = configFrom({ ...OE, packs: [...OE.packs] });
+  it("the starter answers rebuild today's camp.config.ts exactly", () => {
+    const c = configFrom({ ...STARTER, packs: [...STARTER.packs] });
     expect(c).toEqual(current);
     expect(renderCampConfig(c)).toBe(readFileSync("camp.config.ts", "utf8"));
   });
 
   it("a new core-only camp gets a valid config", () => {
     const c = configFrom({
-      ...OE,
+      ...STARTER,
       name: "Dust Bunnies",
       packs: [],
       familyYears: false,
@@ -35,11 +37,11 @@ describe("camp setup", () => {
     });
     expect(campConfigProblems(c)).toEqual([]);
     expect(c.camp).toMatchObject({ slug: "dustbunnies", packs: ["core"] });
-    expect(c.camp.tagline).toBe("Operations platform for the Dust Bunnies camp at AfrikaBurn");
+    expect(c.camp.tagline).toBe("Operations platform for the Dust Bunnies camp at Burning Man");
   });
 
   it("reads fees and slugs", () => {
-    expect(feeCents("R3,500")).toBe(350_000);
+    expect(feeCents("$3,500")).toBe(350_000);
     expect(feeCents("12.5")).toBe(1_250);
     expect(feeCents("lots")).toBeNull();
     expect(slugFor("Camp Ząb 2")).toBe("campzb2");
