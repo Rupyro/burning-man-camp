@@ -26,7 +26,7 @@ demo camp shows dollars, Pacific time and Burning Man wording.
 | # | What | Protected files | Why |
 |---|---|---|---|
 | #16 | Dollars and Pacific time as database defaults; gear owners become ours / borrowed / rented | `src/base/schema/migrations/0013_usd_pacific.sql` (+ meta); `src/modules/finance/migrations/0005_usd.sql` (+ meta); `src/modules/procurement/migrations/0007_neutral_owners.sql` (+ meta); `src/lib/camp-config.test.ts` | Column defaults change from ZAR and Africa/Johannesburg; the owner enum changes (old rows map oeaasies → ours, khoena and shared → borrowed); a new test covers the neutral owners |
-| #17 | Burning Man is the default camp ("Your Camp", $, PT, Black Rock City wording); stacked on #16 | 38 existing test files, expectations only (list in the PR) | The config flip changes every expected amount, name, date and time zone in tests; no test logic changes |
+| #17 | Burning Man is the default camp ("Your Camp", $, PT, Black Rock City wording); stacked on #16 | 40 existing test files and fixtures, expectations only (list in the PR) | The config flip changes every expected amount, name, date and time zone in tests; the demo logistics seed moves to Black Rock City places, US units and late-August dates (two expectations: the extinguisher's name). No test logic changes |
 | #18 | Burning Man Placement steps as tracked deadlines | `src/modules/obligations/migrations/0003_burning_man_authority.sql` (+ meta) | Adds the `burning_man` value to the `obligation_authority` enum. Merge after #17. #17's tests expect 6 seeded deadlines, so #18 then needs one expectation update (12) |
 
 ### 2. Tests for work already on main (no app code)
