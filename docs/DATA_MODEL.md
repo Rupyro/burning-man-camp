@@ -350,7 +350,7 @@ Every change also writes `procurement_stock_movements` (append-only: item, from_
 | id · name · kind enum (`pickup`,`storage`,`supplier`,`site`,`airport`,`city_area`) · address_text? · lat/lng numeric? · notes |
 
 ### `logistics_vehicles`
-| id · edition_id · label ("A member's pickup", "Hired truck", "Tractor (art car)") · kind enum (`car`,`bakkie`,`truck`,`trailer`,`container_truck`,`mutant_vehicle`) · owner_person_id? · driver_person_id? · seats smallint? · cargo_notes text? · cargo_capacity_kg? |
+| id · edition_id · label ("A member's pickup", "Hired truck", "Tractor (art car)") · kind enum (`car`,`truck`,`trailer`,`container_truck`,`mutant_vehicle`) · owner_person_id? · driver_person_id? · seats smallint? · cargo_notes text? · cargo_capacity_kg? |
 
 ### `logistics_loads`
 | Column | Type | Notes |

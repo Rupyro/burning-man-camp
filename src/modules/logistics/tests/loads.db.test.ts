@@ -88,8 +88,8 @@ describe("loads", () => {
     );
     await ok(
       createVehicle({
-        label: "Bakkie (Lex)",
-        kind: "bakkie",
+        label: "Pickup (Lex)",
+        kind: "truck",
         driverPersonId: p.logiLead,
         seats: 3,
       }),
