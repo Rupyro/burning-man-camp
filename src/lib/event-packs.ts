@@ -45,6 +45,8 @@ export interface EventPack {
   timezoneLabel: string;
   /** "us" = "Sat, Aug 29, 2027, 9:00 AM"; "day-first" = "Sat 29 Aug 2027, 09:00". */
   dateStyle: "us" | "day-first";
+  /** Water planning: what each person needs per day, in the event's usual unit. */
+  water?: { perPersonPerDay: number; unit: "gal" | "L"; source?: string };
   /** Currency tickets and fees are in (ISO 4217). */
   currency: string;
   year: number;
