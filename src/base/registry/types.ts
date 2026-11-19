@@ -24,6 +24,7 @@ export type ModuleId =
   | "binder"
   | "applicants"
   | "exodus"
+  | "mv"
   | "registers"
   | "schedule"
   | "sound"

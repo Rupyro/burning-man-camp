@@ -4,6 +4,7 @@ import { manifest as applicants } from "./applicants/manifest";
 import { manifest as exodus } from "./exodus/manifest";
 import { manifest as finance } from "./finance/manifest";
 import { manifest as logistics } from "./logistics/manifest";
+import { manifest as mv } from "./mv/manifest";
 import { manifest as obligations } from "./obligations/manifest";
 import { manifest as procurement } from "./procurement/manifest";
 import { manifest as registers } from "./registers/manifest";
@@ -20,6 +21,7 @@ export const modules = [
   applicants,
   shifts,
   exodus,
+  mv,
   registers,
   schedule,
   sound,
