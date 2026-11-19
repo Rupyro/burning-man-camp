@@ -18,7 +18,7 @@ const page = async (who: string, teamId: string) =>
       ctx: {
         actor: await actorFor(who),
         edition: EDITION,
-        now: new Date("2027-03-01T08:00:00Z"),
+        now: new Date("2027-03-01T18:00:00Z"),
         db: getDb(),
       },
       teamId,
@@ -33,7 +33,7 @@ describe("shopping list", () => {
   it("lists what's still to buy, grouped by type, with the gap and supplier; prints on A4", async () => {
     const out = await page(p.kitchenLead, p.kitchen);
     expect(out).toContain("Shopping list: Kitchen, 2027");
-    expect(out).toContain("Generated 1 Mar 2027, 10:00 camp time");
+    expect(out).toContain("Generated Mar 1, 2027, 10:00 AM camp time (PT)");
     expect(out).toContain("Kitchen gear");
     expect(out).toContain("Cooler box (100 L)");
     expect(out).toContain("2 pcs"); // need 6, own 4 good

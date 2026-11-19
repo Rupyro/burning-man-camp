@@ -1,12 +1,12 @@
 // The About text and finance-policy wording moved into camp-content/ must stay
-// byte-identical for Oe-aa-sies.
+// byte-identical for the Burning Man starter camp.
 import { describe, expect, it } from "vitest";
 import { ABOUT_BANNER, ABOUT_BLOCKS } from "../../camp-content/about";
 import { PLACEHOLDER_POLICIES } from "../../camp-content/policies";
 import { CAMP_NAME, MONEY_SYMBOL } from "../../src/lib/camp";
 import { PLACEHOLDER_POLICIES as fromRules } from "../../src/modules/finance/rules/policy";
 
-describe("camp-content About and policy wording (Oe-aa-sies)", () => {
+describe("camp-content About and policy wording (starter camp)", () => {
   it("the About banner and blocks are unchanged", () => {
     expect(ABOUT_BANNER).toBe("Dust, shade, music and good people.");
     expect(
@@ -18,7 +18,7 @@ describe("camp-content About and policy wording (Oe-aa-sies)", () => {
     ).toEqual([
       {
         title: "Who we are",
-        body: `${CAMP_NAME} is a theme camp at AfrikaBurn in the Tankwa Karoo: about 70 people from South Africa, Europe and beyond who build a shady, friendly home in the dust and share it with everyone who walks past.`,
+        body: `${CAMP_NAME} is a theme camp at Burning Man in Black Rock City, Nevada: about 70 people who build a shady, friendly home on the playa and share it with everyone who walks past.`,
         pack: undefined,
       },
       {
@@ -65,6 +65,6 @@ describe("camp-content About and policy wording (Oe-aa-sies)", () => {
         isActive: true,
       },
     ]);
-    expect(PLACEHOLDER_POLICIES[1]?.name).toBe("Up to R10,000, within budget");
+    expect(PLACEHOLDER_POLICIES[1]?.name).toBe("Up to $10,000, within budget");
   });
 });

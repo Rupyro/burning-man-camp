@@ -157,7 +157,7 @@ export function RequestForm(props: {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         className={field}
-        placeholder="Gas bottles (4 × 9 kg)"
+        placeholder="Propane tanks (4 × 20 lb)"
         {...aria("title")}
       />
       <FieldNote id="title" problem={problems.title} count={title.length} max={LIMITS.title} />

@@ -44,7 +44,7 @@ describe("logistics seed", () => {
     expect(loads.at(-1)?.status).toBe("delivered");
     const gaps = await criticalGaps(getDb(), EDITION.id);
     expect(gaps.map((g) => g.reason).sort()).toEqual(["no_destination", "no_load", "no_load"]);
-    expect(gaps[0]?.description).toBe("Fire extinguisher 9 kg");
+    expect(gaps[0]?.description).toBe("Fire extinguisher 10 lb");
     const view = await travelFor(getDb(), EDITION.id, member);
     expect(view.mine).toHaveLength(2);
     expect(view.offers[0]?.offers.length).toBeGreaterThan(0);

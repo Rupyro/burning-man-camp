@@ -1,0 +1,1 @@
+ALTER TYPE "public"."obligation_authority" ADD VALUE 'burning_man' BEFORE 'dmv';
