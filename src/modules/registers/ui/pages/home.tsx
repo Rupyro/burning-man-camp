@@ -7,7 +7,7 @@ export async function HomePage({ ctx }: { ctx: ModuleContext }) {
   const rows = await listItems(ctx.db, ctx.edition.id);
   const manager = can(ctx.actor, "registers.manage");
   // The event's fuel storage limit, when its pack sets one.
-  const limit = (activeEvent as { fuel?: { storageLimit: number; unit: string } }).fuel;
+  const limit = activeEvent.fuel;
   const fuel = fuelTotal(rows, limit?.storageLimit);
   const stakes = stakesLeft(rows);
   const unit = limit?.unit ?? "gal";
