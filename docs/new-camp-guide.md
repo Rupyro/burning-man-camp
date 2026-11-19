@@ -25,14 +25,16 @@ Seven steps rewrite `camp.config.ts`. Nothing is written until you confirm at st
 
    | Pack | Turns on |
    |---|---|
-   | Sound (pulls in Big power) | sound plan and neighbor log, sound officer role |
-   | Mutant vehicle (pulls in Big power) | DMV contact role, vehicle and art steps on Camp info, art car shifts, driver roster |
-   | Big power | generators and the fuel plan |
-   | Fire and flame effects | fire safety officer role, flame-effect register |
-   | Kitchen and food gifting | kitchen lead role, meal plan and the food-permit check |
+   | Sound (pulls in Big power) | sound officer role; sound plan and neighbor log* |
+   | Mutant vehicle (pulls in Big power) | DMV contact role, vehicle licensing steps on Camp info, art car shifts; driver roster* |
+   | Big power | power and generator planning (the fuel plan at `/fuel` is open to every camp) |
+   | Fire and flame effects | fire safety officer role; flame-effect register* |
+   | Kitchen and food gifting | kitchen lead role; meal plan and the food-permit check* |
    | Art project | art lead role, art registration steps on Camp info |
-   | Village or HUB | village liaison role, shared resources with partner camps |
-   | Workshops and offerings | the camp schedule and its event-guide export |
+   | Village or HUB | village liaison role; shared resources with partner camps* |
+   | Workshops and offerings | the camp schedule and its event-guide export* |
+
+   \* In a draft pull request waiting for review (see [`label-queue.md`](label-queue.md)).
 
    Packs you don't pick stay hidden. You can add one later by running the setup again.
 4. **Money.** Currency, symbol and the yearly camp fee. Amounts are stored in cents.
@@ -78,8 +80,7 @@ Set `DEMO_MODE=true` and `DEMO_RESEED=1` in Vercel for one deploy, then sign in 
 made up. Two example camps in `camp-presets/` (a 20-person art support camp and a 150-person
 sound camp) show other set-ups. Copy one over `camp.config.ts` locally to try it.
 
-When you're ready for real members, turn demo mode off, reseed without demo data, and invite
-your leads (`pnpm invite you@example.com "Your Name"`, or from the admin screens).
+When you're ready for real members, turn demo mode off and invite your leads (`pnpm invite you@example.com "Your Name"`, or from the admin screens).
 
 ## 6. Pages a camp lead uses most
 
