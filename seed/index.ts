@@ -28,6 +28,8 @@ import {
   teams,
 } from "../src/base/schema";
 import { activePacks } from "../src/lib/active-packs";
+import { CAMP_NAME } from "../src/lib/camp";
+import { EVENT_NAME } from "../src/lib/event";
 import { firstRow } from "../src/lib/rows";
 import { modules } from "../src/modules";
 import { seedPeople } from "./people";
@@ -55,7 +57,7 @@ const DEMO = [
   // The demo Applicant persona (spec applicants §8): a prospect, so the applicants seed can give
   // them an application before seed/demo.ts adds the other personas.
   { key: "applicant", email: "applicant@example.test", name: "Kai (demo applicant)" },
-  // The demo New applicant persona (Sage, 21 Oct 2026): just applied, also a prospect.
+  // The demo New applicant persona (member feedback, 21 Oct 2026): just applied, also a prospect.
   {
     key: "new_applicant",
     email: "new-applicant@example.test",
@@ -71,14 +73,14 @@ async function seedBase(db: Db) {
       {
         id: SEED_IDS.edition2026,
         year: 2026,
-        title: "AfrikaBurn 2026",
+        title: `${EVENT_NAME} 2026`,
         status: "closed",
         memberCapacity: 100,
       },
       {
         id: SEED_IDS.edition2027,
         year: 2027,
-        title: "AfrikaBurn 2027",
+        title: `${EVENT_NAME} 2027`,
         status: "planning",
         memberCapacity: 70,
       },
@@ -86,7 +88,7 @@ async function seedBase(db: Db) {
     .onConflictDoNothing();
   await db
     .insert(campSettings)
-    .values({ name: "Oe-aa-sieS", refPrefix: "OEA", currentEditionId: SEED_IDS.edition2027 })
+    .values({ name: CAMP_NAME, refPrefix: "CMP", currentEditionId: SEED_IDS.edition2027 })
     .onConflictDoNothing();
   await db
     .insert(roles)

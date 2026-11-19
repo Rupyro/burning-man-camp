@@ -77,7 +77,7 @@ async function seedNotices(db: Db, ids: Ids, kitchenId: string) {
   };
   const samples = [
     {
-      body: "Container loading at the Cape Town storage unit, Saturday 8am. Bring gloves and water.",
+      body: "Container loading at the Reno storage unit (demo), Saturday 8am. Bring gloves and water.",
       createdAt: inDays(-1),
       endsAt: sixPm(21),
       readBy: [] as string[],
@@ -209,7 +209,7 @@ const SAM_KEEP_TASKS = [
   "Buy shade-net clips",
   "Pack personal water (20 L)",
   "Sound plan and Sound Officer",
-  "OEA-SR-001: buy “Gas bottles (4 × 9 kg)” and add the receipt",
+  "OEA-SR-001: buy “Propane tanks (4 × 20 lb)” and add the receipt",
   "OEA-SR-002: buy “Ice for build week” and add the receipt",
 ];
 const SAM_HANDOFF: Record<string, "admin" | "kitchen_lead"> = {
@@ -220,7 +220,7 @@ const SAM_KEEP_ALERTS = [
   "Reminder: “Buy shade-net clips” is late",
   "Kitchen lead posted the meal plan draft",
   "Jo commented on “Cold-chain plan”",
-  "Assigned to you: OEA-SR-001: buy “Gas bottles (4 × 9 kg)” and add the receipt",
+  "Assigned to you: OEA-SR-001: buy “Propane tanks (4 × 20 lb)” and add the receipt",
 ];
 
 async function trimMemberDemo(db: Db, ids: Ids) {

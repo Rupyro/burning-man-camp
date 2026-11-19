@@ -36,7 +36,7 @@ const name = await ask("What's your camp called?", current.camp.name);
 step(2);
 const tagline = await ask(
   "One line about the app",
-  `Operations platform for the ${name} camp at AfrikaBurn`,
+  `Operations platform for the ${name} camp at Burning Man`,
 );
 step(3);
 console.log("Camp types:");

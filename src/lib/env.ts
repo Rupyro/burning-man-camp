@@ -13,7 +13,7 @@ const schema = z.object({
   EMAIL_ADAPTER: z.enum(["console", "memory"]).default("console"),
   EMAIL_FROM: z.string().optional(),
   EMAIL_DAILY_CAP: z.coerce.number().int().positive().default(95),
-  CAMP_TIMEZONE: z.string().default("Africa/Johannesburg"),
+  CAMP_TIMEZONE: z.string().default("America/Los_Angeles"),
   MODULES_DISABLED: z.string().optional(),
   /** Vercel Cron's bearer secret for /api/jobs/tick; unset = the route refuses every call. */
   CRON_SECRET: z.string().min(16).optional(),

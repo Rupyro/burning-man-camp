@@ -45,12 +45,12 @@ describe("home blocks", () => {
   });
 
   it("Countdown: both halves, one half, or hidden", () => {
-    const build = { days: 11, at: new Date("2027-04-21T06:00:00Z") };
-    const gates = { days: 16, at: new Date("2027-04-26T10:00:00Z") };
+    const build = { days: 11, at: new Date("2027-04-21T15:00:00Z") };
+    const gates = { days: 16, at: new Date("2027-04-26T17:00:00Z") };
     const both = html(h(Countdown, { build, gates }));
     expect(both).toContain("Days to build");
     expect(both).toContain("Days to gates");
-    expect(both).toContain("21 Apr 2027");
+    expect(both).toContain("Apr 21, 2027");
     expect(html(h(Countdown, { build, gates: null }))).not.toContain("Days to gates");
     expect(html(h(Countdown, { build: null, gates }))).not.toContain("Days to build");
     expect(html(h(Countdown, { build: null, gates: null }))).toBe("");
@@ -84,7 +84,7 @@ describe("home blocks", () => {
   });
 
   it("brand pieces render with accessible names", () => {
-    expect(html(h(Wordmark, {}))).toContain("Oe-aa-sies");
+    expect(html(h(Wordmark, {}))).toContain("Your Camp");
     expect(html(h(OxWagon, {}))).toContain('aria-label="Ox wagon"');
     expect(html(h(ArtCar, {}))).toContain('aria-label="Art car"');
     for (const tone of ["late", "soon", "normal", "blocked", "waiting"] as const)

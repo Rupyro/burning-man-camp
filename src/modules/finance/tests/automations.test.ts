@@ -63,11 +63,11 @@ describe("rule 12: receipt chasing", () => {
     expect(financeAutomations([], [receipt(7)], NOW).reminders[0]).toMatchObject({
       personId: "sam",
       stage: "d7",
-      title: "Add the receipt for OEA-SR-002 (R1,150.50)",
+      title: "Add the receipt for OEA-SR-002 ($1,150.50)",
     });
     expect(financeAutomations([], [receipt(14)], NOW).handovers).toEqual([]);
     expect(financeAutomations([], [receipt(15)], NOW).handovers[0]).toMatchObject({
-      what: "No receipt: R1,150.50",
+      what: "No receipt: $1,150.50",
       about: "Sam",
       to: { role: "finance_approver" },
     });
