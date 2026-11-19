@@ -85,8 +85,8 @@ export const campSettings = pgTable(
     singleton: boolean("singleton").notNull().default(true).unique(),
     name: text("name").notNull(),
     refPrefix: varchar("ref_prefix", { length: 6 }).notNull(),
-    timezone: text("timezone").notNull().default("Africa/Johannesburg"),
-    defaultCurrency: char("default_currency", { length: 3 }).notNull().default("ZAR"),
+    timezone: text("timezone").notNull().default("America/Los_Angeles"),
+    defaultCurrency: char("default_currency", { length: 3 }).notNull().default("USD"),
     currentEditionId: uuid("current_edition_id").references(() => editions.id),
     digestHourLocal: smallint("digest_hour_local").notNull().default(7),
     ...standardColumns(),
@@ -412,7 +412,7 @@ export const accommodationOptions = pgTable(
     tentType: text("tent_type").notNull(),
     size: text("size"),
     sleeps: smallint("sleeps"),
-    /** Integer cents (ZAR). */
+    /** Integer cents (USD). */
     priceCents: integer("price_cents"),
     notes: text("notes"),
     ...standardColumns(),

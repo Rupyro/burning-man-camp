@@ -11,14 +11,8 @@ describe("camp.config.ts", () => {
     expect(config.camp.name).toBe("Oe-aa-sies");
     expect(config.camp.slug).toBe("oeaasies");
     expect(config.money.currency).toBe("ZAR");
-    expect(config.owners.campKey).toBe("oeaasies");
-    expect(config.owners.labels).toEqual({
-      oeaasies: "Ours",
-      khoena: "Khoena's",
-      shared: "Shared",
-      borrowed: "Borrowed",
-      rented: "Rented",
-    });
+    expect(config.owners.campKey).toBe("ours");
+    expect(config.owners.labels).toEqual({ ours: "Ours", borrowed: "Borrowed", rented: "Rented" });
   });
 
   it("flags bad values", () => {
@@ -29,5 +23,12 @@ describe("camp.config.ts", () => {
       joining: { familyYears: { enabled: true, since: 23 } },
     };
     expect(campConfigProblems(bad)).toHaveLength(5);
+  });
+
+  it("only knows the neutral gear owners", () => {
+    const old = { ...config, owners: { ...config.owners, campKey: "oeaasies" as "ours" } };
+    expect(campConfigProblems(old)).toEqual([
+      "owners.campKey must be one of the database keys (ours, borrowed, rented)",
+    ]);
   });
 });

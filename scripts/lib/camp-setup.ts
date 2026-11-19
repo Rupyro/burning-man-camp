@@ -129,9 +129,7 @@ export default defineCampConfig({
   owners: {
     campKey: ${q(c.owners.campKey)},
     labels: {
-      oeaasies: ${q(c.owners.labels.oeaasies)},
-      khoena: ${q(c.owners.labels.khoena)},
-      shared: ${q(c.owners.labels.shared)},
+      ours: ${q(c.owners.labels.ours)},
       borrowed: ${q(c.owners.labels.borrowed)},
       rented: ${q(c.owners.labels.rented)},
     },
