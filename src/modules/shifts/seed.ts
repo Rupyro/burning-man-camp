@@ -1,4 +1,4 @@
-// Fake, deterministic, idempotent demo shifts from Sage's Duties & Shifts guide, posters and
+// Fake, deterministic, idempotent demo shifts from the camp's Duties & Shifts guide, posters and
 // schedule (18 Oct 2026). Writes only shifts tables; people and skills come from the base seed.
 import { and, asc, eq, inArray, like, notInArray } from "drizzle-orm";
 import type { ModuleSeedContext } from "@/base/api";

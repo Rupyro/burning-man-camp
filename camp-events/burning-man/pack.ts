@@ -298,5 +298,29 @@ export default defineEventPack({
     { label: "The 10 Principles", url: "https://burningman.org/about/10-principles/" },
     { label: "Tickets: how the sales work", url: TICKETS },
   ],
+  // Usual yearly windows from the DMV and Art pages (2026 wording); Burner Profile has exact dates.
+  projects: [
+    {
+      pack: "mutant-vehicle",
+      label: "Bringing a mutant vehicle",
+      summary:
+        "Every vehicle driven at the event needs a license from the Department of Mutant Vehicles (DMV). Late applications usually aren't accepted.",
+      steps: [
+        { label: "Mutant Vehicle Statement of Intent", window: "early January to early February" },
+        { label: "Mutant Vehicle application", window: "mid-February to the end of April" },
+        { label: "Invite decisions", window: "by mid-June" },
+        { label: "Setup Access Passes sent to vehicle owners", window: "August" },
+      ],
+      source: `${BM}/bring-your-mutant-vehicle/mv-criteria-and-licensing/`,
+    },
+    {
+      pack: "art",
+      label: "Bringing art to the open playa",
+      summary:
+        "Art on the open playa or in a plaza is registered with the Art Installation Questionnaire. Art inside your camp doesn't need registering.",
+      steps: [{ label: "Art Installation Questionnaire", window: "late February to late May" }],
+      source: `${BM}/bring-your-art/register-your-art/`,
+    },
+  ],
   sections: [{ key: "obligations", label: "Burning Man deadlines" }],
 });
