@@ -1,10 +1,13 @@
 // Day / night theme for camp: bright Golden Hour by day, indigo desert night after sunset.
-// "auto" follows real sunrise and sunset at Tankwa Town, computed here (NOAA sunrise equation),
-// so there is no API call. Times are UTC instants; camp time is Africa/Johannesburg (UTC+2).
+// "auto" follows real sunrise and sunset at the event's site (the event pack's coords), computed
+// here (NOAA sunrise equation), so there is no API call. Times are UTC instants.
 
+import { EVENT } from "./event";
 export type ThemeMode = "auto" | "day" | "night";
 export const THEME_KEY = "oe-theme";
 export const TANKWA = { lat: -32.33, lon: 19.75 } as const;
+/** Where the camp's event happens (Black Rock City or Tankwa Town). */
+export const CAMP_SITE = EVENT.coords;
 
 /**
  * Whether it is night at `nowMs` for the given place. Self-contained on purpose (no outside
@@ -49,7 +52,7 @@ export function parseMode(raw: string | null | undefined): ThemeMode {
 export function resolveTheme(
   mode: ThemeMode,
   nowMs: number,
-  at: { lat: number; lon: number } = TANKWA,
+  at: { lat: number; lon: number } = CAMP_SITE,
 ): { night: boolean; nextChangeMs: number | null } {
   if (mode !== "auto") return { night: mode === "night", nextChangeMs: null };
   const [night, ms] = sunState(nowMs, at.lat, at.lon);
@@ -75,5 +78,5 @@ export function photoIndex(nowMs: number): number {
 export function themeBootScript(): string {
   return `(function(){try{var s=${sunState.toString()};var m=localStorage.getItem(${JSON.stringify(
     THEME_KEY,
-  )});var n=m==="night"||(m!=="day"&&s(Date.now(),${TANKWA.lat},${TANKWA.lon})[0]);var r=document.documentElement,c=r.classList;c.toggle("theme-night",n);c.toggle("dark",n);r.dataset.photo=${JSON.stringify(PHOTOS)}[(${photoIndex.toString()})(Date.now())];}catch(e){console.warn("theme boot",e);}})();`;
+  )});var n=m==="night"||(m!=="day"&&s(Date.now(),${CAMP_SITE.lat},${CAMP_SITE.lon})[0]);var r=document.documentElement,c=r.classList;c.toggle("theme-night",n);c.toggle("dark",n);r.dataset.photo=${JSON.stringify(PHOTOS)}[(${photoIndex.toString()})(Date.now())];}catch(e){console.warn("theme boot",e);}})();`;
 }
