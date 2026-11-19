@@ -5,6 +5,7 @@ import {
   type ModulePageProps,
   requireCapability,
 } from "@/base/api";
+import { BalancePage } from "./pages/balance";
 import { HomePage } from "./pages/home";
 import { PackPage } from "./pages/pack";
 import { ShiftPage } from "./pages/shift";
@@ -16,6 +17,10 @@ async function ShiftsRouter({ ctx, slug }: ModulePageProps) {
     await requireCapability(ctx, "shifts.view");
     if (!page) return await HomePage({ ctx });
     if (page === "pack" && !id) return await PackPage({ ctx });
+    if (page === "balance" && !id) {
+      await requireCapability(ctx, "shifts.manage");
+      return await BalancePage({ ctx });
+    }
     if (page === "s" && id) return await ShiftPage({ ctx, id });
     notFound();
   } catch (error) {

@@ -99,6 +99,9 @@ export default async function WaterPage(props: { searchParams: Promise<Query> })
       <Link href="/fuel" className="text-sm font-semibold underline">
         Fuel plan: generator fuel and cans
       </Link>
+      <Link href="/meals" className="text-sm font-semibold underline">
+        Meal plan: plates, cooks and the food permit
+      </Link>
     </div>
   );
 }
