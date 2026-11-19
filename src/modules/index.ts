@@ -12,6 +12,7 @@ import { manifest as schedule } from "./schedule/manifest";
 import { manifest as shifts } from "./shifts/manifest";
 import { manifest as sound } from "./sound/manifest";
 import { manifest as tickets } from "./tickets/manifest";
+import { manifest as village } from "./village/manifest";
 
 export const modules = [
   obligations,
@@ -26,4 +27,5 @@ export const modules = [
   schedule,
   sound,
   tickets,
+  village,
 ] as const;
