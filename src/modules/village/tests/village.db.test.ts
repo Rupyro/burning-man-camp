@@ -15,12 +15,18 @@ import {
 } from "@/base/api/testing-db";
 
 // The forms use the app router; static rendering needs a stand-in.
-vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh: () => undefined }) }));
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ refresh: () => undefined }),
+  notFound: () => {
+    throw new Error("NEXT_NOT_FOUND");
+  },
+}));
 
 import { seed } from "../seed";
 import { addShare, setReturned } from "../server/actions";
 import { listShares } from "../server/queries";
 import { HomePage } from "../ui/pages/home";
+import Router from "../ui/router";
 
 let admin: string;
 let member: string;
@@ -86,5 +92,13 @@ describe("village", () => {
     expect(html).toContain("Their generator, our extension run");
     expect(html).toContain("returned");
     expect(html).toContain("borrowed from");
+  });
+
+  it("the router shows the home page and 404s anything below it", async () => {
+    await actAs(member);
+    const route = (slug: string[]) =>
+      Router({ params: Promise.resolve({ slug }), searchParams: Promise.resolve({}) });
+    expect(renderToStaticMarkup(await route([]))).toContain("Village");
+    await expect(route(["nope"])).rejects.toThrow("NEXT_NOT_FOUND");
   });
 });
