@@ -12,5 +12,5 @@ export default async function YearPage() {
   const type = (campConfig as CampConfig).camp.type;
   const today = instantToCampInput(now).date;
   const months = byMonth(withStates(calendarForCamp(activeEvent, type), today));
-  return <YearView eventName={activeEvent.label} year={activeEvent.year} months={months} />;
+  return <YearView eventName={activeEvent.words.name} year={activeEvent.year} months={months} />;
 }
