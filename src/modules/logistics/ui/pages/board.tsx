@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ModuleContext } from "@/base/api";
+import { EVENT, EVENT_NAME } from "@/lib/event";
 import { BOARD_STATUS_LABEL, type BoardStatus, boardRows } from "../../rules/rides";
 import { allMatches, allPlans } from "../../server/rides";
 import { dayText, TIME_LABEL } from "../components/bits";
@@ -78,7 +79,7 @@ export async function RidesBoardPage({ ctx, back }: { ctx: ModuleContext; back: 
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {offering ? "Offering a ride" : "Looking for a ride"} ·{" "}
-                  {back ? "Home from the burn" : "To AfrikaBurn"}
+                  {back ? "Home from the burn" : `To ${EVENT_NAME}`}
                 </p>
                 <p className="mt-1">
                   <b>{back ? "To" : "From"}</b> {from}
@@ -99,9 +100,7 @@ export async function RidesBoardPage({ ctx, back }: { ctx: ModuleContext; back: 
         </ul>
       )}
       <p className="text-center text-xs text-muted-foreground">
-        <a href="https://quaggapedia.afrikaburn.com/index.php?title=GETTING_THERE_%26_DIRECTIONS">
-          Directions on Quaggapedia
-        </a>
+        <a href={EVENT.words.directions.url}>{EVENT.words.directions.label}</a>
       </p>
     </div>
   );

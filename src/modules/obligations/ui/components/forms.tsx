@@ -5,6 +5,7 @@ import { isActionFailure } from "@/base/api/action-result";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { EVENT_NAME } from "@/lib/event";
 import { markSubmitted, reopenObligation, updateObligation } from "../../server/actions";
 
 function useAction() {
@@ -148,7 +149,7 @@ export function EditForm(props: {
       <Input id="due" name="due" type="date" defaultValue={props.dueDate} className="min-h-11" />
       <label className="flex min-h-11 items-center gap-2 text-sm">
         <input type="checkbox" name="confirmed" defaultChecked={props.dateConfirmed} />
-        Date confirmed by AfrikaBurn
+        Date confirmed by {EVENT_NAME}
       </label>
       <Label htmlFor="source">Source link</Label>
       <Input

@@ -1,6 +1,7 @@
 "use client";
 import { isActionFailure } from "@/base/api/action-result";
 import { Button } from "@/components/ui/button";
+import { EVENT } from "@/lib/event";
 import { exportCsv } from "../../server/exports";
 import { Status, useAction } from "./forms";
 
@@ -34,7 +35,7 @@ export function ExportButtons() {
           disabled={pending}
           onClick={() => go("wap")}
         >
-          Builders' WAP list (CSV)
+          Builders' {EVENT.words.earlyPass} list (CSV)
         </Button>
         <Button
           type="button"
@@ -47,7 +48,7 @@ export function ExportButtons() {
         </Button>
       </div>
       <p className="text-xs text-muted-foreground">
-        WAP list: confirmed builders, name and email only. Downloads are logged.
+        {EVENT.words.earlyPass} list: confirmed builders, name and email only. Downloads are logged.
       </p>
       <Status msg={msg} />
     </div>

@@ -4,6 +4,7 @@ import type { ModuleContext } from "@/base/api";
 import { CAMP_NAME } from "@/lib/camp";
 import { formatCampDay, formatCampTime } from "@/lib/dates";
 import { Emblem } from "@/lib/emblem";
+import { EVENT_NAME } from "@/lib/event";
 import { FAMILY_YEARS_ENABLED } from "@/lib/family-years";
 import { formatRand, label, REQUIRED_DOCS, todoList, trackerSteps } from "../../rules/journey";
 import { familyByApplication } from "../../server/family-queries";
@@ -51,7 +52,9 @@ export async function ApplicantHome({ ctx, sent }: { ctx: ModuleContext; sent: b
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-4 rounded-2xl border bg-card p-4">
         <div>
-          <p className="heading text-xs">Your application · AfrikaBurn {ctx.edition.year}</p>
+          <p className="heading text-xs">
+            Your application · {EVENT_NAME} {ctx.edition.year}
+          </p>
           <h1 className="mt-1 text-xl font-semibold">Hi {first}</h1>
           <p className="mt-1 text-sm">{headline(status, app?.interviewAt)}</p>
           {sent ? (

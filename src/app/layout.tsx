@@ -6,10 +6,11 @@ import { fontVariables } from "../../camp-art/fonts";
 import { Backdrop } from "./_components/backdrop";
 import "./globals.css";
 import { CAMP_NAME } from "@/lib/camp";
+import { EVENT_NAME } from "@/lib/event";
 
 export const metadata: Metadata = {
   title: `${CAMP_NAME} camp ops`,
-  description: `Operations platform for the ${CAMP_NAME} camp at AfrikaBurn`,
+  description: `Operations platform for the ${CAMP_NAME} camp at ${EVENT_NAME}`,
 };
 
 export const viewport: Viewport = {
