@@ -36,7 +36,7 @@ export const PACKING_LIST: PackingSection[] = [
       {
         key: "phone-wallpaper-background",
         label: "Phone Wallpaper / Background",
-        note: "Make sure to put a photo of yourself on the wallpaper of your phone with a text that you are part of the Oeaasies Camp so that people can bring it back in case you lost it (since there is no reception)",
+        note: "Make sure to put a photo of yourself on the wallpaper of your phone with a note saying which camp you're in and where we're camped, so people can bring it back if you lose it (there's no reception)",
       },
     ],
   },
